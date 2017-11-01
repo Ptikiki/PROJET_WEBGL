@@ -8,8 +8,8 @@ class Scene {
       this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       STORAGE.camera = this.camera
       STORAGE.camera.position.z = 480
-      // this.controls = new THREE.OrbitControls( STORAGE.camera )
-      // this.controls.target.set( 0, 0, 0 )
+      this.controls = new THREE.OrbitControls( STORAGE.camera )
+      this.controls.target.set( 0, 0, 0 )
       this.light = new THREE.PointLight(0xffffff, 1, Infinity)
       this.light.position.set(20, 20, 20)
       STORAGE.scene.add(this.light)
@@ -19,15 +19,13 @@ class Scene {
       this.raycaster = new THREE.Raycaster()
       this.mouse = new THREE.Vector2()
 
-      this.homeSlider1 = document.querySelector('.js-home-slider')
-
       this.init()
       this.bind()
       this.animate()
     }
 
     init() {
-      this.createBackground()
+      // this.createBackground()
       this.createStatue()
     }
 
@@ -47,11 +45,11 @@ class Scene {
         //   }
         // } )
 
-        object.position.x = 20
-        object.position.y = -200
-        object.position.z = 150
+        object.position.x = 0
+        object.position.y = 0
+        object.position.z = 0
         //object.rotation.x = -300
-        object.rotation.y = Math.PI/2
+        //object.rotation.y = Math.PI/2
         //object.rotation.z = 100
         object.scale.x = 2.8
         object.scale.y = 2.8
@@ -59,15 +57,6 @@ class Scene {
 
         STORAGE.scene.add( object )
         that.myObjects.push(object)
-
-        // that.box = new THREE.Box3().setFromObject( object )
-        // that.box.getCenter( object.position ) // this re-sets the mesh position
-        // object.position.multiplyScalar( - 1 )
-
-        // that.pivot = new THREE.Group()
-        // STORAGE.scene.add( that.pivot )
-        // that.pivot.add( object )
-
       } )
 
     }
@@ -96,21 +85,6 @@ class Scene {
 
       that.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
       that.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
-
-      that.actualMouseX = that.mouse.x
-      setTimeout(function() {
-        that.newMouseX = that.mouse.x
-      }, 500)
-   
-      if (that.actualMouseX < that.newMouseX && that.statue.rotation.y > 1.2) {
-        console.log("tourche à gauche")
-        that.statue.rotation.y -= 0.007
-      }
-      else if (that.actualMouseX > that.newMouseX && that.statue.rotation.y < 2.1) {
-        console.log("tourne à droite")
-        that.statue.rotation.y += 0.007
-      }
-
     }
 
     bind() {
@@ -127,14 +101,6 @@ class Scene {
 
     onDocumentMouseWheel(event) {
       let that = STORAGE.SceneClass
-            
-      if (Math.abs(STORAGE.scene.position.x - window.innerWidth) < 3000 - 45 && event.deltaY > 0 ) { // stop le défilement au dernier sprite (défile tant que x abs < à largeur totale de tous les sprites-1)
-        STORAGE.scene.position.x -= Math.abs(event.deltaY) / 3
-      } else if (STORAGE.scene.position.x > -45) {
-        return
-      } else if (event.deltaY < 0) {
-        STORAGE.scene.position.x += Math.abs(event.deltaY) / 3
-      }
     }
 
     animate() {
