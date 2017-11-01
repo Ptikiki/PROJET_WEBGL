@@ -1,0 +1,50 @@
+.home {
+  position: absolute;
+  width: 400%;
+  height: 100%;
+  z-index: 5;
+  color: white;
+
+  &__name {
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    z-index: 5;
+  }
+
+  &__slider {
+
+  	display: hidden;
+  	opacity: 0;
+    position: relative;
+  	margin-top : 7%;
+  	margin-left: 2%;
+
+    &__media {
+      .media {
+        display : none;
+        position: absolute;
+        width: 100px;
+      	height: 100px;
+      }
+    }
+
+    &__desc {
+      position : relative;
+      left: 150px;
+
+      .title {
+        display : none;
+        position : absolute;
+      }
+      .date {
+        display : none;
+        position: absolute;
+        margin-top: 50px;
+      }
+    }
+  }
+
+}
+
+
