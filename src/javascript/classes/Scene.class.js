@@ -21,7 +21,6 @@ class Scene {
 
       this.init()
       this.bind()
-      this.animate()
     }
 
     init() {
@@ -39,24 +38,16 @@ class Scene {
       this.myObjects = []
       this.loader = new THREE.OBJLoader( this.manager )
       this.loader.load( 'assets/statue.obj', function ( object ) {
-        // object.traverse( function ( child ) {
-        //   if ( child instanceof THREE.Mesh ) {
-        //     child.material.map = texture
-        //   }
-        // } )
 
         object.position.x = 0
         object.position.y = 0
         object.position.z = 0
-        //object.rotation.x = -300
-        //object.rotation.y = Math.PI/2
-        //object.rotation.z = 100
         object.scale.x = 2.8
         object.scale.y = 2.8
         object.scale.z = 2.8
 
         STORAGE.scene.add( object )
-        that.myObjects.push(object)
+        STORAGE.SceneClass.myObjects.push(object)
       } )
 
     }
@@ -70,21 +61,20 @@ class Scene {
       this.newTextureWidth = this.ratio * window.innerHeight
 
       this.backgroundMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(that.newTextureWidth, window.innerHeight, 0),
+        new THREE.PlaneGeometry(this.newTextureWidth, window.innerHeight, 0),
         new THREE.MeshBasicMaterial({
-          map: that.texture
+          map: this.texture
         })
       )
       STORAGE.scene.add(this.backgroundMesh)
-      STORAGE.carrousel = this.backgroundMesh        
+      STORAGE.carrousel = this.backgroundMesh
     }
 
     onMouseMove(event) {
-      let that = STORAGE.SceneClass
-      that.statue = that.myObjects[0]
+      STORAGE.SceneClass.statue = STORAGE.SceneClass.myObjects[0]
 
-      that.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
-      that.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
+      STORAGE.SceneClass.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
+      STORAGE.SceneClass.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
     }
 
     bind() {
@@ -104,9 +94,7 @@ class Scene {
     }
 
     animate() {
-      let that = STORAGE.SceneClass
-      STORAGE.renderer.render(STORAGE.scene, STORAGE.camera)
-      requestAnimationFrame( that.animate )
+
     }
 }
 

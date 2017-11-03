@@ -15,11 +15,11 @@ function initCanvas() {
 	new Renderer()
 	new Scene()
 	new Chords()
- 	// render()
+ 	render()
 }
 
 function render() {
-	let that = STORAGE.SceneClass
-  requestAnimationFrame(render)
-  STORAGE.renderer.render(STORAGE.scene, STORAGE.camera)
+	STORAGE.renderer.render(STORAGE.scene, STORAGE.camera)
+	// STORAGE.SceneClass.animate()
+	requestAnimationFrame(render)
 }
