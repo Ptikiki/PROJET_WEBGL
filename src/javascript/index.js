@@ -6,6 +6,7 @@ OBJLoader(THREE)
 
 import Renderer from './classes/Renderer.class.js'
 import Scene from './classes/Scene.class.js'
+import Chords from './classes/Chords.class.js'
 
 window.STORAGE = {}
 initCanvas()
@@ -13,6 +14,7 @@ initCanvas()
 function initCanvas() {
 	new Renderer()
 	new Scene()
+	new Chords()
  	// render()
 }
 
@@ -21,4 +23,3 @@ function render() {
   requestAnimationFrame(render)
   STORAGE.renderer.render(STORAGE.scene, STORAGE.camera)
 }
-
