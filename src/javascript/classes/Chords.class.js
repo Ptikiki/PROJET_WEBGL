@@ -4,9 +4,9 @@ class Chords {
 
     constructor(options) {
       STORAGE.chordsClass = this
-      this.chordIndexInProgress = null
       this.keysPressedTab = []
-    
+      this.win = false
+
       this.bind()
     }
 
@@ -19,20 +19,41 @@ class Chords {
     handleKeydown(event) {
 
       //console.log(event.key)
-      if ( STORAGE.chordsClass.keysPressedTab.indexOf(event.key) === -1) {
+      if ( STORAGE.chordsClass.keysPressedTab.indexOf(event.key) === -1 && STORAGE.chordsClass.keysPressedTab.length < 3) {
         STORAGE.chordsClass.keysPressedTab.push(event.key)
+        for (let i = 0; i < chordsDatas.chords.length; i++ ) {
+          // PLAYING NOTES // mieux ici ou à dupliquer dans les deux if-for ?
+          for (let j = 0; j < chordsDatas.chords[i].notes.length; j++ ) {
+            if (event.key === chordsDatas.chords[i].notes[j].key) {
+              let noteToPlay = new Audio(chordsDatas.chords[i].notes[j].src)
+              noteToPlay.play()
+           }
+          }
+        }
       }
-      //console.log("KEYS PRESSED ARRAY", STORAGE.chordsClass.keysPressedTab)
 
       for (let i = 0; i < chordsDatas.chords.length; i++ ) {
-          console.log("KEYS PRESSED ARRAY", STORAGE.chordsClass.keysPressedTab)
-          console.log("DANS TEBLEAU ?", STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[0].notes[1].key) !== -1)
-          if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[0].notes[0].key) !== -1 && STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[0].notes[1].key) !== -1 && STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[0].notes[2].key) !== -1) {
-            console.log(chordsDatas.chords[i])
-            console.log('gagné')
-          }
+        for (var j = 0; j < chordsDatas.chords[i].notes.length; j++) {
 
-        
+          if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[j].key) !== -1 && !STORAGE.chordsClass.win) {
+            console.log('je suis dans accord ' , i)
+            if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[0].key) !== -1 && STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[1].key) !== -1 && STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[2].key) !== -1) {
+              console.log('GAGNE')
+              STORAGE.chordsClass.win = true
+              STORAGE.chordsClass.keysPressedTab = []
+              let songToPlay = new Audio(chordsDatas.chords[i].song)
+              songToPlay.play()
+              window.removeEventListener('keydown', STORAGE.chordsClass.handleKeydown)
+              window.removeEventListener('keyup', STORAGE.chordsClass.handleKeyup)
+              setTimeout(function() {
+                window.addEventListener('keydown', STORAGE.chordsClass.handleKeydown)
+                window.addEventListener('keyup', STORAGE.chordsClass.handleKeyup)
+                STORAGE.chordsClass.win = false
+              }, 10000)
+            }
+
+          }
+        }
       }
 
       // for (let i = 0; i < chordsDatas.chords.length; i++ ) {
@@ -82,7 +103,6 @@ class Chords {
 
     handleKeyup(event) {
       console.log("PERDU")
-      STORAGE.chordsClass.chordIndexInProgress = null
       STORAGE.chordsClass.keysPressedTab = []
     }
 }
