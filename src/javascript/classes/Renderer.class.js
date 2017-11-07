@@ -8,14 +8,15 @@ class Renderer {
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 
-      window.R = this.renderer
-
-      this.init()
+      this.initCamera()
     }
 
-    init() {
-      //this.renderer.autoResize = true
-      //this.renderer.view.classList.add('webGLRenderer')
+    initCamera() {
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+      STORAGE.camera = this.camera
+      STORAGE.camera.position.z = 2000
+      this.controls = new THREE.OrbitControls( STORAGE.camera )
+      this.controls.target.set( 0, 0, 0 )
     }
 }
 
