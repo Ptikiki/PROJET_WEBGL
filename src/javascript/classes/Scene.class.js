@@ -69,7 +69,7 @@ class Scene {
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
 
-      this.geometry = new THREE.PlaneBufferGeometry( 500, 500 )
+      this.geometry = new THREE.PlaneBufferGeometry( 1400, 510 )
 
       // this.material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} )
 
@@ -85,6 +85,10 @@ class Scene {
       STORAGE.plane = new THREE.Mesh( this.geometry, this.material )
 
       console.log(this.geometry)
+
+      STORAGE.plane.rotation.x = Math.PI/2
+      STORAGE.plane.position.y = 8
+      STORAGE.plane.position.z = 450
 
       STORAGE.scene.add( STORAGE.plane )
 
