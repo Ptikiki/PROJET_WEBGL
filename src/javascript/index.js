@@ -5,7 +5,10 @@ const OBJLoader = require('three-obj-loader')
 OBJLoader(THREE)
 
 import Renderer from './classes/Renderer.class.js'
+import Ambiance from './classes/Ambiance.class.js'
 import Scene from './classes/Scene.class.js'
+import MlleKScene from './classes/MlleKScene.class.js'
+import PetitBiscuitScene from './classes/PetitBiscuitScene.class.js'
 import Chords from './classes/Chords.class.js'
 
 window.STORAGE = {}
@@ -13,7 +16,8 @@ initCanvas()
 
 function initCanvas() {
 	new Renderer()
-	new Scene()
+	new MlleKScene()
+	new Ambiance()
 	new Chords()
  	render()
 }
