@@ -7,16 +7,6 @@ class OrelsanScene {
       STORAGE.SceneClass = this
       this.scene = new THREE.Scene()
       STORAGE.scene = this.scene
-      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
-      STORAGE.camera = this.camera
-      STORAGE.camera.position.z = 1000
-      this.controls = new THREE.OrbitControls( STORAGE.camera )
-      this.controls.target.set( 0, 0, 0 )
-      this.light = new THREE.PointLight(0xffffff, 1, Infinity)
-      this.light.position.set(100, 100, 200)
-      STORAGE.scene.add(this.light)
-      this.lightAmb = new THREE.AmbientLight(0x777777)
-      STORAGE.scene.add(this.lightAmb)
 
       this.vertexSource
       this.fragmentSource
