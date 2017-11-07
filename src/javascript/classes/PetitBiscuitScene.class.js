@@ -53,7 +53,7 @@ class PetitBiscuitScene {
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
 
-      this.geometry = new THREE.PlaneBufferGeometry( 1400, 510 )
+      this.geometry = new THREE.PlaneBufferGeometry( 1400, 350 )
 
       this.material = new THREE.ShaderMaterial( {
         uniforms: this.uniforms,
@@ -65,7 +65,7 @@ class PetitBiscuitScene {
       STORAGE.plane = new THREE.Mesh( this.geometry, this.material )
       STORAGE.plane.rotation.x = Math.PI/2
       STORAGE.plane.position.y = 7
-      STORAGE.plane.position.z = 450
+      STORAGE.plane.position.z = 520
       STORAGE.scene.add( STORAGE.plane )
     }
 
