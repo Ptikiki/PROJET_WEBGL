@@ -29,7 +29,7 @@ void main() {
 	vec2 f_st = fract(st);
 				
 	float m_dist = 2.;
-	vec2 m_point;
+	vec2 m_point = vec2(0.);
 						
 	for (int j=-1; j<=1; j++ ) {
 			for (int i=-1; i<=1; i++ ) {

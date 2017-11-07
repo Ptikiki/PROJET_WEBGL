@@ -8,6 +8,8 @@ class Renderer {
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 
+      window.R = this.renderer
+
       this.init()
     }
 

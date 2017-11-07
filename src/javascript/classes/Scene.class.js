@@ -65,24 +65,27 @@ class Scene {
 
       this.uniforms = {
         u_time: { type: "f", value: 1.0 },
-        u_resolution: { type: "v2", value: new THREE.Vector2() },
+        u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
 
       this.geometry = new THREE.PlaneBufferGeometry( 500, 500 )
 
-      this.material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} )
-
+      // this.material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} )
 
       this.material = new THREE.ShaderMaterial( {
         uniforms: this.uniforms,
         vertexShader: vertex,
-        fragmentShader: fragment
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
       } )
 
       //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          this.material.needsUpdate = true
 
       STORAGE.plane = new THREE.Mesh( this.geometry, this.material )
+
+      console.log(this.geometry)
+
       STORAGE.scene.add( STORAGE.plane )
 
       // console.log(this.plane)
