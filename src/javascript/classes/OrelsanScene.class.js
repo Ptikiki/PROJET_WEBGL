@@ -1,6 +1,6 @@
 import NetUtils from '../utils/net-utils.js'
 
-class Scene {
+class OrelsanScene {
 
     constructor(options) {
 
@@ -32,7 +32,7 @@ class Scene {
 
     init() {
       this.createStatue()
-      this.loadShaders('../javascript/glsl/vertex.vert', '../javascript/glsl/fragment.frag')
+      this.loadShaders('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanVertex2.vert', '../javascript/glsl/OrelsanFragment.frag')
     }
 
     createStatue() {
@@ -58,7 +58,7 @@ class Scene {
       } )
     }
 
-    initShaders(vertex, fragment) {
+    initShaders(vertex1, vertex2, fragment) {
 
       // console.log("shaders init")
       let that = this
@@ -69,43 +69,68 @@ class Scene {
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
 
-      this.geometry = new THREE.PlaneBufferGeometry( 1400, 510 )
+      this.geometry = new THREE.PlaneBufferGeometry( 1400, 3, 10, 10 )
+      // this.geometry = new THREE.TubeBufferGeometry( THREE.Vector3( 10 * 3 - 1.5, Math.sin( 2 * Math.PI * 10 ) ,0) * 4, 20, 2, 8, false  )
 
       // this.material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} )
 
-      this.material = new THREE.ShaderMaterial( {
+      this.material1 = new THREE.ShaderMaterial( {
         uniforms: this.uniforms,
-        vertexShader: vertex,
+        vertexShader: vertex1,
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
+      } )
+
+      this.material2 = new THREE.ShaderMaterial( {
+        uniforms: this.uniforms,
+        vertexShader: vertex2,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          this.material.needsUpdate = true
 
-      STORAGE.plane = new THREE.Mesh( this.geometry, this.material )
+      STORAGE.plane1 = new THREE.Mesh( this.geometry, this.material1 )
+      STORAGE.plane2 = new THREE.Mesh( this.geometry, this.material1 )
+      STORAGE.plane3 = new THREE.Mesh( this.geometry, this.material2 )
+      STORAGE.plane4 = new THREE.Mesh( this.geometry, this.material2 )
 
-      console.log(this.geometry)
+      STORAGE.plane1.rotation.x = Math.PI/2
+      STORAGE.plane2.rotation.x = Math.PI/2
+      STORAGE.plane1.position.y = 60
+      STORAGE.plane2.position.y = 60
+      STORAGE.plane1.position.z = 420
+      STORAGE.plane2.position.z = 450
 
-      STORAGE.plane.rotation.x = Math.PI/2
-      STORAGE.plane.position.y = 8
-      STORAGE.plane.position.z = 450
+      STORAGE.plane3.rotation.x = Math.PI/2
+      STORAGE.plane4.rotation.x = Math.PI/2
+      STORAGE.plane3.position.y = 60
+      STORAGE.plane4.position.y = 60
+      STORAGE.plane3.position.z = 600
+      STORAGE.plane4.position.z = 630
 
-      STORAGE.scene.add( STORAGE.plane )
+      STORAGE.scene.add( STORAGE.plane1 )
+      STORAGE.scene.add( STORAGE.plane2 )
+      STORAGE.scene.add( STORAGE.plane3 )
+      STORAGE.scene.add( STORAGE.plane4 )
 
       // console.log(this.plane)
     }
 
-    loadShaders(vertex_url, fragment_url) {
+    loadShaders(vertex1_url, vertex2_url, fragment_url) {
       let that = this
 
       this.vertex_loader = new THREE.FileLoader(THREE.DefaultLoadingManager)
       this.vertex_loader.setResponseType('text')
-      this.vertex_loader.load(vertex_url, function (vertex_text) {
+      this.vertex_loader.load(vertex1_url, function (vertex1_text) {
 
-        that.fragment_loader = new THREE.FileLoader(THREE.DefaultLoadingManager)
-        that.fragment_loader.setResponseType('text')
-        that.fragment_loader.load(fragment_url, function (fragment_text) {
-          that.initShaders(vertex_text, fragment_text)
+        that.vertex_loader.load(vertex2_url, function (vertex2_text) {
+
+          that.fragment_loader = new THREE.FileLoader(THREE.DefaultLoadingManager)
+          that.fragment_loader.setResponseType('text')
+          that.fragment_loader.load(fragment_url, function (fragment_text) {
+            that.initShaders(vertex1_text, vertex2_text, fragment_text)
+          })
         })
       })
     }
@@ -134,10 +159,10 @@ class Scene {
     }
 
     animate() {
-      if( STORAGE.plane ) {
+      if( STORAGE.plane1 && STORAGE.plane2 ) {
         this.uniforms.u_time.value += 0.05
       }
     }
 }
 
-export default Scene
+export default OrelsanScene
