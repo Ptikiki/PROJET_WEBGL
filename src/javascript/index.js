@@ -3,6 +3,8 @@ const OrbitControls = require('three-orbit-controls-loader')
 OrbitControls(THREE)
 const OBJLoader = require('three-obj-loader')
 OBJLoader(THREE)
+const MTLLoader = require('three-mtl-loader')
+
 
 import Renderer from './classes/Renderer.class.js'
 import Ambiance from './classes/Ambiance.class.js'

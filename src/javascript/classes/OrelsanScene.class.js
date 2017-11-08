@@ -1,4 +1,6 @@
 import NetUtils from '../utils/net-utils.js'
+const MTLLoader = require('three-mtl-loader')
+
 
 class OrelsanScene {
 
@@ -21,20 +23,46 @@ class OrelsanScene {
     }
 
     init() {
-      this.createStatue()
+      this.createScene()
       this.loadShaders('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanVertex2.vert', '../javascript/glsl/OrelsanFragment.frag')
     }
 
-    createStatue() {
+    createScene() {
+
       let that = this
 
-      this.manager = new THREE.LoadingManager()
-      this.manager.onProgress = function ( item, loaded, total ) {
-      }
-
       this.myObjects = []
-      this.loader = new THREE.OBJLoader( this.manager )
-      this.loader.load( 'assets/scene_riles.obj', function ( object ) {
+      this.mtlLoader = new MTLLoader()
+      
+      this.mtlLoader.load('assets/scene_orelsan.mtl', function(matl) {
+        matl.preload()
+
+        console.log(matl.materials)
+
+        that.objLoader = new THREE.OBJLoader()
+        that.objLoader.setMaterials( matl )
+
+        let briquesMaterial = matl.materials.Briques
+        let briquesTexture = new THREE.TextureLoader().load("assets/briques.png")
+        let briquesNormal = new THREE.TextureLoader().load("assets/briques_normal.png")
+
+        briquesTexture.wrapS = THREE.RepeatWrapping
+        briquesTexture.wrapT = THREE.RepeatWrapping
+        briquesTexture.repeat.set(5, 5)
+        briquesMaterial.map = briquesTexture
+        briquesMaterial.normalMap = briquesNormal
+
+        let poisMaterial = matl.materials.Pois
+        let poisTexture = new THREE.TextureLoader().load("assets/pois.png")
+        let poisNormal = new THREE.TextureLoader().load("assets/pois_normal.png")
+
+        poisTexture.wrapS = THREE.RepeatWrapping
+        poisTexture.wrapT = THREE.RepeatWrapping
+        poisTexture.repeat.set(10, 10)
+        poisMaterial.map = poisTexture
+        poisMaterial.normalMap = poisNormal
+        
+        that.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
 
         object.position.x = 0
         object.position.y = 0
@@ -46,6 +74,21 @@ class OrelsanScene {
         STORAGE.scene.add( object )
         STORAGE.SceneClass.myObjects.push(object)
       } )
+
+      } )
+
+      // this.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
+
+      //   object.position.x = 0
+      //   object.position.y = 0
+      //   object.position.z = 0
+      //   object.scale.x = 2.8
+      //   object.scale.y = 2.8
+      //   object.scale.z = 2.8
+
+      //   STORAGE.scene.add( object )
+      //   STORAGE.SceneClass.myObjects.push(object)
+      // } )
     }
 
     initShaders(vertex1, vertex2, fragment) {
