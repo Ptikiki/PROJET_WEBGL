@@ -1,4 +1,5 @@
 import chordsDatas from '../datas/chordsDatas.js'
+import TweenLite from 'gsap'
 
 class Chords {
 
@@ -9,6 +10,7 @@ class Chords {
       this.keyUpListener = this.handleKeyup.bind(event, this)
 
       this.step = 0
+      this.currentChord = 0
 
       this.enableGame()
     }
@@ -17,7 +19,7 @@ class Chords {
       console.log('GAME ENABLE')
       let that = this
       that.keysPressedTab = []
-      that.currentChord = null
+      that.currentChord = 0
       this.win = false
       that.step = 0
       that.setAmbiance()
@@ -38,6 +40,7 @@ class Chords {
 
         that.launchNote(chordsDatas.notes[event.key])
         that.setAmbiance()
+        that.openBox()
         that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
       }
     }
@@ -88,10 +91,22 @@ class Chords {
     }
 
     setAmbiance() {
-      this.step === 0 ? STORAGE.renderer.setClearColor( 0xfcfcfc, 1) : ''
-      this.step === 1 ? STORAGE.renderer.setClearColor( 0xb5e2d7, 1) : ''
-      this.step === 2 ? STORAGE.renderer.setClearColor( 0x65c6ae, 1) : ''
-      this.step === 3 ? STORAGE.renderer.setClearColor( 0x47d1ae, 1) : ''
+      let targetColor
+      this.step === 0 ? targetColor = new THREE.Color(0xfcfcfc) : ''
+      this.step === 1 ? targetColor = new THREE.Color(chordsDatas.chords[this.currentChord][1][1]) : ''
+      this.step === 2 ? console.log(targetColor = new THREE.Color(chordsDatas.chords[this.currentChord][1][2])) : ''
+      this.step === 3 ? targetColor = new THREE.Color(chordsDatas.chords[this.currentChord][1][3]) : ''
+
+      TweenLite.to( STORAGE.background.material.color, 0.6, {
+        r: targetColor.r,
+        g: targetColor.g,
+        b: targetColor.b,
+        ease: Power2.easeOut
+      });
+    }
+
+    openBox() {
+      // open the box according to STEP
     }
 
 }
