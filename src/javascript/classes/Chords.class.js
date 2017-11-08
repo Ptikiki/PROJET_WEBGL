@@ -36,7 +36,7 @@ class Chords {
           if (chord[0].indexOf(that.keysPressedTab[0]) !== -1) {
             that.currentChord = index
 
-            STORAGE.scene.children.forEach((child, index) => {
+            /*STORAGE.scene.children.forEach((child, index) => {
               if (child.name === 'base_boite' || child.name === 'couvercle_boite') {
                 return
               } 
@@ -44,10 +44,11 @@ class Chords {
                 STORAGE.scene.remove(child)
               }
 
-              /*if (chord[3] === "Orelsan") {
+              if (chord[3] === "Orelsan") {
                 new OrelsanScene()
-              }*/
-            })
+              }
+            })*/
+            
             that.checkChords()
           }
         })
