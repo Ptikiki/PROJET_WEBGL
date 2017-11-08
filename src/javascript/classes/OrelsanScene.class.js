@@ -1,4 +1,3 @@
-import NetUtils from '../utils/net-utils.js'
 const MTLLoader = require('three-mtl-loader')
 
 
