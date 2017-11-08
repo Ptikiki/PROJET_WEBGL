@@ -5,6 +5,7 @@ class Renderer {
       this.renderer = new THREE.WebGLRenderer(window.innerWidth, window.innerHeight)
       this.renderer.setPixelRatio(window.devicePixelRatio)
       this.renderer.setSize( window.innerWidth, window.innerHeight )
+      this.renderer.setClearColor( 0xfcfcfc, 1)
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 

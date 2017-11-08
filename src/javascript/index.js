@@ -16,7 +16,7 @@ initCanvas()
 
 function initCanvas() {
 	new Renderer()
-	new OrelsanScene()
+	new MlleKScene()
 	new Ambiance()
 	new Chords()
  	render()

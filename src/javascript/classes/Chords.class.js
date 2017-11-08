@@ -5,105 +5,104 @@ class Chords {
     constructor(options) {
       STORAGE.chordsClass = this
       this.keysPressedTab = []
+      this.currentChord = null
       this.win = false
+
+      this.prevVolumeLevel = 0.33
+      this.volumeLvl = 0.33
 
       this.bind()
     }
 
     bind() {
       let that = this
-      window.addEventListener('keydown', that.handleKeydown)
-      window.addEventListener('keyup', that.handleKeyup)
+      window.addEventListener('keydown', that.handleKeydown.bind(event, that))
+      window.addEventListener('keyup', that.handleKeyup.bind(event, that))
     }
 
-    handleKeydown(event) {
-
-      //console.log(event.key)
-      if ( STORAGE.chordsClass.keysPressedTab.indexOf(event.key) === -1 && STORAGE.chordsClass.keysPressedTab.length < 3) {
-        STORAGE.chordsClass.keysPressedTab.push(event.key)
+    handleKeydown(that, event) {
+      if ( that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3) {
+        that.keysPressedTab.push(event.key)
         for (let i = 0; i < chordsDatas.chords.length; i++ ) {
-          // PLAYING NOTES // mieux ici ou à dupliquer dans les deux if-for ?
           for (let j = 0; j < chordsDatas.chords[i].notes.length; j++ ) {
             if (event.key === chordsDatas.chords[i].notes[j].key) {
-              let noteToPlay = new Audio(chordsDatas.chords[i].notes[j].src)
-              noteToPlay.play()
-           }
+              if (that.currentChord === null) {
+                that.currentChord = i
+              }
+              that.volumeLvl = 0
+              for (var k = 0; k < 3; k++) {
+                if( that.keysPressedTab.indexOf(chordsDatas.chords[i].notes[k].key) !== -1) {
+                  that.volumeLvl += 0.33
+                }
+              }
+              console.log(that.volumeLvl, 'SOUND LEEVL')
+              console.log(that.currentChord, 'currentChord')
+              that.testPrevVolume()
+              that.launchNote(chordsDatas.chords[i].notes[j].src)
+            }
           }
         }
       }
 
       for (let i = 0; i < chordsDatas.chords.length; i++ ) {
         for (var j = 0; j < chordsDatas.chords[i].notes.length; j++) {
-
-          if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[j].key) !== -1 && !STORAGE.chordsClass.win) {
+          if (that.keysPressedTab.indexOf(chordsDatas.chords[i].notes[j].key) !== -1 && !that.win && that.currentChord === i) {
             console.log('je suis dans accord ' , i)
-            if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[0].key) !== -1 && STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[1].key) !== -1 && STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[2].key) !== -1) {
-              console.log('GAGNE')
-              STORAGE.chordsClass.win = true
-              STORAGE.chordsClass.keysPressedTab = []
-              let songToPlay = new Audio(chordsDatas.chords[i].song)
-              songToPlay.play()
-              window.removeEventListener('keydown', STORAGE.chordsClass.handleKeydown)
-              window.removeEventListener('keyup', STORAGE.chordsClass.handleKeyup)
-              setTimeout(function() {
-                window.addEventListener('keydown', STORAGE.chordsClass.handleKeydown)
-                window.addEventListener('keyup', STORAGE.chordsClass.handleKeyup)
-                STORAGE.chordsClass.win = false
-              }, 10000)
+            if (that.keysPressedTab.indexOf(chordsDatas.chords[i].notes[0].key) !== -1 && that.keysPressedTab.indexOf(chordsDatas.chords[i].notes[1].key) !== -1 && that.keysPressedTab.indexOf(chordsDatas.chords[i].notes[2].key) !== -1) {
+              that.launchSound(chordsDatas.chords[i].song)
             }
-
           }
         }
       }
-
-      // for (let i = 0; i < chordsDatas.chords.length; i++ ) {
-      //   if (STORAGE.chordsClass.chordIndexInProgress === null) {
-      //     for (let j = 0; j < chordsDatas.chords[i].notes.length; j++ ) {
-      //       if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[j].key) === -1) {
-      //         STORAGE.chordsClass.chordIndexInProgress = i
-      //       }
-      //     }
-      //   }
-      //   else if (STORAGE.chordsClass.chordIndexInProgress === i) {
-      //     let noteIsOk = false
-      //     for (let j = 0; j < chordsDatas.chords[i].notes.length; j++ ) {
-      //       if (STORAGE.chordsClass.keysPressedTab.indexOf(chordsDatas.chords[i].notes[j].key) === -1) {
-      //         noteIsOk = true
-      //         if (STORAGE.chordsClass.chordTabInProgress.indexOf(chordsDatas.chords[i].notes[j].key) === -1) {
-      //           STORAGE.chordsClass.chordTabInProgress.push(chordsDatas.chords[i].notes[j].key)
-      //           let noteToPlay = new Audio(chordsDatas.chords[i].notes[j].src)
-      //           noteToPlay.play()
-      //           console.log('jajoute', chordsDatas.chords[i].notes[j].key, STORAGE.chordsClass.chordTabInProgress)
-      //                         console.log("CHORD EN COURS", STORAGE.chordsClass.chordTabInProgress)
-
-      //           if (STORAGE.chordsClass.chordTabInProgress.length === 3) {
-      //             console.log('GAGNE')
-      //             let songToPlay = new Audio(chordsDatas.chords[i].song)
-      //             songToPlay.play()
-      //             window.removeEventListener('keydown', STORAGE.chordsClass.handleKeydown)
-      //             window.removeEventListener('keyup', STORAGE.chordsClass.handleKeyup)
-      //             setTimeout(function() {
-      //               window.addEventListener('keydown', STORAGE.chordsClass.handleKeydown)
-      //               window.addEventListener('keyup', STORAGE.chordsClass.handleKeyup)
-      //             }, 1000)
-      //           }
-      //         }
-      //       }
-      //     }
-      //     if (noteIsOk) {
-      //       return
-      //     } else {
-      //       console.log("PERDU")
-      //       STORAGE.chordsClass.chordIndexInProgress = null
-      //       STORAGE.chordsClass.keysPressedTab = []
-      //     }
-      //   }
-      // }
     }
 
-    handleKeyup(event) {
-      console.log("PERDU")
-      STORAGE.chordsClass.keysPressedTab = []
+    handleKeyup(that, event) {
+      !that.win ? that.reset() : ''
+    }
+
+    launchNote(note) {
+      let noteToPlay = new Audio(note)
+      noteToPlay.volume = this.volumeLvl
+      noteToPlay.play()
+    }
+
+    launchSound(song) {
+      console.log('GAGNE')
+      this.win = true
+
+      let songToPlay = new Audio(song)
+      songToPlay.play()
+
+      window.removeEventListener('keydown', this.handleKeydown)
+      window.removeEventListener('keyup', this.handleKeyup)
+
+      setTimeout( () => {
+        window.addEventListener('keydown', this.handleKeydown.bind(event, this))
+        window.addEventListener('keyup', this.handleKeyup.bind(event, this))
+        this.win = false
+        this.reset(true)
+      }, 3000)
+    }
+
+    testPrevVolume() {
+      if (this.prevVolumeLevel > this.volumeLvl) {
+        !this.win ? this.reset() : ''
+      } else if (this.prevVolumeLevel < this.volumeLvl) {
+        this.volumeLvl === 0.66 ? STORAGE.renderer.setClearColor( 0x9fcec2, 1) : ''
+        this.volumeLvl === 0.99 ? STORAGE.renderer.setClearColor( 0x47d1ae, 1) : ''
+      } else if (this.prevVolumeLevel === this.volumeLvl) {
+        this.volumeLvl === 0.33 ? STORAGE.renderer.setClearColor( 0xf7f7f9, 1) : ''
+      }
+      this.prevVolumeLevel = this.volumeLvl
+    }
+
+    reset(noReset) {
+      console.log('PERDU')
+      this.keysPressedTab = []
+      this.currentChord = null
+      this.prevVolumeLevel = 0.33
+      this.volumeLvl = 0.33
+      noReset ? '' : STORAGE.renderer.setClearColor( 0xfcfcfc, 1)
     }
 }
 

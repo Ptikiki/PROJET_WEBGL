@@ -15,7 +15,9 @@ const chordsDatas = {
           src: 'assets/notes/b5.wav'
         },
       ],
-      song : 'assets/songs/orelsan.mp3'
+      song : 'assets/songs/orelsan.mp3',
+      colorStep1 : 0x9fcec2,
+      colorStep2 : 0x47d1ae
     },
     {
       notes : [
