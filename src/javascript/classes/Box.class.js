@@ -1,4 +1,4 @@
-import NetUtils from '../utils/net-utils.js'
+import TweenLite from 'gsap'
 const MTLLoader = require('three-mtl-loader')
 
 class Box {
@@ -75,7 +75,10 @@ class Box {
     handleKeydown(that, event) {
 
       if (event.key === "r") {
-        that.object.rotation.x = -Math.PI
+        TweenLite.to(that.object.rotation, 2, {
+          x : Math.PI
+        })
+
       }
 
     }
