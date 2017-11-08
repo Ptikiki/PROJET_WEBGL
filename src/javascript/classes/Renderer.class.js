@@ -5,6 +5,7 @@ class Renderer {
       this.renderer = new THREE.WebGLRenderer(window.innerWidth, window.innerHeight)
       this.renderer.setPixelRatio(window.devicePixelRatio)
       this.renderer.setSize( window.innerWidth, window.innerHeight )
+      this.renderer.setClearColor( 0xfcfcfc, 1)
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 
@@ -12,7 +13,7 @@ class Renderer {
     }
 
     initCamera() {
-      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 15000);
       STORAGE.camera = this.camera
       STORAGE.camera.position.z = 2000
       this.controls = new THREE.OrbitControls( STORAGE.camera )

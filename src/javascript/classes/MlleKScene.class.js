@@ -1,5 +1,3 @@
-import NetUtils from '../utils/net-utils.js'
-
 class MlleKScene {
 
     constructor(options) {
