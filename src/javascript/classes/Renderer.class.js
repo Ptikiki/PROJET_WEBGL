@@ -13,9 +13,9 @@ class Renderer {
     }
 
     initCamera() {
-      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 15000);
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
       STORAGE.camera = this.camera
-      STORAGE.camera.position.z = 2000
+      STORAGE.camera.position.z = 800
       this.controls = new THREE.OrbitControls( STORAGE.camera )
       this.controls.target.set( 0, 0, 0 )
     }

@@ -20,7 +20,7 @@ initCanvas()
 function initCanvas() {
 	new Renderer()
 	new Box()
-	// new OrelsanScene()
+	new OrelsanScene()
 	new Ambiance()
 	new Chords()
  	render()

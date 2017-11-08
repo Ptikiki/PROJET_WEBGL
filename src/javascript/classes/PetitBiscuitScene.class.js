@@ -34,9 +34,6 @@ class PetitBiscuitScene {
         object.position.x = 0
         object.position.y = 0
         object.position.z = 0
-        object.scale.x = 2.8
-        object.scale.y = 2.8
-        object.scale.z = 2.8
 
         STORAGE.scene.add( object )
         STORAGE.SceneClass.myObjects.push(object)

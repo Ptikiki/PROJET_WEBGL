@@ -33,7 +33,7 @@ class OrelsanScene {
 
       this.myObjects = []
       this.mtlLoader = new MTLLoader()
-      
+
       this.mtlLoader.load('assets/scene_orelsan.mtl', function(matl) {
         matl.preload()
 
@@ -61,39 +61,22 @@ class OrelsanScene {
         poisTexture.repeat.set(10, 10)
         poisMaterial.map = poisTexture
         poisMaterial.normalMap = poisNormal
-        
+
         that.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
 
         object.position.x = 0
-        object.position.y = 0
+        object.position.y = -85
         object.position.z = 0
-        object.scale.x = 2.8
-        object.scale.y = 2.8
-        object.scale.z = 2.8
 
         STORAGE.scene.add( object )
         STORAGE.SceneClass.myObjects.push(object)
       } )
 
       } )
-
-      // this.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
-
-      //   object.position.x = 0
-      //   object.position.y = 0
-      //   object.position.z = 0
-      //   object.scale.x = 2.8
-      //   object.scale.y = 2.8
-      //   object.scale.z = 2.8
-
-      //   STORAGE.scene.add( object )
-      //   STORAGE.SceneClass.myObjects.push(object)
-      // } )
     }
 
     initShaders(vertex1, vertex2, fragment) {
 
-      // console.log("shaders init")
       let that = this
 
       this.uniforms = {
@@ -102,10 +85,7 @@ class OrelsanScene {
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
 
-      this.geometry = new THREE.PlaneBufferGeometry( 1400, 3, 10, 10 )
-      // this.geometry = new THREE.TubeBufferGeometry( THREE.Vector3( 10 * 3 - 1.5, Math.sin( 2 * Math.PI * 10 ) ,0) * 4, 20, 2, 8, false  )
-
-      // this.material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} )
+      this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
 
       this.material1 = new THREE.ShaderMaterial( {
         uniforms: this.uniforms,
@@ -121,7 +101,6 @@ class OrelsanScene {
         side: THREE.DoubleSide
       } )
 
-      //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          this.material.needsUpdate = true
 
       STORAGE.plane1 = new THREE.Mesh( this.geometry, this.material1 )
       STORAGE.plane2 = new THREE.Mesh( this.geometry, this.material1 )
@@ -130,24 +109,22 @@ class OrelsanScene {
 
       STORAGE.plane1.rotation.x = Math.PI/2
       STORAGE.plane2.rotation.x = Math.PI/2
-      STORAGE.plane1.position.y = 60
-      STORAGE.plane2.position.y = 60
-      STORAGE.plane1.position.z = 420
-      STORAGE.plane2.position.z = 450
+      STORAGE.plane1.position.y = 140
+      STORAGE.plane2.position.y = 140
+      STORAGE.plane1.position.z = 105
+      STORAGE.plane2.position.z = 125
 
       STORAGE.plane3.rotation.x = Math.PI/2
       STORAGE.plane4.rotation.x = Math.PI/2
-      STORAGE.plane3.position.y = 60
-      STORAGE.plane4.position.y = 60
-      STORAGE.plane3.position.z = 600
-      STORAGE.plane4.position.z = 630
+      STORAGE.plane3.position.y = 140
+      STORAGE.plane4.position.y = 140
+      STORAGE.plane3.position.z = 225
+      STORAGE.plane4.position.z = 245
 
       STORAGE.scene.add( STORAGE.plane1 )
       STORAGE.scene.add( STORAGE.plane2 )
       STORAGE.scene.add( STORAGE.plane3 )
       STORAGE.scene.add( STORAGE.plane4 )
-
-      // console.log(this.plane)
     }
 
     loadShaders(vertex1_url, vertex2_url, fragment_url) {

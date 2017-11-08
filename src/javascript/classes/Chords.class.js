@@ -34,7 +34,7 @@ class Chords {
         chordsDatas.chords.forEach((chord, index) => {
           if (chord[0].indexOf(that.keysPressedTab[0]) !== -1) {
             that.currentChord = index
-            that.checkCords()
+            that.checkChords()
           }
         })
 
@@ -49,23 +49,23 @@ class Chords {
       console.log('PERDU')
       window.removeEventListener('keydown', that.keyDownListener)
       window.removeEventListener('keyup', that.keyUpListener)
+      !that.win ? that.openBox(true) : ''
       !that.win ? that.step = 0 : ''
       !that.win ? that.setAmbiance() : ''
       !that.win ? setTimeout( () => { that.enableGame() }, 500) : ''
     }
 
-    checkCords() {
+    checkChords() {
       this.step = 0
-      let numbreOfNotesOk = 0
+      let numberOfNotesOk = 0
       this.keysPressedTab.forEach((key) => {
         if (chordsDatas.chords[this.currentChord][0].indexOf(key) !== -1){
-          numbreOfNotesOk ++
-          this.volume += 0.33
+          numberOfNotesOk ++
         }
       })
 
-      this.keysPressedTab.length > numbreOfNotesOk ? numbreOfNotesOk = 0 : ''
-      this.step = numbreOfNotesOk
+      this.keysPressedTab.length > numberOfNotesOk ? numberOfNotesOk = 0 : ''
+      this.step = numberOfNotesOk
     }
 
     launchNote(note) {
@@ -91,22 +91,12 @@ class Chords {
     }
 
     setAmbiance() {
-      let targetColor
-      this.step === 0 ? targetColor = new THREE.Color(0xfcfcfc) : ''
-      this.step === 1 ? targetColor = new THREE.Color(chordsDatas.chords[this.currentChord][1][1]) : ''
-      this.step === 2 ? console.log(targetColor = new THREE.Color(chordsDatas.chords[this.currentChord][1][2])) : ''
-      this.step === 3 ? targetColor = new THREE.Color(chordsDatas.chords[this.currentChord][1][3]) : ''
-
-      TweenLite.to( STORAGE.background.material.color, 0.6, {
-        r: targetColor.r,
-        g: targetColor.g,
-        b: targetColor.b,
-        ease: Power2.easeOut
-      });
+      STORAGE.AmbianceClass.updateAmbiance(this.step, chordsDatas, this.currentChord)
     }
 
-    openBox() {
-      // open the box according to STEP
+    openBox(close) {
+      let step = close ? 0 : this.step
+      STORAGE.BoxClass.openBox(step)
     }
 
 }
