@@ -77,19 +77,22 @@ class Box {
       if (step === 0) {
         TweenLite.to(STORAGE.BoxClass.object.rotation, 0.6, { x : 0, ease: Power2.easeOut })
         TweenLite.to(STORAGE.SceneClass.myObjects[0].position, 0.8, { y : -85, ease: Power2.easeOut })
+        TweenLite.to(STORAGE.SceneClass.myObjects[1].position, 0.8, { y : -85, ease: Power2.easeOut })
       } else if (step === 1) {
         TweenLite.to(STORAGE.BoxClass.object.rotation, 0.6, { x : -Math.PI / 50, ease: Power2.easeOut })
         TweenLite.to(STORAGE.SceneClass.myObjects[0].position, 0.8, { y : -85, ease: Power2.easeOut })
+        TweenLite.to(STORAGE.SceneClass.myObjects[1].position, 0.8, { y : -85, ease: Power2.easeOut })
       } else if (step === 2) {
         TweenLite.to(STORAGE.BoxClass.object.rotation, 0.6, { x : -Math.PI / 20, ease: Power2.easeOut })
         TweenLite.to(STORAGE.SceneClass.myObjects[0].position, 0.8, { y : -85, ease: Power2.easeOut })
+        TweenLite.to(STORAGE.SceneClass.myObjects[1].position, 0.8, { y : -85, ease: Power2.easeOut })
       } else if (step === 3) {
         TweenLite.to(STORAGE.BoxClass.object.rotation, 1.5, { x : -Math.PI / 2, ease: Power2.easeOut })
         TweenLite.to(STORAGE.SceneClass.myObjects[0].position, 1.2, { y : 90, ease: Power2.easeOut })
+        TweenLite.to(STORAGE.SceneClass.myObjects[1].position, 1.2, { y : 150, ease: Power2.easeOut })
       }
 
     }
-
 }
 
 export default Box
