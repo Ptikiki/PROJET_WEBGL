@@ -9,7 +9,18 @@ class Renderer {
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 
+      this.initScene()
       this.initCamera()
+      this.bind()
+    }
+
+    bind() {
+      window.addEventListener( 'resize', this.onWindowResize, false )
+    }
+
+    initScene() {
+      this.scene = new THREE.Scene()
+      STORAGE.scene = this.scene
     }
 
     initCamera() {
@@ -18,6 +29,12 @@ class Renderer {
       STORAGE.camera.position.z = 800
       this.controls = new THREE.OrbitControls( STORAGE.camera )
       this.controls.target.set( 0, 0, 0 )
+    }
+
+    onWindowResize() {
+      STORAGE.camera.aspect = window.innerWidth / window.innerHeight
+      STORAGE.camera.updateProjectionMatrix()
+      STORAGE.renderer.setSize(window.innerWidth, window.innerHeight)
     }
 }
 

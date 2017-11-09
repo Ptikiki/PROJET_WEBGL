@@ -34,16 +34,18 @@ class OrelsanScene {
 
       this.myObjects = []
       this.mtlLoader = new MTLLoader()
+      this.objLoader = new THREE.OBJLoader()
+      this.textureLoader = new THREE.TextureLoader()
 
       this.mtlLoader.load('assets/scene_orelsan.mtl', function(matl) {
         matl.preload()
 
-        that.objLoader = new THREE.OBJLoader()
+
         that.objLoader.setMaterials( matl )
 
         let poisMaterial = matl.materials.Pois
-        let poisTexture = new THREE.TextureLoader().load("assets/pois.png")
-        let poisNormal = new THREE.TextureLoader().load("assets/pois_normal.png")
+        let poisTexture = that.textureLoader.load("assets/pois.png")
+        let poisNormal = that.textureLoader.load("assets/pois_normal.png")
 
         poisTexture.wrapS = THREE.RepeatWrapping
         poisTexture.wrapT = THREE.RepeatWrapping
@@ -67,13 +69,8 @@ class OrelsanScene {
 
       let that = this
 
-      this.myObjects = []
-      this.mtlLoader = new MTLLoader()
-
       this.mtlLoader.load('assets/mur_orelsan.mtl', function(matl) {
         matl.preload()
-
-        that.objLoader = new THREE.OBJLoader()
         that.objLoader.setMaterials( matl )
 
         let briquesMaterial = matl.materials.Briques
