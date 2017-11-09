@@ -1,9 +1,10 @@
 const MTLLoader = require('three-mtl-loader')
 
+import specifications from '../datas/sceneSpecifications.js'
+
 class OrelsanScene {
 
     constructor(options) {
-
       STORAGE.SceneClass = this
       this.scene = new THREE.Scene()
       STORAGE.scene = this.scene
@@ -52,7 +53,7 @@ class OrelsanScene {
 
         that.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
           object.position.x = 0
-          object.position.y = -85
+          object.position.y = specifications[0].sceneDownPosY
           object.position.z = 0
 
           STORAGE.scene.add( object )
@@ -144,6 +145,8 @@ class OrelsanScene {
 
       let that = this
 
+      this.myShaders = []
+
       this.uniforms = {
         u_time: { type: "f", value: 1.0 },
         u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
@@ -167,29 +170,31 @@ class OrelsanScene {
       } )
 
 
-      STORAGE.plane1 = new THREE.Mesh( this.geometry, this.material1 )
-      STORAGE.plane2 = new THREE.Mesh( this.geometry, this.material1 )
-      STORAGE.plane3 = new THREE.Mesh( this.geometry, this.material2 )
-      STORAGE.plane4 = new THREE.Mesh( this.geometry, this.material2 )
+      let plane1 = new THREE.Mesh( this.geometry, this.material1 )
+      let plane2 = new THREE.Mesh( this.geometry, this.material1 )
+      let plane3 = new THREE.Mesh( this.geometry, this.material2 )
+      let plane4 = new THREE.Mesh( this.geometry, this.material2 )
 
-      STORAGE.plane1.rotation.x = Math.PI/2
-      STORAGE.plane2.rotation.x = Math.PI/2
-      STORAGE.plane1.position.y = 140
-      STORAGE.plane2.position.y = 140
-      STORAGE.plane1.position.z = 105
-      STORAGE.plane2.position.z = 125
+      plane1.rotation.x = Math.PI/2
+      plane2.rotation.x = Math.PI/2
+      plane1.position.z = 105
+      plane2.position.z = 125
 
-      STORAGE.plane3.rotation.x = Math.PI/2
-      STORAGE.plane4.rotation.x = Math.PI/2
-      STORAGE.plane3.position.y = 140
-      STORAGE.plane4.position.y = 140
-      STORAGE.plane3.position.z = 225
-      STORAGE.plane4.position.z = 245
+      plane3.rotation.x = Math.PI/2
+      plane4.rotation.x = Math.PI/2
+      plane3.position.z = 225
+      plane4.position.z = 245
 
-      STORAGE.scene.add( STORAGE.plane1 )
-      STORAGE.scene.add( STORAGE.plane2 )
-      STORAGE.scene.add( STORAGE.plane3 )
-      STORAGE.scene.add( STORAGE.plane4 )
+      let group = new THREE.Group();
+      group.add( plane1 );
+      group.add( plane2 );
+      group.add( plane3 );
+      group.add( plane4 );
+
+      group.position.y = specifications[0].shaderDownPosY
+
+      STORAGE.scene.add( group )
+      STORAGE.SceneClass.myShaders.push(group)
     }
 
     loadShaders(vertex1_url, vertex2_url, fragment_url) {
@@ -234,13 +239,11 @@ class OrelsanScene {
     }
 
     animate() {
-      let that = this 
-
-      if( STORAGE.plane1 && STORAGE.plane2 ) {
+      if( this.uniforms ) {
         this.uniforms.u_time.value += 0.05
       }
-      if ( that.artist ) {
-        that.artist.rotation.y += 0.01
+      if ( this.artist ) {
+        this.artist.rotation.y += 0.01
       }
     }
 }

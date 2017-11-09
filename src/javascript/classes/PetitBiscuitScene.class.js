@@ -1,4 +1,4 @@
-import NetUtils from '../utils/net-utils.js'
+import specifications from '../datas/sceneSpecifications.js'
 
 class PetitBiscuitScene {
 
@@ -32,7 +32,7 @@ class PetitBiscuitScene {
       this.loader.load( 'assets/scene_riles.obj', function ( object ) {
 
         object.position.x = 0
-        object.position.y = 0
+        object.position.y = specifications[1].sceneDownPosY
         object.position.z = 0
 
         STORAGE.scene.add( object )
@@ -44,13 +44,15 @@ class PetitBiscuitScene {
 
       let that = this
 
+      this.myShaders = []
+
       this.uniforms = {
         u_time: { type: "f", value: 1.0 },
         u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
 
-      this.geometry = new THREE.PlaneBufferGeometry( 1400, 350 )
+      this.geometry = new THREE.PlaneBufferGeometry( 500, 128 )
 
       this.material = new THREE.ShaderMaterial( {
         uniforms: this.uniforms,
@@ -59,11 +61,17 @@ class PetitBiscuitScene {
         side: THREE.DoubleSide
       } )
 
-      STORAGE.plane = new THREE.Mesh( this.geometry, this.material )
-      STORAGE.plane.rotation.x = Math.PI/2
-      STORAGE.plane.position.y = 7
-      STORAGE.plane.position.z = 520
-      STORAGE.scene.add( STORAGE.plane )
+      let plane = new THREE.Mesh( this.geometry, this.material )
+      plane.rotation.x = Math.PI/2
+      plane.position.y = 7
+      plane.position.z = 185
+
+      let group = new THREE.Group()
+      group.add(plane)
+      group.position.y = specifications[2].shaderDownPosY
+
+      STORAGE.scene.add(group)
+      STORAGE.SceneClass.myShaders.push(group)
     }
 
     loadShaders(vertex_url, fragment_url) {
@@ -82,7 +90,7 @@ class PetitBiscuitScene {
     }
 
     animate() {
-      if( STORAGE.plane ) {
+      if( this.uniforms ) {
         this.uniforms.u_time.value += 0.05
       }
     }
