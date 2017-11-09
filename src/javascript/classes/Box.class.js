@@ -64,27 +64,35 @@ class Box {
         let box = STORAGE.BoxClass.object
         let wall = STORAGE.SceneClass.myObjects[0]
         let scene = STORAGE.SceneClass.myObjects[1]
+        let artist = STORAGE.SceneClass.myObjects[2]
         let myShaders = STORAGE.SceneClass.myShaders[0]
         let index = STORAGE.SceneManager.actualSceneIndex
+
+        console.log(STORAGE.SceneClass.myObjects)
+
         if (step === 0) {
           TweenLite.to(box.rotation, 0.6, { x : 0, ease: Power2.easeOut })
-          TweenLite.to(wall.position, 0.8, { y : -85, ease: Power2.easeOut })
+          TweenLite.to(wall.rotation, 0.6, { x : 0, ease: Power2.easeOut })
           scene ? TweenLite.to(scene.position, 0.8, { y : -85, ease: Power2.easeOut }) : ''
+          artist ? TweenLite.to(artist.position, 0.8, { y : -85, ease: Power2.easeOut }) : ''
           TweenLite.to(myShaders.position, 0.8, { y : specifications[index].shaderDownPosY, ease: Power2.easeOut })
         } else if (step === 1) {
           TweenLite.to(box.rotation, 0.6, { x : -Math.PI / 50, ease: Power2.easeOut })
-          TweenLite.to(wall.position, 0.8, { y : -85, ease: Power2.easeOut })
+          TweenLite.to(wall.rotation, 0.6, { x : -Math.PI / 50, ease: Power2.easeOut })
           scene ? TweenLite.to(scene.position, 0.8, { y : -85, ease: Power2.easeOut }) : ''
+          artist ? TweenLite.to(artist.position, 0.8, { y : -85, ease: Power2.easeOut }) : ''
           TweenLite.to(myShaders.position, 0.8, { y : specifications[index].shaderDownPosY, ease: Power2.easeOut })
         } else if (step === 2) {
           TweenLite.to(box.rotation, 0.6, { x : -Math.PI / 20, ease: Power2.easeOut })
-          TweenLite.to(wall.position, 0.8, { y : -85, ease: Power2.easeOut })
+          TweenLite.to(wall.rotation, 0.6, { x : -Math.PI / 20, ease: Power2.easeOut })
           scene ? TweenLite.to(scene.position, 0.8, { y : -85, ease: Power2.easeOut }) : ''
+          artist ? TweenLite.to(artist.position, 0.8, { y : -85, ease: Power2.easeOut }) : ''
           TweenLite.to(myShaders.position, 0.8, { y : specifications[index].shaderDownPosY, ease: Power2.easeOut })
         } else if (step === 3) {
           TweenLite.to(box.rotation, 1.5, { x : -Math.PI / 2, ease: Power2.easeOut })
-          TweenLite.to(wall.position, 1.2, { y : 90, ease: Power2.easeOut })
-          scene ? TweenLite.to(scene.position, 1.2, { y : 150, ease: Power2.easeOut }) : ''
+          TweenLite.to(wall.rotation, 1.5, { x : -Math.PI / 2, ease: Power2.easeOut })
+          scene ? TweenLite.to(scene.position, 1.2, { y : 90, ease: Power2.easeOut }) : ''
+          artist ? TweenLite.to(artist.position, 1.2, { y : 150, ease: Power2.easeOut }) : ''
           TweenLite.to(myShaders.position, 0.8, { y : specifications[index].shaderUpPosY, ease: Power2.easeOut })
         }
      }

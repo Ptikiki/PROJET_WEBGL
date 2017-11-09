@@ -23,6 +23,7 @@ class OrelsanScene {
 
     init() {
       this.createScene()
+      this.createWall()
       this.createArtist()
       this.loadShaders('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanVertex2.vert', '../javascript/glsl/OrelsanFragment.frag')
     }
@@ -40,16 +41,6 @@ class OrelsanScene {
         that.objLoader = new THREE.OBJLoader()
         that.objLoader.setMaterials( matl )
 
-        let briquesMaterial = matl.materials.Briques
-        let briquesTexture = new THREE.TextureLoader().load("assets/briques.png")
-        let briquesNormal = new THREE.TextureLoader().load("assets/briques_normal.png")
-
-        briquesTexture.wrapS = THREE.RepeatWrapping
-        briquesTexture.wrapT = THREE.RepeatWrapping
-        briquesTexture.repeat.set(5, 5)
-        briquesMaterial.map = briquesTexture
-        briquesMaterial.normalMap = briquesNormal
-
         let poisMaterial = matl.materials.Pois
         let poisTexture = new THREE.TextureLoader().load("assets/pois.png")
         let poisNormal = new THREE.TextureLoader().load("assets/pois_normal.png")
@@ -64,6 +55,45 @@ class OrelsanScene {
           object.position.x = 0
           object.position.y = specifications[0].sceneDownPosY
           object.position.z = 0
+
+          STORAGE.scene.add( object )
+          STORAGE.SceneClass.myObjects.push(object)
+        } )
+
+      } )
+    }
+
+    createWall() {
+
+      let that = this
+
+      this.myObjects = []
+      this.mtlLoader = new MTLLoader()
+
+      this.mtlLoader.load('assets/mur_orelsan.mtl', function(matl) {
+        matl.preload()
+
+        that.objLoader = new THREE.OBJLoader()
+        that.objLoader.setMaterials( matl )
+
+        let briquesMaterial = matl.materials.Briques
+        let briquesTexture = new THREE.TextureLoader().load("assets/briques.png")
+        let briquesNormal = new THREE.TextureLoader().load("assets/briques_normal.png")
+
+        briquesTexture.wrapS = THREE.RepeatWrapping
+        briquesTexture.wrapT = THREE.RepeatWrapping
+        briquesTexture.repeat.set(5, 5)
+        briquesMaterial.map = briquesTexture
+        briquesMaterial.normalMap = briquesNormal
+
+        that.objLoader.load( 'assets/mur_orelsan.obj', function ( object ) {
+          object.position.x = 205
+          object.position.y = 80
+          object.position.z = -290
+
+          // object.rotation.x = Math.PI
+          // object.rotation.z = Math.PI
+          object.rotation.y = Math.PI
 
           STORAGE.scene.add( object )
           STORAGE.SceneClass.myObjects.push(object)
