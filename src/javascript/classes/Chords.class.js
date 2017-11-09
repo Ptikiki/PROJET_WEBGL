@@ -1,5 +1,4 @@
 import chordsDatas from '../datas/chordsDatas.js'
-import OrelsanScene from '../classes/OrelsanScene.class.js'
 import TweenLite from 'gsap'
 
 class Chords {
@@ -35,20 +34,6 @@ class Chords {
         chordsDatas.chords.forEach((chord, index) => {
           if (chord[0].indexOf(that.keysPressedTab[0]) !== -1) {
             that.currentChord = index
-
-            // STORAGE.scene.children.forEach((child, index) => {
-            //   if (child.name === 'base_boite' || child.name === 'couvercle_boite') {
-            //     return
-            //   }
-            //   else if (child.type === 'Mesh' || child.type === 'Group') {
-            //     STORAGE.scene.remove(child)
-            //   }
-
-            //   // if (chord[3] === "Orelsan") {
-            //   //   new OrelsanScene()
-            //   // }
-            // })
-
             that.checkChords()
           }
         })
@@ -67,7 +52,7 @@ class Chords {
       !that.win ? that.openBox(true) : ''
       !that.win ? that.step = 0 : ''
       !that.win ? that.setAmbiance() : ''
-      !that.win ? setTimeout( () => { that.enableGame() }, 500) : ''
+      !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
     }
 
     checkChords() {
@@ -102,7 +87,7 @@ class Chords {
 
       window.removeEventListener('keydown', this.keyDownListener)
       window.removeEventListener('keyup', this.keyDownListener)
-      setTimeout( () => { this.enableGame() }, 10000)
+      setTimeout( () => { this.enableGame() }, 4000)
     }
 
     setAmbiance() {
@@ -112,6 +97,7 @@ class Chords {
     openBox(close) {
       let step = close ? 0 : this.step
       STORAGE.SceneManager.setSceneIndex(this.currentChord)
+      STORAGE.SceneManager.displayScene(step)
       STORAGE.BoxClass.openBox(step)
     }
 
