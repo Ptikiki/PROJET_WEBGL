@@ -27,6 +27,7 @@ class Box {
         that.objLoader.load( 'assets/base_boite.obj', function ( object ) {
           object.rotation.y = Math.PI
           STORAGE.scene.add( object )
+          object.name = 'base_boite'
         } )
       } )
 
@@ -41,6 +42,7 @@ class Box {
           object.position.y = 75
           object.rotation.y = Math.PI
           STORAGE.scene.add( object )
+          object.name = 'couvercle_boite'
           that.object = object
         } )
       } )
