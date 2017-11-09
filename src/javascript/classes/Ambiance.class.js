@@ -8,7 +8,6 @@ class Ambiance {
     createLight() {
       const light = new THREE.PointLight(0xffffff, 0.3, Infinity)
       light.position.set(200, 500, 100)
-      console.log(light)
       STORAGE.scene.add(light)
       const lightAmb = new THREE.AmbientLight(0xbbbbbb)
       STORAGE.scene.add(lightAmb)
