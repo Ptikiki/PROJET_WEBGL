@@ -35,8 +35,6 @@ class OrelsanScene {
       this.mtlLoader.load('assets/scene_orelsan.mtl', function(matl) {
         matl.preload()
 
-        console.log(matl.materials)
-
         that.objLoader = new THREE.OBJLoader()
         that.objLoader.setMaterials( matl )
 
