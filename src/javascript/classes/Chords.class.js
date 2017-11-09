@@ -39,7 +39,7 @@ class Chords {
             // STORAGE.scene.children.forEach((child, index) => {
             //   if (child.name === 'base_boite' || child.name === 'couvercle_boite') {
             //     return
-            //   } 
+            //   }
             //   else if (child.type === 'Mesh' || child.type === 'Group') {
             //     STORAGE.scene.remove(child)
             //   }
@@ -48,7 +48,7 @@ class Chords {
             //   //   new OrelsanScene()
             //   // }
             // })
-            
+
             that.checkChords()
           }
         })
@@ -111,6 +111,7 @@ class Chords {
 
     openBox(close) {
       let step = close ? 0 : this.step
+      STORAGE.SceneManager.setSceneIndex(this.currentChord)
       STORAGE.BoxClass.openBox(step)
     }
 
