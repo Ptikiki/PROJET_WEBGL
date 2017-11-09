@@ -22,6 +22,7 @@ class OrelsanScene {
 
     init() {
       this.createScene()
+      this.createArtist()
       this.loadShaders('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanVertex2.vert', '../javascript/glsl/OrelsanFragment.frag')
     }
 
@@ -59,14 +60,52 @@ class OrelsanScene {
         poisMaterial.normalMap = poisNormal
 
         that.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
+          object.position.x = 0
+          object.position.y = -85
+          object.position.z = 0
 
-        object.position.x = 0
-        object.position.y = -85
-        object.position.z = 0
+          STORAGE.scene.add( object )
+          STORAGE.SceneClass.myObjects.push(object)
+        } )
 
-        STORAGE.scene.add( object )
-        STORAGE.SceneClass.myObjects.push(object)
       } )
+    }
+
+    createArtist() {
+
+      let that = this
+
+      this.myObjects = []
+      this.mtlLoader = new MTLLoader()
+
+      this.mtlLoader.load('assets/test_perso/model_test.mtl', function(matl) {
+        matl.preload()
+
+        that.objLoader = new THREE.OBJLoader()
+        that.objLoader.setMaterials( matl )
+
+        let bodyMaterial = matl.materials.Body
+        let bodyOpacity = new THREE.TextureLoader().load("assets/test_perso/model_test_Body_Opacity.png")
+        let bodyTexture = new THREE.TextureLoader().load("assets/test_perso/model_test_Body_Diffuse.png")
+        let bodyNormal = new THREE.TextureLoader().load("assets/test_perso/model_test_Body_Normal.png")
+        let bodySpecular = new THREE.TextureLoader().load("assets/test_perso/model_test_Body_Specular.png")
+        let bodyGloss = new THREE.TextureLoader().load("assets/test_perso/model_test_Body_Gloss.png")
+
+        bodyMaterial.map = bodyOpacity
+        bodyMaterial.normalMap = bodyNormal
+        bodyMaterial.map = bodySpecular
+        bodyMaterial.map = bodyGloss
+        bodyMaterial.map = bodyTexture
+
+        that.objLoader.load( 'assets/test_perso/model_test.obj', function ( object ) {
+          object.position.y = -85
+
+          STORAGE.scene.add( object )
+          STORAGE.SceneClass.myObjects.push(object)
+
+          that.artist = object
+
+        } )
 
       } )
     }
@@ -165,8 +204,13 @@ class OrelsanScene {
     }
 
     animate() {
+      let that = this 
+
       if( STORAGE.plane1 && STORAGE.plane2 ) {
         this.uniforms.u_time.value += 0.05
+      }
+      if ( that.artist ) {
+        that.artist.rotation.y += 0.01
       }
     }
 }
