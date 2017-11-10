@@ -10,14 +10,28 @@ class SceneManager {
 
   displayScene(step) {
     if (step === 0) {
-      setTimeout(() => { STORAGE.SceneObjectClass.removeScene() }, 800)
+      setTimeout(() => {
+        STORAGE.SceneObjectClass.removeScene()
+        STORAGE.SceneShaderClass.removeShaders()
+      }, 800)
     }
     if (step === 1 && !STORAGE.chordsClass.win) {
-      this.actualSceneIndex === 0 ? STORAGE.SceneObjectClass.displayOrelsan() : ''
-      this.actualSceneIndex === 1 ? STORAGE.SceneObjectClass.displayMlleK() : ''
-      this.actualSceneIndex === 2 ? STORAGE.SceneObjectClass.displayPetitBiscuit() : ''
+      STORAGE.SceneObjectClass.removeScene()
+      STORAGE.SceneShaderClass.removeShaders()
+
+      if (this.actualSceneIndex === 0) {
+        STORAGE.SceneObjectClass.displayOrelsan()
+        STORAGE.SceneShaderClass.displayOrelsanShader()
+      }
+      if (this.actualSceneIndex === 1) {
+        STORAGE.SceneObjectClass.displayMlleK()
+        STORAGE.SceneShaderClass.displayMlleKShader()
+      }
+      if (this.actualSceneIndex === 2) {
+        STORAGE.SceneObjectClass.displayPetitBiscuit()
+        STORAGE.SceneShaderClass.displayPetitBiscuitShader()
+      }
     }
-    console.log(STORAGE.SceneObjectClass, step)
   }
 }
 

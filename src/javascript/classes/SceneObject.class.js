@@ -172,6 +172,7 @@ class SceneObject {
       STORAGE.scene.add(this.scenesTab[0])
       STORAGE.scene.add(this.wallsTab[0])
       STORAGE.scene.add(this.artistsTab[0])
+      console.log(this.wallsTab[0], 'wallsTab')
       this.myObjects.push(this.scenesTab[0], this.wallsTab[0], this.artistsTab[0])
     }
 
