@@ -130,7 +130,7 @@ class SceneObject {
         briquesMaterial.normalMap = briquesNormal
 
         that.objLoader.load( 'assets/mur_orelsan.obj', function ( object ) {
-          object.position.x = 205
+          object.position.x = 250
           object.position.y = 80
           object.position.z = -280
           object.rotation.y = Math.PI
