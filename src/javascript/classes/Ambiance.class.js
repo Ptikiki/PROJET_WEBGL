@@ -20,7 +20,6 @@ class Ambiance {
       light.shadow.mapSize.height = SHADOW_MAP_HEIGHT
       light.shadow.camera.far = 5000
 
-
       STORAGE.scene.add(light)
       const lightAmb = new THREE.AmbientLight(0xbbbbbb)
       STORAGE.scene.add(lightAmb)

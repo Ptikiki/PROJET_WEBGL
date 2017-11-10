@@ -138,6 +138,48 @@ class SceneShader {
     }
 
     initPetitBiscuitShaders(vertex, fragment) {
+
+      // PICOS
+
+      this.picoGeometry = new THREE.ConeGeometry( 40, 130, 120 )
+      this.picoMaterial = new THREE.MeshPhongMaterial( {color: 0xffffff} )
+      this.picoMaterial.transparent = true
+      this.picoMaterial.opacity = 0.5
+      this.picoCone1 = new THREE.Mesh( this.picoGeometry, this.picoMaterial )
+      this.picoCone2 = new THREE.Mesh( this.picoGeometry, this.picoMaterial )
+      this.picoCone3 = new THREE.Mesh( this.picoGeometry, this.picoMaterial )
+
+      this.picoCone1.position.x = -70
+      this.picoCone2.position.x = 150
+      this.picoCone3.position.x = -200
+      this.picoCone1.position.y = 70
+      this.picoCone2.position.y = 70
+      this.picoCone3.position.y = 70
+      this.picoCone1.position.z = -150
+      this.picoCone2.position.z = -50
+      this.picoCone3.position.z = -50
+      
+      this.picoCone3.reflectivity = 1
+
+
+
+      this.picoLight1 = new THREE.SpotLight(0xff0000, 15, Infinity, 0.2)
+      this.picoLight2 = new THREE.SpotLight(0x0000ff, 15, Infinity, 0.2)
+      this.picoLight3 = new THREE.SpotLight(0x00ffff, 15, Infinity, 0.2)
+
+      console.log(this.picoLight1)
+      this.picoLight1.position.set(150, -150, 100)
+      //this.picoLight2.position.set(100, -150, 100)
+      this.picoLight2.position.set(-50, -150, 100)
+      this.picoLight3.position.set(150, -150, 100)
+      this.picoLight1.target = this.picoCone1
+      this.picoLight2.target = this.picoCone1
+      this.picoLight3.target = this.picoCone2
+
+      console.log(this.picoLight1)
+
+      // SHADER
+
       this.geometry = new THREE.PlaneBufferGeometry( 500, 128 )
 
       this.material = new THREE.ShaderMaterial( {
@@ -154,8 +196,11 @@ class SceneShader {
 
       let group = new THREE.Group()
       group.add(plane)
+      group.add(this.picoCone1, this.picoCone2, this.picoCone3, this.picoLight1, this.picoLight1.target, this.picoLight2, this.picoLight2.target, this.picoLight3, this.picoLight3.target )
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
+
+      console.log(group)
 
       this.shadersTab.push(group)
     }
