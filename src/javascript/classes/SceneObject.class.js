@@ -115,8 +115,6 @@ class SceneObject {
       this.mtlLoader.load('assets/mur_orelsan.mtl', function(matl) {
         matl.preload()
 
-        console.log(matl)
-
         that.objLoader.setMaterials( matl )
 
         let briquesMaterial = matl.materials.Briques
@@ -155,8 +153,6 @@ class SceneObject {
         matl.preload()
         that.objLoader.setMaterials( matl )
 
-        console.log(matl)
-
         let bodyMaterial = matl.materials.orelsan
         let bodyTexture = that.textureLoader.load("assets/test_perso/orelsan/orelsanSurface_Color2.png")
         let bodyNormal = that.textureLoader.load("assets/test_perso/orelsan/orelsanNormal.jpg")
@@ -165,8 +161,6 @@ class SceneObject {
         bodyMaterial.shininess = 5
 
         bodyMaterial.needsUpdate = true
-
-        console.log(bodyMaterial)
 
         that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
           object.position.y = -85

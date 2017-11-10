@@ -31,7 +31,7 @@ class SceneShader {
     }
 
     loadShaders() {
-      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanVertex2.vert', '../javascript/glsl/OrelsanVertex3.vert', '../javascript/glsl/OrelsanVertex4.vert', '../javascript/glsl/OrelsanFragment.frag')
+      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanFragment.frag')
       setTimeout(()=> {
         this.loadMlleKShader('../javascript/glsl/MlleKVertex.vert', '../javascript/glsl/MlleKFragment.frag')
       }, 200)
@@ -40,17 +40,11 @@ class SceneShader {
       }, 400)
     }
 
-    loadOrelsanShader(vertex1_url, vertex2_url, vertex3_url, vertex4_url, fragment_url) {
+    loadOrelsanShader(vertex_url, fragment_url) {
       let that = this
-      this.vertex_loader.load(vertex1_url, function (vertex1_text) {
-        that.vertex_loader.load(vertex2_url, function (vertex2_text) {
-          that.vertex_loader.load(vertex2_url, function (vertex3_text) {
-            that.vertex_loader.load(vertex2_url, function (vertex4_text) {
-              that.fragment_loader.load(fragment_url, function (fragment_text) {
-                that.initOrelsanShaders(vertex1_text, vertex2_text, vertex3_text, vertex4_text, fragment_text)
-              })
-            })
-          })
+      this.vertex_loader.load(vertex_url, function (vertex_text) {
+        that.fragment_loader.load(fragment_url, function (fragment_text) {
+          that.initOrelsanShaders(vertex_text, fragment_text)
         })
       })
     }
@@ -74,38 +68,38 @@ class SceneShader {
     }
 
 
-    initOrelsanShaders(vertex1, vertex2, vertex3, vertex4, fragment) {
+    initOrelsanShaders(vertex, fragment) {
 
-      console.log( vertex1, vertex2, vertex3, vertex4 )
       this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex1,
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }}, this.uniforms),
+        vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material2 = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex2,
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }}, this.uniforms),
+        vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material3 = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex3,
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 250. }}, this.uniforms),
+        vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material4 = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex4,
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 300. }}, this.uniforms),
+        vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
+
 
       let plane1 = new THREE.Mesh( this.geometry, this.material1 )
       let plane2 = new THREE.Mesh( this.geometry, this.material2 )
@@ -121,6 +115,8 @@ class SceneShader {
       plane2.position.z = 160
       plane3.position.z = 190
       plane4.position.z = 220
+
+
 
       let group = new THREE.Group()
       group.add( plane1 )
@@ -215,8 +211,6 @@ class SceneShader {
       group.add(this.picoCone1, this.picoCone2, this.picoCone3, this.picoLight1, this.picoLight1.target, this.picoLight2, this.picoLight2.target, this.picoLight3, this.picoLight3.target )
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
-
-      console.log(group)
 
       this.shadersTab.push(group)
     }

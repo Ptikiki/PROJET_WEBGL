@@ -80,7 +80,7 @@ float cnoise(vec3 P){
 
 
 void main() {
-		scalarMove = 180. * cnoise(0.001 * position + u_time * .15);
+		scalarMove = u_amplitude * cnoise(0.001 * position + u_time * .15);
 
 		newPos = position + normal * scalarMove;
     v_position = newPos;
