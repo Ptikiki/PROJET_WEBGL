@@ -15,10 +15,7 @@ class SceneManager {
         STORAGE.SceneShaderClass.removeShaders()
       }, 800)
     }
-    if (step === 1 && !STORAGE.chordsClass.win) {
-      STORAGE.SceneObjectClass.removeScene()
-      STORAGE.SceneShaderClass.removeShaders()
-
+    if (step === 1 && !STORAGE.chordsClass.boxIsOpen) {
       if (this.actualSceneIndex === 0) {
         STORAGE.SceneObjectClass.displayOrelsan()
         STORAGE.SceneShaderClass.displayOrelsanShader()
@@ -31,7 +28,24 @@ class SceneManager {
         STORAGE.SceneObjectClass.displayPetitBiscuit()
         STORAGE.SceneShaderClass.displayPetitBiscuitShader()
       }
-    }
+    } else if (step === 1 && STORAGE.chordsClass.boxIsOpen) {
+      setTimeout(() => {
+        STORAGE.SceneObjectClass.removeScene()
+        STORAGE.SceneShaderClass.removeShaders()
+        if (this.actualSceneIndex === 0) {
+          STORAGE.SceneObjectClass.displayOrelsan()
+          STORAGE.SceneShaderClass.displayOrelsanShader()
+        }
+        if (this.actualSceneIndex === 1) {
+          STORAGE.SceneObjectClass.displayMlleK()
+          STORAGE.SceneShaderClass.displayMlleKShader()
+        }
+        if (this.actualSceneIndex === 2) {
+          STORAGE.SceneObjectClass.displayPetitBiscuit()
+          STORAGE.SceneShaderClass.displayPetitBiscuitShader()
+        }
+      }, 800)
+    } 
   }
 }
 

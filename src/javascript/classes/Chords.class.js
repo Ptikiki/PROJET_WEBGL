@@ -12,6 +12,7 @@ class Chords {
 
       this.step = 0
       this.currentChord = 0
+      this.boxIsOpen = false
 
       this.nextSongToPlay
 
@@ -41,9 +42,9 @@ class Chords {
           }
         })
 
+        that.openBox()
         that.launchNote(chordsDatas.notes[event.key])
         that.setAmbiance()
-        that.openBox()
         that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
       }
 
@@ -84,11 +85,13 @@ class Chords {
       this.step === 2 ? noteToPlay.volume = 0.25 : ''
       this.step === 3 ? noteToPlay.volume = 0.60 : ''
       noteToPlay.play()
+      this.boxIsOpen = false
     }
 
     launchSound(song) {
       console.log('GAGNE', song)
       this.win = true
+      this.boxIsOpen = true
 
       this.songToPlay = new Audio(song)
       this.songToPlay.play()
