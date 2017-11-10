@@ -68,6 +68,9 @@ class SceneObject {
           object.position.z = 0
           object.name = 'scene'
 
+          object.castShadow = true; //default is false
+          object.receiveShadow = false; //default
+
           that.scenesTab.push(object)
         } )
       } )
@@ -122,6 +125,9 @@ class SceneObject {
           object.rotation.y = Math.PI
           object.name = 'wall'
 
+          object.castShadow = false; //default is false
+          object.receiveShadow = true; //default
+
           that.wallsTab.push(object)
         } )
       } )
@@ -149,6 +155,10 @@ class SceneObject {
         that.objLoader.load( 'assets/test_perso/model_test.obj', function ( object ) {
           object.position.y = -85
           object.name = 'artist'
+          
+          object.castShadow = true; //default is false
+          object.receiveShadow = false; //default
+
           that.artistsTab.push(object)
         } )
       } )
