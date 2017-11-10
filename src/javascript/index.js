@@ -24,7 +24,7 @@ function initCanvas() {
 	new SceneShader()
 	new SceneManager()
 	new Ambiance()
-	new Chords()
+	setTimeout(()=>{new Chords()}, 6000)
  	render()
 }
 

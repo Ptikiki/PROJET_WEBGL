@@ -121,8 +121,7 @@ class SceneShader {
         uniforms: this.uniforms,
         vertexShader: vertex,
         fragmentShader: fragment,
-        side: THREE.DoubleSide,
-        wireframe: true
+        side: THREE.DoubleSide
       } )
 
       let plane = new THREE.Mesh( this.geometry, this.material )
@@ -158,7 +157,7 @@ class SceneShader {
       this.picoCone1.position.z = -150
       this.picoCone2.position.z = -50
       this.picoCone3.position.z = -50
-      
+
       this.picoCone3.reflectivity = 1
 
 
