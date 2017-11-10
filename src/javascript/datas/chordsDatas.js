@@ -1,5 +1,5 @@
 const chords = [
-  [ ['m', 'j', 'c'], [0xfcfcfc, 0xAAFD91, 0x6ECE6E, 0x2C9442], 'assets/songs/orelsan.mp3' ],
+  [ ['m', 'j', 'c'], [0xfcfcfc, 0xAAFD91, 0x6ECE6E, 0x2C9442], 'assets/songs/orelsan.mp3', 'assets/songs/mademoisellek.mp3', 'assets/songs/petitbiscuit.mp3' ],
   [ ['x', 'u', 's'], [0xfcfcfc, 0xFEE66E, 0xFFB246, 0xFC5454], 'assets/songs/mademoisellek.mp3' ],
   [ ['p', 'q', 'h'], [0xfcfcfc, 0x7194FE, 0x656AFA, 0x8A64FD], 'assets/songs/petitbiscuit.mp3' ]
 ]
