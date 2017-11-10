@@ -116,7 +116,7 @@ class SceneObject {
         matl.preload()
 
         console.log(matl)
-        
+
         that.objLoader.setMaterials( matl )
 
         let briquesMaterial = matl.materials.Briques
@@ -151,24 +151,24 @@ class SceneObject {
 
     loadOrelsanArtist() {
       let that = this
-      this.mtlLoader.load('assets/test_perso/model_test.mtl', function(matl) {
+      this.mtlLoader.load('assets/test_perso/orelsan/orelsan_v2_baker.mtl', function(matl) {
         matl.preload()
         that.objLoader.setMaterials( matl )
 
-        let bodyMaterial = matl.materials.Body
-        let bodyOpacity = that.textureLoader.load("assets/test_perso/model_test_Body_Opacity.png")
-        let bodyTexture = that.textureLoader.load("assets/test_perso/model_test_Body_Diffuse.png")
-        let bodyNormal = that.textureLoader.load("assets/test_perso/model_test_Body_Normal.png")
-        let bodySpecular = that.textureLoader.load("assets/test_perso/model_test_Body_Specular.png")
-        let bodyGloss = that.textureLoader.load("assets/test_perso/model_test_Body_Gloss.png")
+        console.log(matl)
 
-        bodyMaterial.map = bodyOpacity
-        bodyMaterial.normalMap = bodyNormal
-        bodyMaterial.map = bodySpecular
-        bodyMaterial.map = bodyGloss
+        let bodyMaterial = matl.materials.orelsan
+        let bodyTexture = that.textureLoader.load("assets/test_perso/orelsan/orelsanSurface_Color2.png")
+        let bodyNormal = that.textureLoader.load("assets/test_perso/orelsan/orelsanNormal.jpg")
+
         bodyMaterial.map = bodyTexture
+        bodyMaterial.shininess = 5
 
-        that.objLoader.load( 'assets/test_perso/model_test.obj', function ( object ) {
+        bodyMaterial.needsUpdate = true
+
+        console.log(bodyMaterial)
+
+        that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
           object.position.y = -85
           object.name = 'artist'
 
