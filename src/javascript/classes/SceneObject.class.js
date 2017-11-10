@@ -63,15 +63,23 @@ class SceneObject {
         poisMaterial.normalMap = poisNormal
 
         that.objLoader.load( 'assets/scene_orelsan.obj', function ( object ) {
+
           object.position.x = 0
           object.position.y = specifications[0].sceneDownPosY
           object.position.z = 0
           object.name = 'scene'
 
-          object.castShadow = true; //default is false
-          object.receiveShadow = false; //default
+          object.castShadow = false //default is false
+          object.receiveShadow = true //default
 
           that.scenesTab.push(object)
+
+          object.traverse(function(o) {
+            if (o.type === 'Mesh') {
+              o.receiveShadow = true
+              o.castShadow = true
+            }
+          })
         } )
       } )
     }
@@ -106,6 +114,9 @@ class SceneObject {
       let that = this
       this.mtlLoader.load('assets/mur_orelsan.mtl', function(matl) {
         matl.preload()
+
+        console.log(matl)
+        
         that.objLoader.setMaterials( matl )
 
         let briquesMaterial = matl.materials.Briques
@@ -121,12 +132,17 @@ class SceneObject {
         that.objLoader.load( 'assets/mur_orelsan.obj', function ( object ) {
           object.position.x = 205
           object.position.y = 80
-          object.position.z = -290
+          object.position.z = -280
           object.rotation.y = Math.PI
           object.name = 'wall'
 
-          object.castShadow = false; //default is false
-          object.receiveShadow = true; //default
+          object.traverse(function(o) {
+            if (o.type === 'Mesh') {
+              o.receiveShadow = true
+              o.castShadow = true
+              console.log(o)
+            }
+          })
 
           that.wallsTab.push(object)
         } )
@@ -155,9 +171,12 @@ class SceneObject {
         that.objLoader.load( 'assets/test_perso/model_test.obj', function ( object ) {
           object.position.y = -85
           object.name = 'artist'
-          
-          object.castShadow = true; //default is false
-          object.receiveShadow = false; //default
+
+          object.traverse(function(o) {
+            if (o.type === 'Mesh') {
+              o.castShadow = true
+            }
+          })
 
           that.artistsTab.push(object)
         } )

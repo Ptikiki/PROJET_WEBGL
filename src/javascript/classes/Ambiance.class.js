@@ -1,13 +1,25 @@
 class Ambiance {
     constructor(options) {
       STORAGE.AmbianceClass = this
+
       this.createLight()
       this.createBackground()
     }
 
     createLight() {
-      const light = new THREE.PointLight(0xffffff, 0.2, Infinity)
-      light.position.set(-200, 900, 100)
+      //const light = new THREE.PointLight(0xffffff, 0.2, Infinity, 0.5)
+      const light = new THREE.SpotLight(0xffffff)//, 0.3, Infinity, 0.2)
+
+      light.position.set(200, 500, 100)
+      light.rotation.set(0, Math.PI, Math.PI)
+
+      let SHADOW_MAP_WIDTH = 1024, SHADOW_MAP_HEIGHT = 1024
+
+      light.castShadow = true
+      light.shadow.mapSize.width = SHADOW_MAP_WIDTH
+      light.shadow.mapSize.height = SHADOW_MAP_HEIGHT
+      light.shadow.camera.far = 5000
+
       STORAGE.scene.add(light)
       const lightAmb = new THREE.AmbientLight(0xbbbbbb)
       STORAGE.scene.add(lightAmb)
