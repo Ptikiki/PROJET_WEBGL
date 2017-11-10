@@ -6,6 +6,8 @@ class Renderer {
       this.renderer.setPixelRatio(window.devicePixelRatio)
       this.renderer.setSize( window.innerWidth, window.innerHeight )
       this.renderer.setClearColor( 0xfcfcfc, 1)
+      // this.renderer.shadowMap.enabled = true;
+      // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 

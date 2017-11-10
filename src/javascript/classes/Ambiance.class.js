@@ -24,7 +24,6 @@ class Ambiance {
     updateAmbiance(step, chordsDatas, currentChord) {
       let targetColor
       step === 0 ? targetColor = new THREE.Color(0xfcfcfc) : ''
-      // step === 0 ? targetColor = new THREE.Color(0x222222) : ''
       step === 1 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][1]) : ''
       step === 2 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][2]) : ''
       step === 3 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][3]) : ''

@@ -8,12 +8,13 @@ class Chords {
 
       this.keyDownListener = this.handleKeydown.bind(event, this)
       this.keyUpListener = this.handleKeyup.bind(event, this)
-      this.nextSongListener = this.nextSong.bind(event, this)
+      this.nextSongListener = this.launchNextSong.bind(event, this)
 
       this.step = 0
       this.currentChord = 0
       this.boxIsOpen = false
 
+      this.songToPlay
       this.nextSongToPlay
 
       this.enableGame()
@@ -26,14 +27,29 @@ class Chords {
       that.currentChord = 0
       this.win = false
       that.step = 0
-      that.setAmbiance()
       window.addEventListener('keydown', that.keyDownListener)
       window.addEventListener('keyup', that.keyUpListener)
     }
 
     handleKeydown(that, event) {
+      if (event.keyCode === 32) {
+        return
+      }
       if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3) {
         that.keysPressedTab.push(event.key)
+
+        if ( that.songToPlay) {
+          TweenLite.to(that.songToPlay, 0.8, {
+            volume: 0,
+            onComplete: () => { that.songToPlay = null }
+          })
+        }
+        if (that.nextSongToPlay) {
+          TweenLite.to(that.nextSongToPlay, 0.8, {
+            volume: 0,
+            onComplete: () => { that.nextSongToPlay = null }
+          })
+        }
 
         chordsDatas.chords.forEach((chord, index) => {
           if (chord[0].indexOf(that.keysPressedTab[0]) !== -1) {
@@ -47,12 +63,12 @@ class Chords {
         that.setAmbiance()
         that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
       }
-
-      
-
     }
 
     handleKeyup(that, event) {
+      if (event.keyCode === 32) {
+        return
+      }
       console.log('PERDU')
       window.removeEventListener('keydown', that.keyDownListener)
       window.removeEventListener('keyup', that.keyUpListener)
@@ -60,8 +76,6 @@ class Chords {
       !that.win ? that.step = 0 : ''
       !that.win ? that.setAmbiance() : ''
       !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
-      that.win ? that.nextSongIndex = 1 : ''
-      that.win ? window.addEventListener('keydown', that.nextSongListener) : ''
     }
 
     checkChords() {
@@ -78,7 +92,6 @@ class Chords {
     }
 
     launchNote(note) {
-      console.log(this.step, 'STEP')
       let noteToPlay = new Audio(note)
       this.step === 0 ? noteToPlay.volume = 0.05 : ''
       this.step === 1 ? noteToPlay.volume = 0.10 : ''
@@ -96,23 +109,25 @@ class Chords {
       this.songToPlay = new Audio(song)
       this.songToPlay.play()
 
+      this.nextSongIndex = 1
+      window.addEventListener('keydown', this.nextSongListener)
+
       window.removeEventListener('keyup', this.keyDownListener)
       setTimeout( () => { this.enableGame() }, 4000)
     }
 
-    nextSong(that, event) {
-
-      if ( event.keyCode === 32 ) {
-
+    launchNextSong(that, event) {
+      if (event.keyCode === 32 && that.boxIsOpen) {
         that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
+        let indexSongToPlay = Math.round(Math.random() * (chordsDatas.songs[that.currentChord].length -1) )
+        let song = chordsDatas.songs[that.currentChord][indexSongToPlay]
 
-        let song = chordsDatas.chords[that.currentChord][2+that.nextSongIndex]
         that.nextSongToPlay = new Audio(song)
         that.songToPlay.pause()
         that.nextSongToPlay.play()
         that.nextSongIndex ++
         window.removeEventListener('keydown', that.nextSongListener)
-        setTimeout( () => { window.addEventListener('keydown', that.nextSongListener) }, 4000)
+        setTimeout( () => { window.addEventListener('keydown', that.nextSongListener) }, 500)
       }
     }
 
