@@ -8,9 +8,12 @@ class Chords {
 
       this.keyDownListener = this.handleKeydown.bind(event, this)
       this.keyUpListener = this.handleKeyup.bind(event, this)
+      this.nextSongListener = this.nextSong.bind(event, this)
 
       this.step = 0
       this.currentChord = 0
+
+      this.nextSongToPlay
 
       this.enableGame()
     }
@@ -43,6 +46,9 @@ class Chords {
         that.openBox()
         that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
       }
+
+      
+
     }
 
     handleKeyup(that, event) {
@@ -53,6 +59,8 @@ class Chords {
       !that.win ? that.step = 0 : ''
       !that.win ? that.setAmbiance() : ''
       !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
+      that.win ? that.nextSongIndex = 1 : ''
+      that.win ? window.addEventListener('keydown', that.nextSongListener) : ''
     }
 
     checkChords() {
@@ -82,12 +90,27 @@ class Chords {
       console.log('GAGNE', song)
       this.win = true
 
-      let songToPlay = new Audio(song)
-      songToPlay.play()
+      this.songToPlay = new Audio(song)
+      this.songToPlay.play()
 
-      window.removeEventListener('keydown', this.keyDownListener)
       window.removeEventListener('keyup', this.keyDownListener)
       setTimeout( () => { this.enableGame() }, 4000)
+    }
+
+    nextSong(that, event) {
+
+      if ( event.keyCode === 32 ) {
+
+        that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
+
+        let song = chordsDatas.chords[that.currentChord][2+that.nextSongIndex]
+        that.nextSongToPlay = new Audio(song)
+        that.songToPlay.pause()
+        that.nextSongToPlay.play()
+        that.nextSongIndex ++
+        window.removeEventListener('keydown', that.nextSongListener)
+        setTimeout( () => { window.addEventListener('keydown', that.nextSongListener) }, 4000)
+      }
     }
 
     setAmbiance() {
