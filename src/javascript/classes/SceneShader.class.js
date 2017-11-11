@@ -2,6 +2,7 @@ const MTLLoader = require('three-mtl-loader')
 
 import specifications from '../datas/sceneSpecifications.js'
 
+
 class SceneShader {
 
     constructor(options) {
@@ -69,6 +70,12 @@ class SceneShader {
 
 
     initOrelsanShaders(vertex, fragment) {
+
+      // SON
+      
+
+     
+
 
       this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
 
@@ -237,6 +244,15 @@ class SceneShader {
     }
 
     animate() {
+
+      if (STORAGE.chordsClass) {
+        STORAGE.chordsClass.analyser.getByteFrequencyData(STORAGE.chordsClass.frequencyData)
+        this.frequence = STORAGE.chordsClass.frequencyData[0]
+
+        console.log("FREQUENCE", this.frequence)
+      }
+      
+
       if( this.uniforms ) {
         this.uniforms.u_time.value += 0.05
       }

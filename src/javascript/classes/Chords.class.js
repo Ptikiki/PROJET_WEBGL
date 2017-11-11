@@ -6,6 +6,12 @@ class Chords {
     constructor(options) {
       STORAGE.chordsClass = this
 
+      this.audioCtx = new AudioContext()
+      this.audioBuffer
+      this.audioSource
+      STORAGE.chordsClass.analyser = this.audioCtx.createAnalyser()
+      STORAGE.chordsClass.frequencyData = new Uint8Array(STORAGE.chordsClass.analyser.frequencyBinCount)
+
       this.keyDownListener = this.handleKeydown.bind(event, this)
       this.keyUpListener = this.handleKeyup.bind(event, this)
       this.nextSongListener = this.launchNextSong.bind(event, this)
@@ -61,7 +67,7 @@ class Chords {
         that.openBox()
         that.launchNote(chordsDatas.notes[event.key])
         that.setAmbiance()
-        that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
+        that.step === 3 ? that.loadSound(chordsDatas.chords[that.currentChord][2]) : ''
       }
     }
 
@@ -101,13 +107,34 @@ class Chords {
       this.boxIsOpen = false
     }
 
+    loadSound(song) {
+      let that = this
+
+      this.request = new XMLHttpRequest()
+      this.request.open('GET', song, true)
+      this.request.responseType = 'arraybuffer'
+      this.request.onload = function() {
+        that.audioCtx.decodeAudioData(that.request.response, function(buffer) {
+          that.audioBuffer = buffer
+          that.audioSource = that.audioCtx.createBufferSource()
+          that.audioSource.buffer = that.audioBuffer
+          that.audioSource.connect( STORAGE.chordsClass.analyser )
+          STORAGE.chordsClass.analyser.connect( that.audioCtx.destination )
+          that.launchSound(that.audioSource)
+        })
+      }
+      this.request.send()
+    }
+
     launchSound(song) {
       console.log('GAGNE', song)
       this.win = true
       this.boxIsOpen = true
 
-      this.songToPlay = new Audio(song)
-      this.songToPlay.play()
+      //this.songToPlay = new Audio(song)
+      //this.songToPlay.play()
+
+      song.start()
 
       this.nextSongIndex = 1
       window.addEventListener('keydown', this.nextSongListener)
