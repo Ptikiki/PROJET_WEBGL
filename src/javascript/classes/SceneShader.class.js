@@ -15,8 +15,17 @@ class SceneShader {
 
       this.myShaders = []
       this.uniforms
+      this.frequence = 0.15
 
       this.shadersTab = []
+
+      this.fps = 30
+      this.fpsInterval = 1000 / this.fps
+      this.then = Date.now()
+      this.startTime = this.then
+      //console.log(startTime);
+
+
 
       this.init()
     }
@@ -24,6 +33,7 @@ class SceneShader {
     init() {
       this.uniforms = {
         u_time: { type: "f", value: 1.0 },
+        u_amplitude: { type: "f", value: 100. },
         u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
@@ -71,65 +81,57 @@ class SceneShader {
 
     initOrelsanShaders(vertex, fragment) {
 
-      // SON
-      
-
-     
-
-
-      this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
+      this.geometry = new THREE.PlaneBufferGeometry( 500, 4, 10, 10 )
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.frequence }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.frequence }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 250. }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.frequence }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material4 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 300. }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.frequence }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
 
-      let plane1 = new THREE.Mesh( this.geometry, this.material1 )
-      let plane2 = new THREE.Mesh( this.geometry, this.material2 )
-      let plane3 = new THREE.Mesh( this.geometry, this.material3 )
-      let plane4 = new THREE.Mesh( this.geometry, this.material4 )
+      this.plane1 = new THREE.Mesh( this.geometry, this.material1 )
+      this.plane2 = new THREE.Mesh( this.geometry, this.material2 )
+      this.plane3 = new THREE.Mesh( this.geometry, this.material3 )
+      this.plane4 = new THREE.Mesh( this.geometry, this.material4 )
 
-      plane1.rotation.x = Math.PI/2
-      plane2.rotation.x = Math.PI/2
-      plane3.rotation.x = Math.PI/2
-      plane4.rotation.x = Math.PI/2
+      this.plane1.rotation.x = Math.PI/2
+      this.plane2.rotation.x = Math.PI/2
+      this.plane3.rotation.x = Math.PI/2
+      this.plane4.rotation.x = Math.PI/2
 
-      plane1.position.z = 130
-      plane2.position.z = 160
-      plane3.position.z = 190
-      plane4.position.z = 220
-
-
+      this.plane1.position.z = 130
+      this.plane2.position.z = 160
+      this.plane3.position.z = 190
+      this.plane4.position.z = 220
 
       let group = new THREE.Group()
-      group.add( plane1 )
-      group.add( plane2 )
-      group.add( plane3 )
-      group.add( plane4 )
+      group.add( this.plane1 )
+      group.add( this.plane2 )
+      group.add( this.plane3 )
+      group.add( this.plane4 )
 
       group.position.y = specifications[0].shaderDownPosY
       group.name = 'shaders'
@@ -245,14 +247,31 @@ class SceneShader {
 
     animate() {
 
-      if (STORAGE.chordsClass) {
-        STORAGE.chordsClass.analyser.getByteFrequencyData(STORAGE.chordsClass.frequencyData)
-        this.frequence = STORAGE.chordsClass.frequencyData[0]
+      this.now = Date.now()
+      this.elapsed = this.now - this.then
 
-        console.log("FREQUENCE", this.frequence)
+      if (this.elapsed > this.fpsInterval) {
+
+        this.then = this.now - (this.elapsed % this.fpsInterval)
+
+        if (STORAGE.chordsClass) {
+          STORAGE.chordsClass.analyser.getByteFrequencyData(STORAGE.chordsClass.frequencyData)
+
+          if (STORAGE.chordsClass.frequencyData.length > 10) {
+            this.frequencyIdx = Math.floor(1024 * 0.25)
+            this.frequence = STORAGE.chordsClass.frequencyData[this.frequencyIdx]
+
+            //this.frequence = STORAGE.chordsClass.frequencyData[0]
+
+            //console.log("FREQUENCE", this.plane1.material.uniforms.u_frequency.value)
+            this.plane1.material.uniforms.u_frequency.value = this.frequence/20000
+            this.plane2.material.uniforms.u_frequency.value = this.frequence/40000
+            this.plane3.material.uniforms.u_frequency.value = this.frequence/10000
+            this.plane4.material.uniforms.u_frequency.value = this.frequence/30000
+          } 
+        }
       }
       
-
       if( this.uniforms ) {
         this.uniforms.u_time.value += 0.05
       }
