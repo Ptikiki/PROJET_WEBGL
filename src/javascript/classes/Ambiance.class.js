@@ -8,7 +8,7 @@ class Ambiance {
 
     createLight() {
       //const light = new THREE.PointLight(0xffffff, 0.2, Infinity, 0.5)
-      const light = new THREE.SpotLight(0xffffff)//, 0.3, Infinity, 0.2)
+      const light = new THREE.PointLight(0xffffff, 0.3)//, 0.3, Infinity, 0.2)
 
       light.position.set(200, 500, 100)
       light.rotation.set(0, Math.PI, Math.PI)
