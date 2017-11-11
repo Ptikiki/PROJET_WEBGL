@@ -12,7 +12,6 @@ import Box from './classes/Box.class.js'
 import SceneManager from './classes/SceneManager.class.js'
 import SceneObject from './classes/SceneObject.class.js'
 import SceneShader from './classes/SceneShader.class.js'
-import Chords from './classes/Chords.class.js'
 
 window.STORAGE = {}
 initCanvas()
@@ -24,7 +23,9 @@ function initCanvas() {
 	new SceneShader()
 	new SceneManager()
 	new Ambiance()
-	setTimeout(()=>{new Chords()}, 6000)
+
+	// new Chords is now in SceneObject class after all assets loaded
+
  	render()
 }
 
