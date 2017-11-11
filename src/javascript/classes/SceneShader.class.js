@@ -31,7 +31,7 @@ class SceneShader {
     }
 
     loadShaders() {
-      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanVertex2.vert', '../javascript/glsl/OrelsanFragment.frag')
+      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanFragment.frag')
       setTimeout(()=> {
         this.loadMlleKShader('../javascript/glsl/MlleKVertex.vert', '../javascript/glsl/MlleKFragment.frag')
       }, 200)
@@ -40,13 +40,11 @@ class SceneShader {
       }, 400)
     }
 
-    loadOrelsanShader(vertex1_url, vertex2_url, fragment_url) {
+    loadOrelsanShader(vertex_url, fragment_url) {
       let that = this
-      this.vertex_loader.load(vertex1_url, function (vertex1_text) {
-        that.vertex_loader.load(vertex2_url, function (vertex2_text) {
-          that.fragment_loader.load(fragment_url, function (fragment_text) {
-            that.initOrelsanShaders(vertex1_text, vertex2_text, fragment_text)
-          })
+      this.vertex_loader.load(vertex_url, function (vertex_text) {
+        that.fragment_loader.load(fragment_url, function (fragment_text) {
+          that.initOrelsanShaders(vertex_text, fragment_text)
         })
       })
     }
@@ -70,43 +68,61 @@ class SceneShader {
     }
 
 
-    initOrelsanShaders(vertex1, vertex2, fragment) {
+    initOrelsanShaders(vertex, fragment) {
+
       this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex1,
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }}, this.uniforms),
+        vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material2 = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex2,
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }}, this.uniforms),
+        vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
+      this.material3 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 250. }}, this.uniforms),
+        vertexShader: vertex,
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
+      } )
+
+      this.material4 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 300. }}, this.uniforms),
+        vertexShader: vertex,
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
+      } )
+
+
       let plane1 = new THREE.Mesh( this.geometry, this.material1 )
-      let plane2 = new THREE.Mesh( this.geometry, this.material1 )
-      let plane3 = new THREE.Mesh( this.geometry, this.material2 )
-      let plane4 = new THREE.Mesh( this.geometry, this.material2 )
+      let plane2 = new THREE.Mesh( this.geometry, this.material2 )
+      let plane3 = new THREE.Mesh( this.geometry, this.material3 )
+      let plane4 = new THREE.Mesh( this.geometry, this.material4 )
 
       plane1.rotation.x = Math.PI/2
       plane2.rotation.x = Math.PI/2
-      plane1.position.z = 105
-      plane2.position.z = 125
-
       plane3.rotation.x = Math.PI/2
       plane4.rotation.x = Math.PI/2
-      plane3.position.z = 225
-      plane4.position.z = 245
 
-      let group = new THREE.Group();
-      group.add( plane1 );
-      group.add( plane2 );
-      group.add( plane3 );
-      group.add( plane4 );
+      plane1.position.z = 130
+      plane2.position.z = 160
+      plane3.position.z = 190
+      plane4.position.z = 220
+
+
+
+      let group = new THREE.Group()
+      group.add( plane1 )
+      group.add( plane2 )
+      group.add( plane3 )
+      group.add( plane4 )
 
       group.position.y = specifications[0].shaderDownPosY
       group.name = 'shaders'
@@ -128,8 +144,8 @@ class SceneShader {
       plane.rotation.x = Math.PI/2
       plane.position.z = 185
 
-      let group = new THREE.Group();
-      group.add( plane );
+      let group = new THREE.Group()
+      group.add( plane )
       group.name = 'shaders'
       group.position.y = specifications[1].shaderDownPosY
 
@@ -160,13 +176,10 @@ class SceneShader {
 
       this.picoCone3.reflectivity = 1
 
-
-
       this.picoLight1 = new THREE.SpotLight(0xff0000, 15, Infinity, 0.2)
       this.picoLight2 = new THREE.SpotLight(0x0000ff, 15, Infinity, 0.2)
       this.picoLight3 = new THREE.SpotLight(0x00ffff, 15, Infinity, 0.2)
 
-      console.log(this.picoLight1)
       this.picoLight1.position.set(150, -150, 100)
       //this.picoLight2.position.set(100, -150, 100)
       this.picoLight2.position.set(-50, -150, 100)
@@ -175,7 +188,6 @@ class SceneShader {
       this.picoLight2.target = this.picoCone1
       this.picoLight3.target = this.picoCone2
 
-      console.log(this.picoLight1)
 
       // SHADER
 
@@ -198,8 +210,6 @@ class SceneShader {
       group.add(this.picoCone1, this.picoCone2, this.picoCone3, this.picoLight1, this.picoLight1.target, this.picoLight2, this.picoLight2.target, this.picoLight3, this.picoLight3.target )
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
-
-      console.log(group)
 
       this.shadersTab.push(group)
     }
