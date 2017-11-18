@@ -20,9 +20,15 @@ const notes = {
 }
 
 const songs = [
-  ['assets/songs/orelsan.mp3', 'assets/songs/mademoisellek.mp3', 'assets/songs/petitbiscuit.mp3' ],
-  ['assets/songs/orelsan.mp3', 'assets/songs/mademoisellek.mp3', 'assets/songs/petitbiscuit.mp3' ],
-  ['assets/songs/orelsan.mp3', 'assets/songs/mademoisellek.mp3', 'assets/songs/petitbiscuit.mp3' ]
+  ['assets/songs/orelsan.mp3'],
+  ['assets/songs/mademoisellek.mp3'],
+  ['assets/songs/petitbiscuit.mp3']
 ]
 
-export default { chords, notes, songs }
+const songsName = [
+  ['Grands Parents'],
+  ['Sous les brûlures'],
+  ['Waterfall']
+]
+
+export default { chords, notes, songs, songsName }

@@ -16,6 +16,7 @@ class Chords {
 
       this.songToPlay
       this.nextSongToPlay
+      this.songNameText = document.querySelector('.songsName p')
 
       this.enableGame()
     }
@@ -24,7 +25,6 @@ class Chords {
       console.log('GAME ENABLE')
       let that = this
       that.keysPressedTab = []
-      that.currentChord = 0
       this.win = false
       that.step = 0
       window.addEventListener('keydown', that.keyDownListener)
@@ -108,6 +108,7 @@ class Chords {
 
       this.songToPlay = new Audio(song)
       this.songToPlay.play()
+      this.setSongName(chordsDatas.songsName[this.currentChord][0])
 
       this.nextSongIndex = 1
       window.addEventListener('keydown', this.nextSongListener)
@@ -119,8 +120,10 @@ class Chords {
     launchNextSong(that, event) {
       if (event.keyCode === 32 && that.boxIsOpen) {
         that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
+
         let indexSongToPlay = Math.round(Math.random() * (chordsDatas.songs[that.currentChord].length -1) )
         let song = chordsDatas.songs[that.currentChord][indexSongToPlay]
+        that.setSongName(chordsDatas.songsName[that.currentChord][indexSongToPlay])
 
         that.nextSongToPlay = new Audio(song)
         that.songToPlay.pause()
@@ -140,6 +143,18 @@ class Chords {
       STORAGE.SceneManager.setSceneIndex(this.currentChord)
       STORAGE.SceneManager.displayScene(step)
       STORAGE.BoxClass.openBox(step)
+    }
+
+    setSongName(songName) {
+      TweenLite.to(this.songNameText, 0.3, {
+        opacity: 0,
+        onComplete: () => {
+          this.songNameText.innerText = songName
+          TweenLite.to(this.songNameText, 0.3, {
+            opacity: 1
+          })
+        }
+      })
     }
 
 }
