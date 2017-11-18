@@ -264,10 +264,10 @@ class SceneShader {
             //this.frequence = STORAGE.chordsClass.frequencyData[0]
 
             //console.log("FREQUENCE", this.plane1.material.uniforms.u_frequency.value)
-            this.plane1.material.uniforms.u_frequency.value = this.frequence/20000
-            this.plane2.material.uniforms.u_frequency.value = this.frequence/40000
-            this.plane3.material.uniforms.u_frequency.value = this.frequence/10000
-            this.plane4.material.uniforms.u_frequency.value = this.frequence/30000
+            this.plane1.material.uniforms.u_frequency.value = this.frequence/100
+            this.plane2.material.uniforms.u_frequency.value = this.frequence/400
+            this.plane3.material.uniforms.u_frequency.value = this.frequence/200
+            this.plane4.material.uniforms.u_frequency.value = this.frequence/300
           } 
         }
       }
