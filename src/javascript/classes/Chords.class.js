@@ -75,6 +75,7 @@ class Chords {
       !that.win ? that.openBox(true) : ''
       !that.win ? that.step = 0 : ''
       !that.win ? that.setAmbiance() : ''
+      !that.win ? that.setSongName() : ''
       !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
     }
 
@@ -139,6 +140,7 @@ class Chords {
     }
 
     openBox(close) {
+      console.log(this.step)
       let step = close ? 0 : this.step
       STORAGE.SceneManager.setSceneIndex(this.currentChord)
       STORAGE.SceneManager.displayScene(step)
@@ -146,15 +148,21 @@ class Chords {
     }
 
     setSongName(songName) {
-      TweenLite.to(this.songNameText, 0.3, {
-        opacity: 0,
-        onComplete: () => {
-          this.songNameText.innerText = songName
-          TweenLite.to(this.songNameText, 0.3, {
-            opacity: 1
-          })
-        }
-      })
+      if (songName) {
+        TweenLite.to(this.songNameText, 0.3, {
+          opacity: 0,
+          onComplete: () => {
+            this.songNameText.innerText = songName
+            TweenLite.to(this.songNameText, 0.3, {
+              opacity: 1
+            })
+          }
+        })
+      } else {
+        TweenLite.to(this.songNameText, 0.3, {
+          opacity: 0
+        })
+      }
     }
 
 }
