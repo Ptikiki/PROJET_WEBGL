@@ -7,7 +7,7 @@ class SpotifyAPIService {
 
   constructor(options) {
     STORAGE.SpotifyAPIServiceClass = this
-    this.token = 'BQDWeWtKG0ZgiVFofdNvvtPbB_mcndV5cXffxIPoNj3c5VHUdS0fKUK0qXmLjjzKwp5ujyrwKyDjnLUvdP6ojyAL0zRiYuRlVGMR-ST_Pjx9l7Ogzz8qaFcHYlZSPbRvcoztNTbci8HoXjpgV2Vei1UEaDyMpBukJMn7BCY9YL_kIeQ0Y9Fs-4_05mrBOg8Ga-mL6nbHCzVh72VAvwNjtnZAdPL90lmUmzDhteZhajnEF1v4lSHMkO1br1c9whCogbYh-lvAmiaRdYjYGtwc3LAa9Xc'
+    this.token = 'BQAg8Scn9KCmwUAzImoW6zWvdeDWvkg0t0LvPAaCEIdYy-sDgQJISlTHrn2jeejYWTPcftKboNGsKwmTNYgtsDudhzzVxmybSKFVzp39T3kAmfO1PSe0c9ugxmyPR0gS5yVQGL3C7zgHW0U5oOqOkvS7-boeZX7l93MZypjhX1XQ5ARz-wIMlTIpKhQJ8BRfhXi5Fn5BlIYigJ1DAqa8g3_kO6dLDE_ioEv4qCFpVwC26gky0v0onisPzgnQCVycWAxsnQbKFqkwViMRvHlJvPwVOaM'
     this.initAPI()
   }
 
