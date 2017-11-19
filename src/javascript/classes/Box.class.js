@@ -58,11 +58,11 @@ class Box {
             child.material.shininess = 5
           }
         })
-
+        STORAGE.box = object
         STORAGE.scene.add( object )
       } )
 
-      that.objLoader.load( 'assets/NEW/Orelsan/orelsan_couvercle.obj', function ( object ) {
+      that.objLoader.load( 'assets/NEW/box/box_couvercle.obj', function ( object ) {
         object.position.x = 205
         object.position.z = -285
         object.position.y = 165
@@ -83,6 +83,7 @@ class Box {
           }
         })
 
+        STORAGE.boxCouvercle = object
         that.object = object
         STORAGE.scene.add( object )
       })

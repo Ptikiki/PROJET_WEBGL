@@ -1,7 +1,7 @@
 const chords = [
-  [ ['m', 'j', 'c'], [0xfcfcfc, 0xe1f4e7, 0xc3f7d4, 0x9bffbb], 'assets/songs/orelsan.mp3' ],
-  [ ['x', 'u', 's'], [0xfcfcfc, 0xf9c9c7, 0xf78e8a, 0x31030d], 'assets/songs/mademoisellek.mp3' ],
-  [ ['p', 'q', 'h'], [0xfcfcfc, 0x7194FE, 0x656AFA, 0x8A64FD], 'assets/songs/petitbiscuit.mp3' ]
+  [ ['m', 'j', 'c'], [0x303848, 0x1d242e, 0x383d42, 0x464c51], 'assets/songs/orelsan.mp3' ],
+  [ ['x', 'u', 's'], [0x303848, 0xf9c9c7, 0xf78e8a, 0x31030d], 'assets/songs/mademoisellek.mp3' ],
+  [ ['p', 'q', 'h'], [0x303848, 0x7194FE, 0x656AFA, 0x8A64FD], 'assets/songs/petitbiscuit.mp3' ]
 ]
 const notes = {
   'm' : 'assets/notes/e5o.wav',
