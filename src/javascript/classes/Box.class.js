@@ -37,34 +37,55 @@ class Box {
     createBox() {
       let that = this
 
+      // 303848
+
       this.mtlLoader = new MTLLoader()
       this.objLoader = new THREE.OBJLoader()
 
-      this.mtlLoader.load('assets/base_boite.mtl', function(matl) {
-        matl.preload()
-        that.objLoader.setMaterials( matl )
+      that.objLoader.load( 'assets/NEW/box/closed-box_base.obj', function ( object ) {
+        object.rotation.y = Math.PI
+        object.name = 'base_boite'
 
-        that.objLoader.load( 'assets/base_boite.obj', function ( object ) {
-          object.rotation.y = Math.PI
-          STORAGE.scene.add( object )
-          object.name = 'base_boite'
-        } )
+        let material = new THREE.MeshPhongMaterial({
+          color : 0x303848,
+          side: THREE.DoubleSide
+        })
+        object.traverse( function ( child ) {
+          if ( child instanceof THREE.Mesh ) {
+            child.material = material;
+            child.receiveShadow = true
+            child.castShadow = true
+            child.material.shininess = 5
+          }
+        })
+
+        STORAGE.scene.add( object )
       } )
 
-      this.mtlLoader.load('assets/couvercle_boite.mtl', function(matl) {
-        matl.preload()
-        that.objLoader.setMaterials( matl )
+      that.objLoader.load( 'assets/NEW/Orelsan/orelsan_couvercle.obj', function ( object ) {
+        object.position.x = 205
+        object.position.z = -285
+        object.position.y = 165
+        object.rotation.y = Math.PI
+        object.name = 'couvercle_boite'
 
-        that.objLoader.load( 'assets/couvercle_boite.obj', function ( object ) {
-          object.position.x = 205
-          object.position.z = -285
-          object.position.y = 75
-          object.rotation.y = Math.PI
-          STORAGE.scene.add( object )
-          object.name = 'couvercle_boite'
-          that.object = object
-        } )
-      } )
+        let material = new THREE.MeshPhongMaterial({
+          color : 0x303848,
+          side: THREE.DoubleSide
+        })
+
+        object.traverse( function ( child ) {
+          if ( child instanceof THREE.Mesh ) {
+            child.material = material;
+            child.receiveShadow = true
+            child.castShadow = true
+            child.material.shininess = 5
+          }
+        })
+
+        that.object = object
+        STORAGE.scene.add( object )
+      })
     }
 
     bind() {
