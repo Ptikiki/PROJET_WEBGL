@@ -7,7 +7,7 @@ class SpotifyAPIService {
 
   constructor(options) {
     STORAGE.SpotifyAPIServiceClass = this
-    this.token = 'BQAg8Scn9KCmwUAzImoW6zWvdeDWvkg0t0LvPAaCEIdYy-sDgQJISlTHrn2jeejYWTPcftKboNGsKwmTNYgtsDudhzzVxmybSKFVzp39T3kAmfO1PSe0c9ugxmyPR0gS5yVQGL3C7zgHW0U5oOqOkvS7-boeZX7l93MZypjhX1XQ5ARz-wIMlTIpKhQJ8BRfhXi5Fn5BlIYigJ1DAqa8g3_kO6dLDE_ioEv4qCFpVwC26gky0v0onisPzgnQCVycWAxsnQbKFqkwViMRvHlJvPwVOaM'
+    this.token = 'BQCXrVIA980_I_efNIkztblkyMnLWeAZq79SNnewv9hHxLS2cmuQ66FSr_RDXOSYylADHfCe_NbHwtjcdzNHe13DfueJbENFBGYXNlBeVuVTwfXHxBT9sAqhgednaAQTlWMbjX'
     this.initAPI()
   }
 
@@ -16,7 +16,7 @@ class SpotifyAPIService {
     console.log(this.spotify)
     this.spotify.setAccessToken(this.token);
     this.spotify.setPromiseImplementation(Q);
-    this.getTopTracks()
+    // this.getTopTracks()
   }
 
   getTopTracks() {
