@@ -110,19 +110,19 @@ class SceneObject {
     loadOrelsanWall() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/NEW/Orelsan/flipped/orelsan_mur.mtl', function(matl) {
+        this.mtlLoader.load('assets/NEW/Orelsan/flipped2/orelsan_mur.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
           let briquesMaterial = matl.materials['Briques rectangles']
-          let briquesTexture = that.textureLoader.load("assets/NEW/Orelsan/flipped/textures/color_brick.png", () => {
+          let briquesTexture = that.textureLoader.load("assets/NEW/Orelsan/flipped2/textures/color_brick.png", () => {
             briquesTexture.wrapS = THREE.RepeatWrapping
             briquesTexture.wrapT = THREE.RepeatWrapping
             briquesTexture.repeat.set(5, 5)
             briquesMaterial.map = briquesTexture
             briquesMaterial.shininess = 5
 
-            that.objLoader.load( 'assets/NEW/Orelsan/flipped/orelsan_mur.obj', function ( object ) {
+            that.objLoader.load( 'assets/NEW/Orelsan/flipped2/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
               object.position.y = 165
               object.position.z = -280
