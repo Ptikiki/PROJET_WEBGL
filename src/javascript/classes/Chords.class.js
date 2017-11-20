@@ -20,7 +20,14 @@ class Chords {
       this.songNameText = document.querySelector('.songsName .song')
       this.lettersText = document.querySelector('.letters p')
 
+      this.previewStarted = false
+
+      this.bind()
       this.enableGame()
+    }
+
+    bind() {
+      window.setInterval(this.checkPreviewState.bind(event, this), 1000)
     }
 
     enableGame() {
@@ -129,7 +136,8 @@ class Chords {
     }
 
     launchNextSong(that, event) {
-      if (event.keyCode === 32 && that.boxIsOpen) {
+      console.log(that, event)
+      if ( (event.keyCode === 32 || event === 32) && that.boxIsOpen) {
         that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
 
         let indexSongToPlay = Math.round(Math.random() * (chordsDatas.songs[that.currentChord].length -1) )
@@ -140,6 +148,10 @@ class Chords {
         that.songToPlay.pause()
         that.nextSongToPlay.play()
         that.nextSongIndex ++
+
+        that.previewStartedTime = Math.round(Date.now() / 1000)
+        that.previewStarted = true
+
         window.removeEventListener('keydown', that.nextSongListener)
         setTimeout( () => { window.addEventListener('keydown', that.nextSongListener) }, 500)
       }
@@ -150,10 +162,24 @@ class Chords {
     }
 
     openBox(close) {
-      let step = close ? 0 : this.step
+      let step
+      if (close) {
+        step = 0
+        this.previewStarted = false
+      } else {
+        step = this.step
+      }
       STORAGE.SceneManager.setSceneIndex(this.currentChord)
       STORAGE.SceneManager.displayScene(step)
       STORAGE.BoxClass.openBox(step)
+    }
+
+    checkPreviewState(that) {
+      if (that.previewStarted) {
+        if ( Math.round(Date.now() / 1000) - that.previewStartedTime > 25 ) {
+          that.launchNextSong(that, 32)
+        }
+      }
     }
 
     setArtistName(artistName) {
