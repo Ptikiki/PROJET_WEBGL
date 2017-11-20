@@ -70,63 +70,48 @@ class SceneShader {
 
     initOrelsanShaders(vertex, fragment) {
 
-      this.geometry = new THREE.PlaneBufferGeometry( 500, 15, 200, 1 )
+      let geometry = new THREE.BoxBufferGeometry( 500, 18, 14, 200, 20, 20 );
 
-      this.material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 240. }, u_frequence:{ type: "f", value: 0.005 } }, this.uniforms),
+      let material1 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide,
-        skinning: true
+        fog: true
       } )
 
-      this.material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 350. }, u_frequence:{ type: "f", value: 0.006 }}, this.uniforms),
+      let material2 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 260. }, u_frequence:{ type: "f", value: 0.008 } }, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide,
-        skinning: true
+        fog: true
       } )
 
-      this.material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 290. }, u_frequence:{ type: "f", value: 0.004 }}, this.uniforms),
+      let material3 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.01 } }, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide,
-        skinning: true
+        fog: true
       } )
 
-      this.material4 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 100. }, u_frequence:{ type: "f", value: 0.002 }}, this.uniforms),
-        vertexShader: vertex,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide,
-        skinning: true
-      } )
+      let plane1 = new THREE.Mesh( geometry, material1 )
+      let plane2 = new THREE.Mesh( geometry, material2 )
+      let plane3 = new THREE.Mesh( geometry, material3 )
 
-
-      let plane1 = new THREE.Mesh( this.geometry, this.material1 )
-      let plane2 = new THREE.Mesh( this.geometry, this.material2 )
-      let plane3 = new THREE.Mesh( this.geometry, this.material3 )
-      let plane4 = new THREE.Mesh( this.geometry, this.material4 )
-
-      plane1.rotation.x = Math.PI/2
-      plane2.rotation.x = Math.PI/2
-      plane3.rotation.x = Math.PI/2
-      plane4.rotation.x = Math.PI/2
-
-      plane1.position.z = 130
-      plane2.position.z = 160
-      plane3.position.z = 190
-      plane4.position.z = 220
-
-
+      plane1.position.z = 125
+      plane1.castShadow = true
+      plane2.position.z = 175
+      plane2.castShadow = true
+      plane3.position.z = 220
+      plane3.castShadow = true
 
       let group = new THREE.Group()
       group.add( plane1 )
       group.add( plane2 )
       group.add( plane3 )
-      group.add( plane4 )
+      // group.add( plane4 )
 
       group.position.y = specifications[0].shaderDownPosY
       group.name = 'shaders'

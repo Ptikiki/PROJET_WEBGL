@@ -136,7 +136,6 @@ class Chords {
     }
 
     launchNextSong(that, event) {
-      console.log(that, event)
       if ( (event.keyCode === 32 || event === 32) && that.boxIsOpen) {
         that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
 

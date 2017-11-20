@@ -10,6 +10,7 @@ vec3 newPos;
 
 varying vec3 v_position;
 varying float v_time;
+varying float v_scalarMove;
 varying vec2 v_uv;
 
 //	Classic Perlin 3D Noise
@@ -82,23 +83,27 @@ float cnoise(vec3 P){
 
 void main() {
 
-   float scale = smoothstep(1., .8, abs(uv.x * 2. - 1.));
-		scalarMove = scale * u_amplitude * cnoise(u_frequence * position + u_time * .15);
+  float scale = smoothstep(1., .8, abs(uv.x * 2. - 1.));
 
-		newPos = position + normal * scalarMove;
-    v_position = newPos;
-    v_time = u_time;
-    v_uv = uv;
+  vec3 pp = vec3( position.x, 0, 0 );
 
-    if (position.x < -248.0) {
-      newPos = position;
-    }
+  // scalarMove1 = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15);
+  scalarMove = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15);
 
-    if (position.x > 248.0) {
-      newPos = position;
-    }
+  newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
+  if (position.y < 0.) {
+    newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
+  }
+  if (position.z == -7.) {
+    newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
+  }
 
+  if (position.y == 9. && position.z == -7.) {
+    newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
+  }
 
+  v_position = newPos;
+  v_scalarMove = scalarMove;
 
-    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos.x, newPos.y, newPos.z, 1.);
 }
