@@ -31,7 +31,7 @@ class SceneShader {
     }
 
     loadShaders() {
-      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex1.vert', '../javascript/glsl/OrelsanFragment.frag')
+      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex.vert', '../javascript/glsl/OrelsanFragment.frag')
       setTimeout(()=> {
         this.loadMlleKShader('../javascript/glsl/MlleKVertex.vert', '../javascript/glsl/MlleKFragment.frag')
       }, 200)
@@ -73,28 +73,28 @@ class SceneShader {
       this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 340. }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 310. }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 250. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 290. }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.material4 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 300. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 350. }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide

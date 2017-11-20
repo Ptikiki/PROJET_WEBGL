@@ -11,8 +11,8 @@ varying vec3 v_position;
 varying float v_time;
 varying vec2 v_uv;
 
-//  Classic Perlin 3D Noise
-//  by Stefan Gustavson
+//	Classic Perlin 3D Noise
+//	by Stefan Gustavson
 //
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
@@ -80,12 +80,28 @@ float cnoise(vec3 P){
 
 
 void main() {
-    scalarMove = 160. * cnoise(0.001 * position + u_time * .15);
+		scalarMove = u_amplitude * cnoise(0.007 * position + u_time * .15);
 
-    newPos = position + normal * scalarMove;
+		newPos = position + normal * scalarMove;
     v_position = newPos;
     v_time = u_time;
     v_uv = uv;
+
+    if (position.x < -235.0) {
+      newPos = position;
+    }
+
+    if (position.x > 235.0) {
+      newPos = position;
+    }
+
+    if (position.y < -55.0) {
+      newPos = position;
+    }
+
+    if (position.y > 55.0) {
+      newPos = position;
+    }
 
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
 }
