@@ -16,7 +16,8 @@ class Chords {
 
       this.songToPlay
       this.nextSongToPlay
-      this.songNameText = document.querySelector('.songsName p')
+      this.artistNameText = document.querySelector('.songsName .artist')
+      this.songNameText = document.querySelector('.songsName .song')
       this.lettersText = document.querySelector('.letters p')
 
       this.enableGame()
@@ -77,6 +78,7 @@ class Chords {
       !that.win ? that.step = 0 : ''
       !that.win ? that.setAmbiance() : ''
       !that.win ? that.setSongName() : ''
+      !that.win ? that.setArtistName() : ''
       !that.win ? that.setLetters(0) : ''
       !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
     }
@@ -116,6 +118,7 @@ class Chords {
       this.songToPlay = new Audio(song)
       this.songToPlay.play()
       this.setSongName(chordsDatas.songsName[this.currentChord][0])
+      this.setArtistName(chordsDatas.artists[this.currentChord])
       this.setLetters(1)
 
       this.nextSongIndex = 1
@@ -151,6 +154,28 @@ class Chords {
       STORAGE.SceneManager.setSceneIndex(this.currentChord)
       STORAGE.SceneManager.displayScene(step)
       STORAGE.BoxClass.openBox(step)
+    }
+
+    setArtistName(artistName) {
+      if (artistName) {
+        TweenLite.to(this.artistNameText, 0.3, {
+          opacity: 0,
+          ease: Power2.easeInOut,
+          onComplete: () => {
+            this.artistNameText.innerText = artistName
+            TweenLite.to(this.artistNameText, 0.3, {
+              opacity: 1,
+              ease: Power2.easeInOut,
+            })
+          }
+        })
+      } else {
+        TweenLite.to(this.artistNameText, 0.3, {
+          opacity: 0,
+          ease: Power2.easeInOut,
+          onComplete: () => { this.artistNameText.innerText = '' }
+        })
+      }
     }
 
     setSongName(songName) {

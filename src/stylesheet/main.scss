@@ -19,6 +19,7 @@ html, body {
   height: 10%;
   bottom: 10%;
   display: flex;
+  flex-direction: column;
 
   p {
     margin: auto;

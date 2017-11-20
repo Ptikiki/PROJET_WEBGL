@@ -31,4 +31,10 @@ const songsName = [
   ['Waterfall']
 ]
 
-export default { chords, notes, songs, songsName }
+const artists = [
+  'Orelsan',
+  'Mademoiselle K',
+  'Petit Biscuit'
+]
+
+export default { chords, notes, songs, songsName, artists }
