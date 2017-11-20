@@ -1,12 +1,12 @@
 const specifications = [
   {
     'name' : 'Orelsan',
-    'sceneDownPosY' : 20,
-    'sceneUpPosY' : 110,
-    'shaderDownPosY' : 20,
-    'shaderUpPosY' : 100,
-    'artistDownPosY' : -85,
-    'artistUpPosY' : 170,
+    'sceneDownPosY' : -40,
+    'sceneUpPosY' : 170,
+    'shaderDownPosY' : -40,
+    'shaderUpPosY' : 160,
+    'artistDownPosY' : -125,
+    'artistUpPosY' : 230,
     'light1' : 0xffbe58,
     'light2' : 0xa2ddec,
     'light3' : 0xa2ddec

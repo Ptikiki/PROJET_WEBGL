@@ -4,20 +4,14 @@ newmtl default
 Kd 1 1 1
 
 newmtl Affiche
-Kd 1 1 1
+Kd 0.14000000059605 0.14000000059605 0.14000000059605
 Ks 1 1 1
 Ns 50
 illum 7
 
 newmtl Cadre affiche
 Ka 1 1 1
-Kd 0.62999999523163 0.62999999523163 0.62999999523163
-Ks 1 1 1
-Ns 50
-illum 7
-
-newmtl default
-Kd 1 1 1
+Kd 0.69999998807907 0.5809999704361 0.46200001239777
 Ks 1 1 1
 Ns 50
 illum 7
@@ -32,6 +26,12 @@ illum 7
 newmtl Sièges
 Ka 1 1 1
 Kd 0.89999997615814 0.89999997615814 0.89999997615814
+Ks 1 1 1
+Ns 50
+illum 7
+
+newmtl default
+Kd 1 1 1
 Ks 1 1 1
 Ns 50
 illum 7

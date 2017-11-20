@@ -42,7 +42,7 @@ class SceneObject {
     loadOrelsanScene() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_base-scene.mtl', function(matl) {
+        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_base-scene2.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
@@ -53,7 +53,7 @@ class SceneObject {
             poisTexture.repeat.set(10, 10)
             poisMaterial.map = poisTexture
 
-            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_base-scene.obj', function ( object ) {
+            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_base-scene2.obj', function ( object ) {
               object.position.x = 0
               object.position.y = specifications[0].sceneDownPosY
               object.position.z = 0
@@ -122,7 +122,7 @@ class SceneObject {
             briquesMurMaterial.map = briques
             briquesMurMaterial.shininess = 5
 
-            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_mur6.obj', function ( object ) {
+            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
               object.position.y = 165
               object.position.z = -280
@@ -159,7 +159,7 @@ class SceneObject {
             briquesMaterial.map = briquesTexture
             briquesMaterial.shininess = 5
 
-            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_mur6.obj', function ( object ) {
+            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
               object.position.y = 165
               object.position.z = -280

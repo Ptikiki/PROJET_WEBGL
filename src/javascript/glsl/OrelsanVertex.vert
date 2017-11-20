@@ -2,6 +2,7 @@ precision mediump float;
 
 uniform float u_time;
 uniform float u_amplitude;
+uniform float u_frequence;
 uniform float u_frequency;
 
 float scalarMove;
@@ -80,28 +81,24 @@ float cnoise(vec3 P){
 
 
 void main() {
-		scalarMove = u_amplitude * cnoise(0.007 * position + u_time * .15);
+
+   float scale = smoothstep(1., .8, abs(uv.x * 2. - 1.));
+		scalarMove = scale * u_amplitude * cnoise(u_frequence * position + u_time * .15);
 
 		newPos = position + normal * scalarMove;
     v_position = newPos;
     v_time = u_time;
     v_uv = uv;
 
-    if (position.x < -235.0) {
+    if (position.x < -248.0) {
       newPos = position;
     }
 
-    if (position.x > 235.0) {
+    if (position.x > 248.0) {
       newPos = position;
     }
 
-    if (position.y < -55.0) {
-      newPos = position;
-    }
 
-    if (position.y > 55.0) {
-      newPos = position;
-    }
 
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
 }

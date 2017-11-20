@@ -70,34 +70,38 @@ class SceneShader {
 
     initOrelsanShaders(vertex, fragment) {
 
-      this.geometry = new THREE.PlaneBufferGeometry( 500, 2, 10, 10 )
+      this.geometry = new THREE.PlaneBufferGeometry( 500, 15, 200, 1 )
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 340. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 240. }, u_frequence:{ type: "f", value: 0.005 } }, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        skinning: true
       } )
 
       this.material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 310. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 350. }, u_frequence:{ type: "f", value: 0.006 }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        skinning: true
       } )
 
       this.material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 290. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 290. }, u_frequence:{ type: "f", value: 0.004 }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        skinning: true
       } )
 
       this.material4 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 350. }}, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 100. }, u_frequence:{ type: "f", value: 0.002 }}, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        skinning: true
       } )
 
 

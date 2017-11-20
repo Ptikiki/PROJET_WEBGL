@@ -102,9 +102,9 @@ class Ambiance {
         this.light1.color.set(specifications[currentChord].light1)
         this.light2.color.set(specifications[currentChord].light2)
         this.light3.color.set(specifications[currentChord].light3)
-        this.light1.intensity = 0.23
-        this.light2.intensity = 0.08
-        this.light3.intensity = 0.12
+        this.light1.intensity = 0.26
+        this.light2.intensity = 0.12
+        this.light3.intensity = 0.15
       }
     }
 }
