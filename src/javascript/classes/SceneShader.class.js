@@ -72,14 +72,15 @@ class SceneShader {
 
       let geometry = new THREE.PlaneBufferGeometry( 500, 15, 200, 1 )
 
-      let geometry2 = new THREE.BoxBufferGeometry( 30, 10, 500, 10, 1, 10 );
+      let geometry2 = new THREE.BoxBufferGeometry( 500, 20, 20, 10, 1, 10 );
 
       let material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 240. }, u_frequence:{ type: "f", value: 0.09 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 240. }, u_frequence:{ type: "f", value: 0.006 } }, this.uniforms),
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide,
-        wireframe: true
+        wireframe: true,
+        skinning: true
       } )
 
        let material2 = new THREE.ShaderMaterial( {
