@@ -14,6 +14,9 @@ class Chords {
       this.currentChord = 0
       this.boxIsOpen = false
 
+      this.openBox(3)
+
+
       this.songToPlay
       this.nextSongToPlay
       this.artistNameText = document.querySelector('.songsName .artist')
@@ -35,7 +38,7 @@ class Chords {
       let that = this
       that.keysPressedTab = []
       this.win = false
-      that.step = 0
+      // that.step = 0
       window.addEventListener('keydown', that.keyDownListener)
       window.addEventListener('keyup', that.keyUpListener)
     }
@@ -136,7 +139,6 @@ class Chords {
     }
 
     launchNextSong(that, event) {
-      console.log(that, event)
       if ( (event.keyCode === 32 || event === 32) && that.boxIsOpen) {
         that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
 
@@ -164,7 +166,7 @@ class Chords {
     openBox(close) {
       let step
       if (close) {
-        step = 0
+        step = 3
         this.previewStarted = false
       } else {
         step = this.step
