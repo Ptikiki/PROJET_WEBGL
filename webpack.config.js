@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 let gateway = require('gateway')
+
 let historyApiFallback = require("connect-history-api-fallback")
 
 let config = {
@@ -43,11 +44,6 @@ let config = {
         }
       }
     ]
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.common.js'
-    }
   },
   plugins: [
       new webpack.ProvidePlugin({
