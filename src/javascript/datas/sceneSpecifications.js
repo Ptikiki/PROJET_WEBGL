@@ -27,7 +27,7 @@ const specifications = [
     'name' : 'PetitBiscuit',
     'sceneDownPosY' : -85,
     'sceneUpPosY' : 90,
-    'shaderDownPosY' : 0,
+    'shaderDownPosY' : -150,
     'shaderUpPosY' : 88,
     'artistDownPosY' : -85,
     'artistUpPosY' : 150,
