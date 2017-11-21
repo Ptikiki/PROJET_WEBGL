@@ -13,7 +13,9 @@ class SceneShader {
       this.fragment_loader.setResponseType('text')
 
       this.myShaders = []
-      this.uniforms
+      this.OrelsanUniforms
+      this.petitBiscuitUniforms
+      this.MlleKUniforms
 
       this.shadersTab = []
 
@@ -36,7 +38,7 @@ class SceneShader {
         this.loadMlleKShader('../javascript/glsl/MlleKVertex.vert', '../javascript/glsl/MlleKFragment.frag')
       }, 200)
       setTimeout(()=> {
-        this.loadPetitBiscuitShader('../javascript/glsl/PetitBiscuitVertex.vert', '../javascript/glsl/PetitBiscuitFragment.frag')
+        this.loadPetitBiscuitShader('../javascript/glsl/PetitBiscuitVertexPlane.vert', '../javascript/glsl/PetitBiscuitVertexSphere.vert', '../javascript/glsl/PetitBiscuitFragment.frag')
       }, 400)
     }
 
@@ -58,11 +60,13 @@ class SceneShader {
       })
     }
 
-    loadPetitBiscuitShader(vertex_url, fragment_url) {
+    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragment_url) {
       let that = this
-      this.vertex_loader.load(vertex_url, function (vertex_text) {
-        that.fragment_loader.load(fragment_url, function (fragment_text) {
-          that.initPetitBiscuitShaders(vertex_text, fragment_text)
+      this.vertex_loader.load(vertexPlane_url, function (vertexPlane_text) {
+        that.vertex_loader.load(vertexSphere_url, function (vertexSphere_text) {
+          that.fragment_loader.load(fragment_url, function (fragment_text) {
+            that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragment_text)
+          })
         })
       })
     }
@@ -70,16 +74,18 @@ class SceneShader {
 
     initOrelsanShaders(vertex, fragment) {
 
-      this.uniforms = THREE.UniformsUtils.merge([
+      this.OrelsanUniforms = THREE.UniformsUtils.merge([
         THREE.ShaderLib.phong.uniforms,
         { diffuse: { value: new THREE.Color(0xfbae65) } },
-        { u_time: { type: "f", value: 1.0 } }
+        { u_time: { type: "f", value: 1.0 } },
+        { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
       ]);
 
       let geometry = new THREE.BoxBufferGeometry( 500, 6, 14, 200, 20, 20 );
 
       let material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         lights: true,
@@ -88,7 +94,7 @@ class SceneShader {
       } )
 
       let material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.003 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.003 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         side: THREE.DoubleSide,
@@ -97,7 +103,7 @@ class SceneShader {
       } )
 
       let material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 220. }, u_frequence:{ type: "f", value: 0.005 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 220. }, u_frequence:{ type: "f", value: 0.005 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         side: THREE.DoubleSide,
@@ -129,10 +135,17 @@ class SceneShader {
     }
 
     initMlleKShaders(vertex, fragment) {
+
+      this.MlleKUniforms = {
+        u_time: { type: "f", value: 1.0 },
+        u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
+        u_mouse: { type: "v2", value: new THREE.Vector2() }
+      }
+
       this.geometry = new THREE.PlaneBufferGeometry( 500, 128, 10, 10 )
 
       this.material = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
+        uniforms: this.MlleKUniforms,
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
@@ -150,62 +163,76 @@ class SceneShader {
       this.shadersTab.push(group)
     }
 
-    initPetitBiscuitShaders(vertex, fragment) {
-
-      // PICOS
-
-      this.picoGeometry = new THREE.ConeGeometry( 40, 130, 120 )
-      this.picoMaterial = new THREE.MeshPhongMaterial( {color: 0xffffff} )
-      this.picoMaterial.transparent = true
-      this.picoMaterial.opacity = 0.5
-      this.picoCone1 = new THREE.Mesh( this.picoGeometry, this.picoMaterial )
-      this.picoCone2 = new THREE.Mesh( this.picoGeometry, this.picoMaterial )
-      this.picoCone3 = new THREE.Mesh( this.picoGeometry, this.picoMaterial )
-
-      this.picoCone1.position.x = -70
-      this.picoCone2.position.x = 150
-      this.picoCone3.position.x = -200
-      this.picoCone1.position.y = 70
-      this.picoCone2.position.y = 70
-      this.picoCone3.position.y = 70
-      this.picoCone1.position.z = -150
-      this.picoCone2.position.z = -50
-      this.picoCone3.position.z = -50
-
-      this.picoCone3.reflectivity = 1
-
-      this.picoLight1 = new THREE.SpotLight(0xff0000, 15, Infinity, 0.2)
-      this.picoLight2 = new THREE.SpotLight(0x0000ff, 15, Infinity, 0.2)
-      this.picoLight3 = new THREE.SpotLight(0x00ffff, 15, Infinity, 0.2)
-
-      this.picoLight1.position.set(150, -150, 100)
-      //this.picoLight2.position.set(100, -150, 100)
-      this.picoLight2.position.set(-50, -150, 100)
-      this.picoLight3.position.set(150, -150, 100)
-      this.picoLight1.target = this.picoCone1
-      this.picoLight2.target = this.picoCone1
-      this.picoLight3.target = this.picoCone2
-
+    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragment) {
+      
+      this.petitBiscuitUniforms = {
+        u_time: { type: "f", value: 1.0 },
+        u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
+        u_mouse: { type: "v2", value: new THREE.Vector2() }
+      }
 
       // SHADER
+      this.planeGeometry = new THREE.PlaneBufferGeometry( 500, 128 )
 
-      this.geometry = new THREE.PlaneBufferGeometry( 500, 128 )
-
-      this.material = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
-        vertexShader: vertex,
+      this.planeMaterial = new THREE.ShaderMaterial( {
+        uniforms: this.petitBiscuitUniforms,
+        vertexShader: vertexPlane,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
-      let plane = new THREE.Mesh( this.geometry, this.material )
+      let plane = new THREE.Mesh( this.planeGeometry, this.planeMaterial )
       plane.rotation.x = Math.PI/2
       plane.position.y = 7
       plane.position.z = 185
 
+
+      // BLOBS
+
+      this.sphereFrequence = 0.2
+
+      this.sphereGeometry = new THREE.SphereBufferGeometry( 30, 32, 32 )
+      
+      this.sphereMaterial1 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
+        vertexShader: vertexSphere,
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
+      } )
+
+      this.sphereMaterial2 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
+        vertexShader: vertexSphere,
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
+      } )
+
+      this.sphereMaterial3 = new THREE.ShaderMaterial( {
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
+        vertexShader: vertexSphere,
+        fragmentShader: fragment,
+        side: THREE.DoubleSide
+      } )
+
+      this.sphere1 = new THREE.Mesh( this.sphereGeometry, this.sphereMaterial1 )
+      this.sphere2 = new THREE.Mesh( this.sphereGeometry, this.sphereMaterial2 )
+      this.sphere3 = new THREE.Mesh( this.sphereGeometry, this.sphereMaterial3 )
+
+      this.sphere1.position.x = -150
+      this.sphere1.position.y = 100
+      this.sphere1.position.z = -50
+
+      this.sphere2.position.x = -50
+      this.sphere2.position.y = 170
+      this.sphere2.position.z = -100
+
+      this.sphere3.position.x = 150
+      this.sphere3.position.y = 140
+      this.sphere3.position.z = 0
+
       let group = new THREE.Group()
       group.add(plane)
-      group.add(this.picoCone1, this.picoCone2, this.picoCone3, this.picoLight1, this.picoLight1.target, this.picoLight2, this.picoLight2.target, this.picoLight3, this.picoLight3.target )
+      group.add(this.sphere1, this.sphere2, this.sphere3)
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
 
@@ -235,8 +262,21 @@ class SceneShader {
     }
 
     animate() {
-      if( this.uniforms ) {
-        this.uniforms.u_time.value += 0.05
+
+      if (this.sphere1 && this.sphere2 && this.sphere3) {
+        this.sphere1.material.uniforms.u_frequency.value = this.sphereFrequence/5
+        this.sphere2.material.uniforms.u_frequency.value = this.sphereFrequence/3
+        this.sphere3.material.uniforms.u_frequency.value = this.sphereFrequence/6
+      }
+
+      if( this.OrelsanUniforms ) {
+        this.OrelsanUniforms.u_time.value += 0.05
+      }
+      if( this.MlleKUniforms ) {
+        this.MlleKUniforms.u_time.value += 0.05
+      }
+      if( this.petitBiscuitUniforms ) {
+        this.petitBiscuitUniforms.u_time.value += 0.05
       }
     }
 }
