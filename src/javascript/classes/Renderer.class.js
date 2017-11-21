@@ -1,6 +1,7 @@
 class Renderer {
 
     constructor(options) {
+      STORAGE.RendererClass = this
       this.container = document.getElementById( 'container' )
       this.renderer = new THREE.WebGLRenderer(window.innerWidth, window.innerHeight)
       this.renderer.setPixelRatio(window.devicePixelRatio)
@@ -33,15 +34,23 @@ class Renderer {
       STORAGE.camera.position.x = -400
       this.controls = new THREE.OrbitControls( STORAGE.camera )
       this.controls.target.set( 0, 0, 0 )
-      this.controls.maxPolarAngle = Math.PI/2.2;
-      this.controls.minDistance = 800;
-      this.controls.maxDistance = 4000;
+      this.controls.maxPolarAngle = Math.PI/2.2
+      this.controls.minDistance = 800
+      this.controls.maxDistance = 4000
+      this.controls.enableDamping = true;
+      this.controls.dampingFactor = 0.09;
+      this.controls.rotateSpeed = 0.18;
+      this.controls.zoomSpeed = 0.3;
     }
 
     onWindowResize() {
       STORAGE.camera.aspect = window.innerWidth / window.innerHeight
       STORAGE.camera.updateProjectionMatrix()
       STORAGE.renderer.setSize(window.innerWidth, window.innerHeight)
+    }
+
+    animate() {
+      this.controls.update()
     }
 }
 

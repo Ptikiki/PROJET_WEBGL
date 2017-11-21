@@ -98,7 +98,6 @@ void main() {
       newPos = position;
     }
 
-
     v_position = newPos;
     v_time = u_time;
     v_uv = uv;
