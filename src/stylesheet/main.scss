@@ -9,6 +9,11 @@ html, body {
   font-family: helvetica, arial;
 }
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .container, canvas{
   position: absolute;
 }

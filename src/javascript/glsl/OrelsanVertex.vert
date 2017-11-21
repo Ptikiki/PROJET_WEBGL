@@ -1,17 +1,35 @@
-precision mediump float;
+#define PHONG
+
+varying vec3 vViewPosition;
+
+#ifndef FLAT_SHADED
+
+	varying vec3 vNormal;
+
+#endif
+
+#include <common>
+#include <uv_pars_vertex>
+#include <uv2_pars_vertex>
+#include <displacementmap_pars_vertex>
+#include <envmap_pars_vertex>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+#include <morphtarget_pars_vertex>
+#include <skinning_pars_vertex>
+#include <shadowmap_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>
+
 
 uniform float u_time;
 uniform float u_amplitude;
 uniform float u_frequence;
-uniform float u_frequency;
 
 float scalarMove;
 vec3 newPos;
 
-varying vec3 v_position;
-varying float v_time;
-varying float v_scalarMove;
-varying vec2 v_uv;
+
 
 //	Classic Perlin 3D Noise
 //	by Stefan Gustavson
@@ -81,29 +99,70 @@ float cnoise(vec3 P){
 }
 
 
-void main() {
+
+void applyWave() {
 
   float scale = smoothstep(1., .8, abs(uv.x * 2. - 1.));
 
   vec3 pp = vec3( position.x, 0, 0 );
 
-  // scalarMove1 = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15);
   scalarMove = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15);
 
   newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
+
   if (position.y < 0.) {
     newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
   }
   if (position.z == -7.) {
     newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
   }
-
-  if (position.y == 9. && position.z == -7.) {
+  if (position.y == 3. && position.z == -7.) {
     newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
   }
 
-  v_position = newPos;
-  v_scalarMove = scalarMove;
+  if (newPos.y < 0. ) {
+    newPos.y += abs(newPos.y) * 2.;
+  }
 
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos.x, newPos.y, newPos.z, 1.);
+
 }
+
+void main() {
+
+	#include <uv_vertex>
+	#include <uv2_vertex>
+	#include <color_vertex>
+
+	#include <beginnormal_vertex>
+	#include <morphnormal_vertex>
+	#include <skinbase_vertex>
+	#include <skinnormal_vertex>
+	#include <defaultnormal_vertex>
+
+#ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
+
+	vNormal = normalize( transformedNormal );
+
+#endif
+
+	#include <begin_vertex>
+	#include <morphtarget_vertex>
+	#include <skinning_vertex>
+	#include <displacementmap_vertex>
+	#include <project_vertex>
+
+  applyWave();
+
+	#include <logdepthbuf_vertex>
+	#include <clipping_planes_vertex>
+
+	vViewPosition = - mvPosition.xyz;
+
+	#include <worldpos_vertex>
+	#include <envmap_vertex>
+	#include <shadowmap_vertex>
+	#include <fog_vertex>
+
+}
+

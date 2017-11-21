@@ -70,29 +70,38 @@ class SceneShader {
 
     initOrelsanShaders(vertex, fragment) {
 
-      let geometry = new THREE.BoxBufferGeometry( 500, 18, 14, 200, 20, 20 );
+      this.uniforms = THREE.UniformsUtils.merge([
+        THREE.ShaderLib.phong.uniforms,
+        { diffuse: { value: new THREE.Color(0xfbae65) } },
+        { u_time: { type: "f", value: 1.0 } }
+      ]);
+
+      let geometry = new THREE.BoxBufferGeometry( 500, 6, 14, 200, 20, 20 );
 
       let material1 = new THREE.ShaderMaterial( {
         uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.uniforms),
         vertexShader: vertex,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide,
-        fog: true
+        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+        lights: true,
+        fog: true,
+        side: THREE.DoubleSide
       } )
 
       let material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 260. }, u_frequence:{ type: "f", value: 0.008 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.003 } }, this.uniforms),
         vertexShader: vertex,
-        fragmentShader: fragment,
+        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         side: THREE.DoubleSide,
+        lights: true,
         fog: true
       } )
 
       let material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.01 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 220. }, u_frequence:{ type: "f", value: 0.005 } }, this.uniforms),
         vertexShader: vertex,
-        fragmentShader: fragment,
+        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         side: THREE.DoubleSide,
+        lights: true,
         fog: true
       } )
 
@@ -101,6 +110,7 @@ class SceneShader {
       let plane3 = new THREE.Mesh( geometry, material3 )
 
       plane1.position.z = 125
+      plane1.shininess = 30
       plane1.castShadow = true
       plane2.position.z = 175
       plane2.castShadow = true
@@ -111,7 +121,6 @@ class SceneShader {
       group.add( plane1 )
       group.add( plane2 )
       group.add( plane3 )
-      // group.add( plane4 )
 
       group.position.y = specifications[0].shaderDownPosY
       group.name = 'shaders'
