@@ -13,7 +13,9 @@ class SceneShader {
       this.fragment_loader.setResponseType('text')
 
       this.myShaders = []
-      this.uniforms
+      this.OrelsanUniforms
+      this.petitBiscuitUniforms
+      this.MlleKUniforms
 
       this.shadersTab = []
 
@@ -72,16 +74,18 @@ class SceneShader {
 
     initOrelsanShaders(vertex, fragment) {
 
-      this.uniforms = THREE.UniformsUtils.merge([
+      this.OrelsanUniforms = THREE.UniformsUtils.merge([
         THREE.ShaderLib.phong.uniforms,
         { diffuse: { value: new THREE.Color(0xfbae65) } },
-        { u_time: { type: "f", value: 1.0 } }
+        { u_time: { type: "f", value: 1.0 } },
+        { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
       ]);
 
       let geometry = new THREE.BoxBufferGeometry( 500, 6, 14, 200, 20, 20 );
 
       let material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         lights: true,
@@ -90,7 +94,7 @@ class SceneShader {
       } )
 
       let material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.003 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.003 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         side: THREE.DoubleSide,
@@ -99,7 +103,7 @@ class SceneShader {
       } )
 
       let material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 220. }, u_frequence:{ type: "f", value: 0.005 } }, this.uniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 220. }, u_frequence:{ type: "f", value: 0.005 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.phong.fragmentShader,
         side: THREE.DoubleSide,
@@ -131,10 +135,17 @@ class SceneShader {
     }
 
     initMlleKShaders(vertex, fragment) {
+
+      this.MlleKUniforms = {
+        u_time: { type: "f", value: 1.0 },
+        u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
+        u_mouse: { type: "v2", value: new THREE.Vector2() }
+      }
+
       this.geometry = new THREE.PlaneBufferGeometry( 500, 128, 10, 10 )
 
       this.material = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
+        uniforms: this.MlleKUniforms,
         vertexShader: vertex,
         fragmentShader: fragment,
         side: THREE.DoubleSide
@@ -153,12 +164,18 @@ class SceneShader {
     }
 
     initPetitBiscuitShaders(vertexPlane, vertexSphere, fragment) {
+      
+      this.petitBiscuitUniforms = {
+        u_time: { type: "f", value: 1.0 },
+        u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
+        u_mouse: { type: "v2", value: new THREE.Vector2() }
+      }
 
       // SHADER
       this.planeGeometry = new THREE.PlaneBufferGeometry( 500, 128 )
 
       this.planeMaterial = new THREE.ShaderMaterial( {
-        uniforms: this.uniforms,
+        uniforms: this.petitBiscuitUniforms,
         vertexShader: vertexPlane,
         fragmentShader: fragment,
         side: THREE.DoubleSide
@@ -177,21 +194,21 @@ class SceneShader {
       this.sphereGeometry = new THREE.SphereBufferGeometry( 30, 32, 32 )
       
       this.sphereMaterial1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
         vertexShader: vertexSphere,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.sphereMaterial2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
         vertexShader: vertexSphere,
         fragmentShader: fragment,
         side: THREE.DoubleSide
       } )
 
       this.sphereMaterial3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.uniforms),
+        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
         vertexShader: vertexSphere,
         fragmentShader: fragment,
         side: THREE.DoubleSide
@@ -252,8 +269,14 @@ class SceneShader {
         this.sphere3.material.uniforms.u_frequency.value = this.sphereFrequence/6
       }
 
-      if( this.uniforms ) {
-        this.uniforms.u_time.value += 0.05
+      if( this.OrelsanUniforms ) {
+        this.OrelsanUniforms.u_time.value += 0.05
+      }
+      if( this.MlleKUniforms ) {
+        this.MlleKUniforms.u_time.value += 0.05
+      }
+      if( this.petitBiscuitUniforms ) {
+        this.petitBiscuitUniforms.u_time.value += 0.05
       }
     }
 }

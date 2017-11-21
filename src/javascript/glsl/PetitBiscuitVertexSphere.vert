@@ -7,10 +7,6 @@ uniform float u_frequency;
 float scalarMove;
 vec3 newPos;
 
-varying vec3 v_position;
-varying float v_time;
-varying vec2 v_uv;
-
 //  Classic Perlin 3D Noise
 //  by Stefan Gustavson
 //
@@ -83,9 +79,6 @@ void main() {
     scalarMove = 120. * cnoise(0.006 * position + u_time * u_frequency);
 
     newPos = position + normal * scalarMove;
-    v_position = newPos;
-    v_time = u_time;
-    v_uv = uv;
 
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
 }
