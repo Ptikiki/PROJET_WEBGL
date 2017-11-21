@@ -1,8 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+let gateway = require('gateway')
+let historyApiFallback = require("connect-history-api-fallback")
 
-module.exports = {
+let config = {
   context: path.resolve(__dirname, './src'),
   entry: {
     app: ['./stylesheet/styles.js', './javascript/index.js'],
@@ -17,16 +19,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        // options: {
-        //   loaders: {
-        //     'scss': 'vue-style-loader!css-loader!sass-loader',
-        //     'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-        //   }
-        // }
-      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -88,3 +80,12 @@ if (process.env.NODE_ENV === 'production') {
     })
   ])
 }
+
+config.devServer.setup = function(app) {
+  const php_gateway = gateway('src', {'.php': 'php-cgi'});
+  app.use(historyApiFallback({index: 'index.php', verbose:false}));
+  app.get('*.php', php_gateway);
+  app.post('*.php', php_gateway);
+};
+
+module.exports = config;
