@@ -1,4 +1,27 @@
-precision highp float;
+
+#define PHONG
+
+varying vec3 vViewPosition;
+
+#ifndef FLAT_SHADED
+
+	varying vec3 vNormal;
+
+#endif
+
+#include <common>
+#include <uv_pars_vertex>
+#include <uv2_pars_vertex>
+#include <displacementmap_pars_vertex>
+#include <envmap_pars_vertex>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+#include <morphtarget_pars_vertex>
+#include <skinning_pars_vertex>
+#include <shadowmap_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>
+
 
 uniform float u_time;
 uniform float u_amplitude;
@@ -7,8 +30,10 @@ uniform float u_frequency;
 float scalarMove;
 vec3 newPos;
 
-//  Classic Perlin 3D Noise
-//  by Stefan Gustavson
+
+
+//	Classic Perlin 3D Noise
+//	by Stefan Gustavson
 //
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
@@ -75,10 +100,53 @@ float cnoise(vec3 P){
 }
 
 
-void main() {
-    scalarMove = 120. * cnoise(0.006 * position + u_time * u_frequency);
 
-    newPos = position + normal * scalarMove;
+void applyBubbleEffect() {
 
-    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
+  scalarMove = 15. * cnoise(0.02 * position + u_time / 3.5 * u_frequency);
+
+  newPos = position + normal * scalarMove;
+
+  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
+
 }
+
+void main() {
+
+	#include <uv_vertex>
+	#include <uv2_vertex>
+	#include <color_vertex>
+
+	#include <beginnormal_vertex>
+	#include <morphnormal_vertex>
+	#include <skinbase_vertex>
+	#include <skinnormal_vertex>
+	#include <defaultnormal_vertex>
+
+#ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
+
+	vNormal = normalize( transformedNormal );
+
+#endif
+
+	#include <begin_vertex>
+	#include <morphtarget_vertex>
+	#include <skinning_vertex>
+	#include <displacementmap_vertex>
+	#include <project_vertex>
+
+  applyBubbleEffect();
+
+	#include <logdepthbuf_vertex>
+	#include <clipping_planes_vertex>
+
+	vViewPosition = - mvPosition.xyz;
+
+	#include <worldpos_vertex>
+	#include <envmap_vertex>
+	#include <shadowmap_vertex>
+	#include <fog_vertex>
+
+}
+
+

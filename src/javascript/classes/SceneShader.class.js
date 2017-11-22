@@ -1,6 +1,7 @@
 const MTLLoader = require('three-mtl-loader')
 
 import specifications from '../datas/sceneSpecifications.js'
+import { TweenLite } from 'gsap';
 
 class SceneShader {
 
@@ -12,7 +13,8 @@ class SceneShader {
       this.fragment_loader = new THREE.FileLoader(THREE.DefaultLoadingManager)
       this.fragment_loader.setResponseType('text')
 
-      this.myShaders = []
+      this.myShadersOnScene = []
+      this.myShadersOnWall = []
       this.OrelsanUniforms
       this.petitBiscuitUniforms
       this.MlleKUniforms
@@ -38,7 +40,11 @@ class SceneShader {
         this.loadMlleKShader('../javascript/glsl/MlleKVertex.vert', '../javascript/glsl/MlleKFragment.frag')
       }, 200)
       setTimeout(()=> {
-        this.loadPetitBiscuitShader('../javascript/glsl/PetitBiscuitVertexPlane.vert', '../javascript/glsl/PetitBiscuitVertexSphere.vert', '../javascript/glsl/PetitBiscuitFragment.frag')
+        this.loadPetitBiscuitShader(
+        '../javascript/glsl/PetitBiscuitVertexPlane.vert',
+        '../javascript/glsl/PetitBiscuitVertexSphere.vert',
+        '../javascript/glsl/PetitBiscuitFragmentPlane.frag',
+        '../javascript/glsl/PetitBiscuitFragmentSphere.frag',)
       }, 400)
     }
 
@@ -60,12 +66,14 @@ class SceneShader {
       })
     }
 
-    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragment_url) {
+    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragmentPlane_url, fragmentSphere_url) {
       let that = this
       this.vertex_loader.load(vertexPlane_url, function (vertexPlane_text) {
         that.vertex_loader.load(vertexSphere_url, function (vertexSphere_text) {
-          that.fragment_loader.load(fragment_url, function (fragment_text) {
-            that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragment_text)
+          that.fragment_loader.load(fragmentPlane_url, function (fragmentPlane_text) {
+            that.fragment_loader.load(fragmentSphere_url, function (fragmentSphere_text) {
+              that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragmentPlane_text, fragmentSphere_text)
+            })
           })
         })
       })
@@ -163,120 +171,137 @@ class SceneShader {
       this.shadersTab.push(group)
     }
 
-    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragment) {
+    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragmentPlane, fragmentSphere) {
       
-      this.petitBiscuitUniforms = {
+      this.petitBiscuitUniformsSphere = THREE.UniformsUtils.merge([
+        THREE.ShaderLib.phong.uniforms,
+        { diffuse: { value: new THREE.Color(0x57daf0) } },
+        { specular: { value: new THREE.Color(0x1b1b1b) } },
+        { specularMap: { value: 'grass' } },
+        { emissive: { value: new THREE.Color(0x282828) } },
+        { shininess : { value: 30 } },
+        { u_time: { type: "f", value: 1.0 } },
+        { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
+      ]);
+
+      // BLOBS
+
+      let sphereRadius = [21, 18, 12, 21, 20, 18, 11, 9]
+      let sphereFrequence = [0.2, 0.18, 0.12, 0.15, 0.2, 0.14, 0.18, 0.14]
+
+      let group = new THREE.Group()
+      group.position.y = specifications[2].shaderDownPosY
+      group.name = 'shaders'
+
+      for(let i = 0; i < 18; i++) {
+
+        let radius = Math.round( (Math.random() * (30 - 9) + 9 ) * 100 ) / 100
+        let frequence = Math.round( (Math.random() * (0.2 - 0.11) + 0.11 ) * 100 ) / 100
+
+        let xLeft = Math.round( (Math.random() * (-60 - (-200)) + (-200)) * 100 ) / 100
+        let zBack = Math.round( (Math.random() * (-50 - (-190)) + (-190)) * 100 ) / 100
+
+        let xRight = Math.round( (Math.random() * (200 - (70)) + (70)) * 100 ) / 100
+        let zFront = Math.round( (Math.random() * (190 - (50)) + (50)) * 100 ) / 100
+
+        let xAll = Math.round( (Math.random() * (200 - (-200)) + (-200)) * 100 ) / 100
+        let zAll = Math.round( (Math.random() * (190 - (-190)) + (-190)) * 100 ) / 100
+
+        let xAvoidBox = Math.round( (Math.random() * (200 - (-120)) + (-120)) * 100 ) / 100
+        let zAvoidBox = Math.round( (Math.random() * (190 - (-100)) + (-100)) * 100 ) / 100
+
+        let y = Math.round( (Math.random() * (150 - (80)) + (80)) * 100 ) / 100
+
+        let sphereGeometry = new THREE.SphereBufferGeometry( radius, 32, 32 )
+        let sphereMaterial = new THREE.ShaderMaterial( {
+          uniforms: Object.assign({u_frequency:{ type: "f", value: frequence }}, this.petitBiscuitUniformsSphere),
+          vertexShader: vertexSphere,
+          fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+          side: THREE.DoubleSide,
+          lights: true,
+          fog: true
+        } )
+
+        let sphere = new THREE.Mesh( sphereGeometry, sphereMaterial )
+        let randomBase = Math.round( Math.random() )
+        let randomX = Math.round( Math.random() )
+        let randomZ = Math.round( Math.random() )
+        if (randomBase === 0) {
+          sphere.position.x =  randomX === 1 ? xLeft : xRight 
+          sphere.position.y = y
+          sphere.position.z = randomX === 1 ? zAvoidBox : zAll
+        } else {
+          sphere.position.x =  randomZ === 1 ? xAvoidBox : xAll
+          sphere.position.y = y
+          sphere.position.z = randomZ === 1 ? zBack : zFront
+        }
+        group.add(sphere)
+      }
+
+      this.shadersTab.push(group)
+
+
+      this.petitBiscuitUniformsPlane = {
         u_time: { type: "f", value: 1.0 },
         u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
+       // SHADER PLANE
+       let planeGeometry = new THREE.PlaneBufferGeometry( 470, 265 )
+       
+        let planeMaterial = new THREE.ShaderMaterial( {
+          uniforms: this.petitBiscuitUniformsPlane,
+          vertexShader: vertexPlane,
+          fragmentShader: fragmentPlane,
+          side: THREE.DoubleSide
+        } )
 
-      // SHADER
-      this.planeGeometry = new THREE.PlaneBufferGeometry( 500, 128 )
+        let plane = new THREE.Mesh( planeGeometry, planeMaterial )
+        plane.name = 'Plane';
+        this.shaderTV = plane
 
-      this.planeMaterial = new THREE.ShaderMaterial( {
-        uniforms: this.petitBiscuitUniforms,
-        vertexShader: vertexPlane,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide
-      } )
-
-      let plane = new THREE.Mesh( this.planeGeometry, this.planeMaterial )
-      plane.rotation.x = Math.PI/2
-      plane.position.y = 7
-      plane.position.z = 185
-
-
-      // BLOBS
-
-      this.sphereFrequence = 0.2
-
-      this.sphereGeometry = new THREE.SphereBufferGeometry( 30, 32, 32 )
-      
-      this.sphereMaterial1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
-        vertexShader: vertexSphere,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide
-      } )
-
-      this.sphereMaterial2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
-        vertexShader: vertexSphere,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide
-      } )
-
-      this.sphereMaterial3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_frequency:{ type: "f", value: this.sphereFrequence }}, this.petitBiscuitUniforms),
-        vertexShader: vertexSphere,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide
-      } )
-
-      this.sphere1 = new THREE.Mesh( this.sphereGeometry, this.sphereMaterial1 )
-      this.sphere2 = new THREE.Mesh( this.sphereGeometry, this.sphereMaterial2 )
-      this.sphere3 = new THREE.Mesh( this.sphereGeometry, this.sphereMaterial3 )
-
-      this.sphere1.position.x = -150
-      this.sphere1.position.y = 100
-      this.sphere1.position.z = -50
-
-      this.sphere2.position.x = -50
-      this.sphere2.position.y = 170
-      this.sphere2.position.z = -100
-
-      this.sphere3.position.x = 150
-      this.sphere3.position.y = 140
-      this.sphere3.position.z = 0
-
-      let group = new THREE.Group()
-      group.add(plane)
-      group.add(this.sphere1, this.sphere2, this.sphere3)
-      group.position.y = specifications[2].shaderDownPosY
-      group.name = 'shaders'
-
-      this.shadersTab.push(group)
+        this.shaderTV.rotation.x = Math.PI / 2
+        this.shaderTV.position.y = -75
+        this.shaderTV.position.z = -380
     }
 
     removeShaders() {
       STORAGE.scene.children.forEach((child, index) => {
         child.name === 'shaders' ? STORAGE.scene.remove(child) : ''
       })
-      this.myShaders = []
+      this.myShadersOnScene = []
+      this.myShadersOnWall = []
     }
 
     displayOrelsanShader() {
       STORAGE.scene.add( this.shadersTab[0] )
-      this.myShaders.push( this.shadersTab[0] )
+      this.myShadersOnScene.push( this.shadersTab[0] )
     }
 
     displayMlleKShader() {
       STORAGE.scene.add( this.shadersTab[1] )
-      this.myShaders.push( this.shadersTab[1] )
+      this.myShadersOnScene.push( this.shadersTab[1] )
     }
 
     displayPetitBiscuitShader() {
       STORAGE.scene.add( this.shadersTab[2] )
-      this.myShaders.push( this.shadersTab[2] )
+      this.myShadersOnScene.push( this.shadersTab[2] )
     }
 
     animate() {
-
-      if (this.sphere1 && this.sphere2 && this.sphere3) {
-        this.sphere1.material.uniforms.u_frequency.value = this.sphereFrequence/5
-        this.sphere2.material.uniforms.u_frequency.value = this.sphereFrequence/3
-        this.sphere3.material.uniforms.u_frequency.value = this.sphereFrequence/6
+      if (STORAGE.ecranGeant && STORAGE.ecranGeant.children.length === 0 && this.shaderTV) {
+       STORAGE.ecranGeant.add(this.shaderTV)
       }
-
       if( this.OrelsanUniforms ) {
         this.OrelsanUniforms.u_time.value += 0.05
       }
       if( this.MlleKUniforms ) {
         this.MlleKUniforms.u_time.value += 0.05
       }
-      if( this.petitBiscuitUniforms ) {
-        this.petitBiscuitUniforms.u_time.value += 0.05
+      if( this.petitBiscuitUniformsPlane && this.petitBiscuitUniformsSphere ) {
+        this.petitBiscuitUniformsPlane.u_time.value += 0.05
+        this.petitBiscuitUniformsSphere.u_time.value += 0.1
       }
     }
 }

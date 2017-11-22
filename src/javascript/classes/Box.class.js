@@ -18,7 +18,7 @@ class Box {
       this.scene
       this.wall
       this.artist
-      this.myShaders
+      this.myShadersOnScene
 
       this.index
 
@@ -108,7 +108,7 @@ class Box {
         this.scene = STORAGE.SceneObjectClass.myObjects[0]
         this.wall = STORAGE.SceneObjectClass.myObjects[1]
         this.artist = STORAGE.SceneObjectClass.myObjects[2]
-        this.myShaders = STORAGE.SceneShaderClass.myShaders[0]
+        this.myShadersOnScene = STORAGE.SceneShaderClass.myShadersOnScene[0]
 
         this.index = STORAGE.SceneManager.actualSceneIndex
 
@@ -145,7 +145,7 @@ class Box {
     this.wall ? TweenLite.to(this.wall.rotation, 0.6, { x : 0, ease: Power2.easeOut }) : ''
     this.scene ? TweenLite.to(this.scene.position, 0.8, { y : this.sceneDownPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 0.8, { y : this.artistDownPosY, ease: Power2.easeOut }) : ''
-    TweenLite.to(this.myShaders.position, 0.8, { y : this.shaderDownPosY, ease: Power2.easeOut })
+    TweenLite.to(this.myShadersOnScene.position, 0.8, { y : this.shaderDownPosY, ease: Power2.easeOut })
   }
 
   openBoxToStep1() {
@@ -153,7 +153,7 @@ class Box {
     this.wall ? TweenLite.to(this.wall.rotation, 0.6, { x : -Math.PI / 50, ease: Power2.easeOut }) : ''
     this.scene ? TweenLite.to(this.scene.position, 0.8, { y : this.sceneDownPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 0.8, { y : this.artistDownPosY, ease: Power2.easeOut }) : ''
-    TweenLite.to(this.myShaders.position, 0.8, { y : this.shaderDownPosY, ease: Power2.easeOut })
+    TweenLite.to(this.myShadersOnScene.position, 0.8, { y : this.shaderDownPosY, ease: Power2.easeOut })
   }
 
   openBoxToStep2() {
@@ -161,7 +161,7 @@ class Box {
     this.wall ? TweenLite.to(this.wall.rotation, 0.6, { x : -Math.PI / 20, ease: Power2.easeOut }) : ''
     this.scene ? TweenLite.to(this.scene.position, 0.8, { y : this.sceneDownPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 0.8, { y : this.artistDownPosY, ease: Power2.easeOut }) : ''
-    TweenLite.to(this.myShaders.position, 0.8, { y : this.shaderDownPosY, ease: Power2.easeOut })
+    TweenLite.to(this.myShadersOnScene.position, 0.8, { y : this.shaderDownPosY, ease: Power2.easeOut })
   }
 
   openBoxToStep3() {
@@ -169,7 +169,7 @@ class Box {
     this.wall ? TweenLite.to(this.wall.rotation, 1.5, { x : -Math.PI / 1.9, ease: Power2.easeOut }) : ''
     this.scene ? TweenLite.to(this.scene.position, 1.2, { y : this.sceneUpPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 1.2, { y : this.artistUpPosY, ease: Power2.easeOut }) : ''
-    TweenLite.to(this.myShaders.position, 0.8, { y : this.shaderUpPosY, ease: Power2.easeOut })
+    TweenLite.to(this.myShadersOnScene.position, 0.8, { y : this.shaderUpPosY, ease: Power2.easeOut })
   }
 
 }

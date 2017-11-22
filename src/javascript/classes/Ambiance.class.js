@@ -12,7 +12,7 @@ class Ambiance {
     }
 
     createLight() {
-      this.light1 = new THREE.SpotLight(0xffffff, 0.07, 0, 2)
+      this.light1 = new THREE.PointLight(0xffffff, 0.07, 0, 2)
       this.light1.position.set(500, 1800, 800)
       this.light1.rotation.set(0, Math.PI, Math.PI)
 
@@ -105,6 +105,13 @@ class Ambiance {
         this.light1.intensity = 0.35
         this.light2.intensity = 0.22
         this.light3.intensity = 0.15
+      } else if (step === 3 && currentChord == 2) {
+        this.light1.color.set(specifications[currentChord].light1)
+        this.light2.color.set(specifications[currentChord].light2)
+        this.light3.color.set(specifications[currentChord].light3)
+        this.light1.intensity = 0.30
+        this.light2.intensity = 0.27
+        this.light3.intensity = 0.08
       }
     }
 }
