@@ -44,7 +44,8 @@ class SceneShader {
         '../javascript/glsl/PetitBiscuitVertexPlane.vert',
         '../javascript/glsl/PetitBiscuitVertexSphere.vert',
         '../javascript/glsl/PetitBiscuitFragmentPlane.frag',
-        '../javascript/glsl/PetitBiscuitFragmentSphere.frag',)
+        '../javascript/glsl/PetitBiscuitFragmentSphere.frag',
+        '../javascript/glsl/PetitBiscuitVertexGround.vert')
       }, 400)
     }
 
@@ -66,13 +67,15 @@ class SceneShader {
       })
     }
 
-    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragmentPlane_url, fragmentSphere_url) {
+    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragmentPlane_url, fragmentSphere_url, vertexGround_url) {
       let that = this
       this.vertex_loader.load(vertexPlane_url, function (vertexPlane_text) {
         that.vertex_loader.load(vertexSphere_url, function (vertexSphere_text) {
           that.fragment_loader.load(fragmentPlane_url, function (fragmentPlane_text) {
             that.fragment_loader.load(fragmentSphere_url, function (fragmentSphere_text) {
-              that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragmentPlane_text, fragmentSphere_text)
+              that.vertex_loader.load(vertexGround_url, function (vertexGround_text) {
+                that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragmentPlane_text, fragmentSphere_text, vertexGround_text)
+              })
             })
           })
         })
@@ -171,8 +174,10 @@ class SceneShader {
       this.shadersTab.push(group)
     }
 
-    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragmentPlane, fragmentSphere) {
-      
+    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragmentPlane, fragmentSphere, vertexGround) {
+     
+      // BLOBS
+
       this.petitBiscuitUniformsSphere = THREE.UniformsUtils.merge([
         THREE.ShaderLib.phong.uniforms,
         { diffuse: { value: new THREE.Color(0x57daf0) } },
@@ -185,8 +190,6 @@ class SceneShader {
         { u_mouse: { type: "v2", value: new THREE.Vector2() } }
       ]);
 
-      // BLOBS
-
       let sphereRadius = [21, 18, 12, 21, 20, 18, 11, 9]
       let sphereFrequence = [0.2, 0.18, 0.12, 0.15, 0.2, 0.14, 0.18, 0.14]
 
@@ -194,7 +197,7 @@ class SceneShader {
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
 
-      for(let i = 0; i < 18; i++) {
+      for(let i = 0; i < 12; i++) {
 
         let radius = Math.round( (Math.random() * (30 - 9) + 9 ) * 100 ) / 100
         let frequence = Math.round( (Math.random() * (0.2 - 0.11) + 0.11 ) * 100 ) / 100
@@ -239,27 +242,58 @@ class SceneShader {
         group.add(sphere)
       }
 
+      // GROUND
+
+      this.petitBiscuitUniformsGround = THREE.UniformsUtils.merge([
+        THREE.ShaderLib.phong.uniforms,
+        { diffuse: { value: new THREE.Color(0xf097c4) } },
+        { specular: { value: new THREE.Color(0x1b1b1b) } },
+        { specularMap: { value: 'grass' } },
+        { shininess : { value: 30 } },
+        { u_time: { type: "f", value: 1.0 } },
+        { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
+      ]);
+
+      let groundDeometry = new THREE.PlaneBufferGeometry(380, 380, 300, 300 )
+      
+      let groundMaterial = new THREE.ShaderMaterial( {
+        uniforms: this.petitBiscuitUniformsGround,
+        vertexShader: vertexGround,
+        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+        side: THREE.DoubleSide,
+        lights: true,
+        fog: true
+      } )
+
+      let ground = new THREE.Mesh( groundDeometry, groundMaterial )
+      ground.rotation.x = Math.PI/2
+      ground.position.z = 0
+
+      group.add(ground)
+
       this.shadersTab.push(group)
 
+      
+      // ECRAN
 
-      this.petitBiscuitUniformsPlane = {
+      this.petitBiscuitUniformsEcran = {
         u_time: { type: "f", value: 1.0 },
         u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
-       // SHADER PLANE
-       let planeGeometry = new THREE.PlaneBufferGeometry( 470, 265 )
        
-        let planeMaterial = new THREE.ShaderMaterial( {
-          uniforms: this.petitBiscuitUniformsPlane,
+       let ecranGeometry = new THREE.PlaneBufferGeometry( 470, 265 )
+       
+        let ecranMaterial = new THREE.ShaderMaterial( {
+          uniforms: this.petitBiscuitUniformsEcran,
           vertexShader: vertexPlane,
           fragmentShader: fragmentPlane,
           side: THREE.DoubleSide
         } )
 
-        let plane = new THREE.Mesh( planeGeometry, planeMaterial )
-        plane.name = 'Plane';
-        this.shaderTV = plane
+        let ecran = new THREE.Mesh( ecranGeometry, ecranMaterial )
+        this.shaderTV = ecran
 
         this.shaderTV.rotation.x = Math.PI / 2
         this.shaderTV.position.y = -75
@@ -299,9 +333,10 @@ class SceneShader {
       if( this.MlleKUniforms ) {
         this.MlleKUniforms.u_time.value += 0.05
       }
-      if( this.petitBiscuitUniformsPlane && this.petitBiscuitUniformsSphere ) {
-        this.petitBiscuitUniformsPlane.u_time.value += 0.05
+      if( this.petitBiscuitUniformsEcran && this.petitBiscuitUniformsSphere && this.petitBiscuitUniformsGround ) {
+        this.petitBiscuitUniformsEcran.u_time.value += 0.05
         this.petitBiscuitUniformsSphere.u_time.value += 0.1
+        this.petitBiscuitUniformsGround.u_time.value += 0.05
       }
     }
 }
