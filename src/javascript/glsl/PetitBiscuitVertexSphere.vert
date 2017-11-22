@@ -103,7 +103,7 @@ float cnoise(vec3 P){
 
 void applyBubbleEffect() {
 
-  scalarMove = 15. * cnoise(0.02 * position + u_time / 3.5 * u_frequency);
+  scalarMove = 15. * cnoise(0.025 * position + u_time / 3. * u_frequency);
 
   newPos = position + normal * scalarMove;
 

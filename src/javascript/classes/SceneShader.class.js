@@ -200,7 +200,7 @@ class SceneShader {
       for(let i = 0; i < 12; i++) {
 
         let radius = Math.round( (Math.random() * (30 - 9) + 9 ) * 100 ) / 100
-        let frequence = Math.round( (Math.random() * (0.2 - 0.11) + 0.11 ) * 100 ) / 100
+        let frequence = Math.round( (Math.random() * (0.3 - 0.11) + 0.11 ) * 100 ) / 100
 
         let xLeft = Math.round( (Math.random() * (-60 - (-200)) + (-200)) * 100 ) / 100
         let zBack = Math.round( (Math.random() * (-50 - (-190)) + (-190)) * 100 ) / 100
