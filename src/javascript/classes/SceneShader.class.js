@@ -265,7 +265,7 @@ class SceneShader {
         { u_color2: { value: new THREE.Color(0xfbafd6) } }
       ]);
 
-      let groundDeometry = new THREE.PlaneBufferGeometry(500, 500, 150, 150 )
+      let groundDeometry = new THREE.PlaneBufferGeometry(498, 498, 150, 150 )
       
       let groundMaterial = new THREE.ShaderMaterial( {
         uniforms: this.petitBiscuitUniformsGround,

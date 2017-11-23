@@ -7,9 +7,17 @@ class Ambiance {
       this.light2
       this.light3
 
+      this.vertex_loader = new THREE.FileLoader(THREE.DefaultLoadingManager)
+      this.vertex_loader.setResponseType('text')
+      this.fragment_loader = new THREE.FileLoader(THREE.DefaultLoadingManager)
+      this.fragment_loader.setResponseType('text')
+
       this.createLight()
       this.createBackground()
-      this.createFlor()
+
+      this.backgroundUniforms
+
+      // this.createFlor()
     }
 
     createLight() {
@@ -51,21 +59,46 @@ class Ambiance {
     }
 
     createBackground() {
-      const geometry = new THREE.SphereGeometry(4000, 32, 32)
-      const material = new THREE.MeshLambertMaterial({color: 0x303848, side: THREE.DoubleSide, reflectivity: 0 })
-      const cube = new THREE.Mesh(geometry, material)
-      STORAGE.background = cube
-      STORAGE.scene.add(cube)
-    }
+      let that = this
+      this.vertex_loader.load('../javascript/glsl/BackgroundVertex.vert', function (vertexGround) {
+        that.fragment_loader.load('../javascript/glsl/BackgroundFragment.frag', function (fragmentGround) {
+          const h = 9000;
+          const geometry = new THREE.SphereGeometry(h, 32, 32)
+    
+          that.backgroundUniforms = THREE.UniformsUtils.merge([
+            THREE.ShaderLib.lambert.uniforms,
+            { specular: { value: new THREE.Color(0x1b1b1b) } },
+            { emissive: { value: new THREE.Color(0x000000) } },
+            { shininess : { value: 30 } },
+            { hue : { value: 1 } },
+            { u_time: { type: "f", value: 1.0 } },
+            { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
+            { u_mouse: { type: "v2", value: new THREE.Vector2() } },
+            { u_color1: { value: new THREE.Color(0x303848) } },
+            { u_color2: { value: new THREE.Color(0x2a3040) } }
+          ]);
+    
+          let material = new THREE.ShaderMaterial( {
+            uniforms: that.backgroundUniforms,
+            vertexShader: vertexGround,
+            fragmentShader: fragmentGround,
+            side: THREE.BackSide,
+            lights: true,
+            fog: true
+          } )
+  
+          const cube = new THREE.Mesh(geometry, material)
+          cube.position.y = h
+          cube.receiveShadow = true
+    
+          console.log(cube, 'HERE')
+    
+          STORAGE.background = cube
+          STORAGE.scene.add(cube)
+        })
+      })
 
-    createFlor() {
-      const geometry = new THREE.PlaneBufferGeometry( 8000, 8000, 10, 10 )
-      const material = new THREE.MeshPhongMaterial({color: 0x303848, side: THREE.DoubleSide, reflectivity: 0, shininess: 5 })
-      const floor = new THREE.Mesh(geometry, material)
-      floor.rotation.x = Math.PI / 2
-      floor.receiveShadow= true
-      STORAGE.floor = floor
-      STORAGE.scene.add(floor)
+      
     }
 
     updateAmbiance(step, chordsDatas, currentChord) {
@@ -75,7 +108,7 @@ class Ambiance {
       step === 2 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][2]) : ''
       step === 3 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][3]) : ''
 
-      TweenLite.to( [STORAGE.background.material.color, STORAGE.floor.material.color], 0.6, {
+      TweenLite.to( [STORAGE.background.material.color], 0.6, {
         r: targetColor.r,
         g: targetColor.g,
         b: targetColor.b,
@@ -123,6 +156,12 @@ class Ambiance {
         this.light1.intensity = 0.30
         this.light2.intensity = 0.27
         this.light3.intensity = 0.08
+      }
+    }
+
+    animate() {
+      if( this.backgroundUniforms.u_time ) {
+        this.backgroundUniforms.u_time.value += 0.05
       }
     }
 }

@@ -27,7 +27,7 @@ class Renderer {
     }
 
     initCamera() {
-      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 30000);
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 50000);
       STORAGE.camera = this.camera
       STORAGE.camera.position.z = 800
       STORAGE.camera.position.y = 700
@@ -36,7 +36,7 @@ class Renderer {
       this.controls.target.set( 0, 0, 0 )
       this.controls.maxPolarAngle = Math.PI/2.2
       this.controls.minDistance = 800
-      this.controls.maxDistance = 4000
+      this.controls.maxDistance = 15000
       this.controls.enableDamping = true;
       this.controls.dampingFactor = 0.09;
       this.controls.rotateSpeed = 0.18;
