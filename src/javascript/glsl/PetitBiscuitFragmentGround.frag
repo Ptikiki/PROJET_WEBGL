@@ -56,7 +56,14 @@ void main() {
 	#include <aomap_fragment>
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;
 	#include <envmap_fragment>
-	gl_FragColor = vec4( mix(u_color1, u_color2, (vPosition.x + vPosition.z) / 40. ) * outgoingLight, diffuseColor.a );
+	float step = 0.;
+	if (vUv.x < 0.5) {
+		step = vUv.x - vUv.y;
+	}
+	if (vUv.x > 0.5) {
+		step = vUv.y;
+	}
+	gl_FragColor = vec4( mix(u_color1, u_color2, -(vPosition.x / 300. + vPosition.z / 58.)  ) * outgoingLight, diffuseColor.a );
 	#include <tonemapping_fragment>
 	#include <encodings_fragment>
 	#include <fog_fragment>

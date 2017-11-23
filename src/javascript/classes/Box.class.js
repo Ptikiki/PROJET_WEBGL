@@ -169,7 +169,7 @@ class Box {
     this.wall ? TweenLite.to(this.wall.rotation, 1.5, { x : -Math.PI / 1.9, ease: Power2.easeOut }) : ''
     this.scene ? TweenLite.to(this.scene.position, 1.2, { y : this.sceneUpPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 1.2, { y : this.artistUpPosY, ease: Power2.easeOut }) : ''
-    TweenLite.to(this.myShadersOnScene.position, 0.8, { y : this.shaderUpPosY, ease: Power2.easeOut })
+    TweenLite.to(this.myShadersOnScene.position, 1, { y : this.shaderUpPosY, ease: Power2.easeOut })
   }
 
 }

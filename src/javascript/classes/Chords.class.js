@@ -22,6 +22,8 @@ class Chords {
 
       this.previewStarted = false
 
+      this.openBox(3)
+
       this.bind()
       this.enableGame()
     }
@@ -35,7 +37,7 @@ class Chords {
       let that = this
       that.keysPressedTab = []
       this.win = false
-      that.step = 0
+      // that.step = 0
       window.addEventListener('keydown', that.keyDownListener)
       window.addEventListener('keyup', that.keyUpListener)
     }
@@ -163,7 +165,7 @@ class Chords {
     openBox(close) {
       let step
       if (close) {
-        step = 0
+        step = 3
         this.previewStarted = false
       } else {
         step = this.step

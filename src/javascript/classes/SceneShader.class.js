@@ -45,7 +45,8 @@ class SceneShader {
         '../javascript/glsl/PetitBiscuitVertexSphere.vert',
         '../javascript/glsl/PetitBiscuitFragmentPlane.frag',
         '../javascript/glsl/PetitBiscuitFragmentSphere.frag',
-        '../javascript/glsl/PetitBiscuitVertexGround.vert')
+        '../javascript/glsl/PetitBiscuitVertexGround.vert',
+        '../javascript/glsl/PetitBiscuitFragmentGround.frag')
       }, 400)
     }
 
@@ -67,14 +68,16 @@ class SceneShader {
       })
     }
 
-    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragmentPlane_url, fragmentSphere_url, vertexGround_url) {
+    loadPetitBiscuitShader(vertexPlane_url, vertexSphere_url, fragmentPlane_url, fragmentSphere_url, vertexGround_url, fragmentGround_url) {
       let that = this
       this.vertex_loader.load(vertexPlane_url, function (vertexPlane_text) {
         that.vertex_loader.load(vertexSphere_url, function (vertexSphere_text) {
           that.fragment_loader.load(fragmentPlane_url, function (fragmentPlane_text) {
             that.fragment_loader.load(fragmentSphere_url, function (fragmentSphere_text) {
               that.vertex_loader.load(vertexGround_url, function (vertexGround_text) {
-                that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragmentPlane_text, fragmentSphere_text, vertexGround_text)
+                that.fragment_loader.load(fragmentGround_url, function (fragmentGround_text) {
+                  that.initPetitBiscuitShaders(vertexPlane_text, vertexSphere_text, fragmentPlane_text, fragmentSphere_text, vertexGround_text, fragmentGround_text)
+                })
               })
             })
           })
@@ -174,21 +177,24 @@ class SceneShader {
       this.shadersTab.push(group)
     }
 
-    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragmentPlane, fragmentSphere, vertexGround) {
+    initPetitBiscuitShaders(vertexPlane, vertexSphere, fragmentPlane, fragmentSphere, vertexGround, fragmentGround) {
      
       // BLOBS
 
       this.petitBiscuitUniformsSphere = THREE.UniformsUtils.merge([
-        THREE.ShaderLib.phong.uniforms,
-        { diffuse: { value: new THREE.Color(0x57daf0) } },
+        THREE.ShaderLib.lambert.uniforms,
         { specular: { value: new THREE.Color(0x1b1b1b) } },
-        { specularMap: { value: 'grass' } },
-        { emissive: { value: new THREE.Color(0x282828) } },
+        { emissive: { value: new THREE.Color(0x444444) } },
         { shininess : { value: 30 } },
+        { hue : { value: 1 } },
         { u_time: { type: "f", value: 1.0 } },
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
-        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
-      ]);
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } },
+        { u_color1: { value: new THREE.Color(0x2ed7fd) } },
+        { u_color2: { value: new THREE.Color(0x77ffff) } }
+      ])
+
+      console.log(THREE.ShaderLib.lambert)
 
       let sphereRadius = [21, 18, 12, 21, 20, 18, 11, 9]
       let sphereFrequence = [0.2, 0.18, 0.12, 0.15, 0.2, 0.14, 0.18, 0.14]
@@ -197,7 +203,7 @@ class SceneShader {
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
 
-      for(let i = 0; i < 12; i++) {
+      for(let i = 0; i < 10; i++) {
 
         let radius = Math.round( (Math.random() * (30 - 9) + 9 ) * 100 ) / 100
         let frequence = Math.round( (Math.random() * (0.3 - 0.11) + 0.11 ) * 100 ) / 100
@@ -206,7 +212,7 @@ class SceneShader {
         let zBack = Math.round( (Math.random() * (-50 - (-190)) + (-190)) * 100 ) / 100
 
         let xRight = Math.round( (Math.random() * (200 - (70)) + (70)) * 100 ) / 100
-        let zFront = Math.round( (Math.random() * (190 - (50)) + (50)) * 100 ) / 100
+        let zFront = Math.round( (Math.random() * (190 - (90)) + (90)) * 100 ) / 100
 
         let xAll = Math.round( (Math.random() * (200 - (-200)) + (-200)) * 100 ) / 100
         let zAll = Math.round( (Math.random() * (190 - (-190)) + (-190)) * 100 ) / 100
@@ -214,13 +220,13 @@ class SceneShader {
         let xAvoidBox = Math.round( (Math.random() * (200 - (-120)) + (-120)) * 100 ) / 100
         let zAvoidBox = Math.round( (Math.random() * (190 - (-100)) + (-100)) * 100 ) / 100
 
-        let y = Math.round( (Math.random() * (150 - (80)) + (80)) * 100 ) / 100
+        let y = Math.round( (Math.random() * (190 - (120)) + (120)) * 100 ) / 100
 
         let sphereGeometry = new THREE.SphereBufferGeometry( radius, 32, 32 )
         let sphereMaterial = new THREE.ShaderMaterial( {
           uniforms: Object.assign({u_frequency:{ type: "f", value: frequence }}, this.petitBiscuitUniformsSphere),
           vertexShader: vertexSphere,
-          fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+          fragmentShader: fragmentSphere,
           side: THREE.DoubleSide,
           lights: true,
           fog: true
@@ -239,28 +245,35 @@ class SceneShader {
           sphere.position.y = y
           sphere.position.z = randomZ === 1 ? zBack : zFront
         }
+
+        sphere.castShadow = true
+        sphere.receiveShadow = true
+
         group.add(sphere)
       }
 
       // GROUND
 
       this.petitBiscuitUniformsGround = THREE.UniformsUtils.merge([
-        THREE.ShaderLib.phong.uniforms,
-        { diffuse: { value: new THREE.Color(0xf097c4) } },
+        THREE.ShaderLib.lambert.uniforms,
+        // { diffuse: { value: new THREE.Color(0xf097c4) } },
         { specular: { value: new THREE.Color(0x1b1b1b) } },
-        { specularMap: { value: 'grass' } },
+        { emissive: { value: new THREE.Color(0x444444) } },
         { shininess : { value: 30 } },
+        { hue : { value: 1 } },
         { u_time: { type: "f", value: 1.0 } },
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
-        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } },
+        { u_color1: { value: new THREE.Color(0x2ed7fd) } },
+        { u_color2: { value: new THREE.Color(0xf097c4) } }
       ]);
 
-      let groundDeometry = new THREE.PlaneBufferGeometry(380, 380, 300, 300 )
+      let groundDeometry = new THREE.PlaneBufferGeometry(380, 380, 150, 150 )
       
       let groundMaterial = new THREE.ShaderMaterial( {
         uniforms: this.petitBiscuitUniformsGround,
         vertexShader: vertexGround,
-        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+        fragmentShader: fragmentGround,
         side: THREE.DoubleSide,
         lights: true,
         fog: true
@@ -269,7 +282,8 @@ class SceneShader {
       let ground = new THREE.Mesh( groundDeometry, groundMaterial )
       ground.rotation.x = Math.PI/2
       ground.position.z = 0
-
+      ground.position.y = 20
+      ground.castShadow = true
       group.add(ground)
 
       this.shadersTab.push(group)

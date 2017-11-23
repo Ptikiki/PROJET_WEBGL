@@ -1,19 +1,16 @@
 
-#define PHONG
-
-varying vec3 vViewPosition;
-
-#ifndef FLAT_SHADED
-
-	varying vec3 vNormal;
-
+#define LAMBERT
+varying vec3 vLightFront;
+#ifdef DOUBLE_SIDED
+	varying vec3 vLightBack;
 #endif
 
 #include <common>
 #include <uv_pars_vertex>
 #include <uv2_pars_vertex>
-#include <displacementmap_pars_vertex>
 #include <envmap_pars_vertex>
+#include <bsdfs>
+#include <lights_pars>
 #include <color_pars_vertex>
 #include <fog_pars_vertex>
 #include <morphtarget_pars_vertex>
@@ -29,6 +26,8 @@ uniform float u_frequency;
 
 float scalarMove;
 vec3 newPos;
+varying vec2 vUv;
+varying vec3 vPosition;
 
 
 
@@ -103,7 +102,7 @@ float cnoise(vec3 P){
 
 void applyWaveEffect() {
 
-  scalarMove = 160. * cnoise(0.014 * position + u_time * .08);
+  scalarMove = 160. * cnoise(0.012 * position + u_time * .08);
     newPos = position + normal * scalarMove;
 
     if (uv.x > 0.95 || uv.x < 0.05) {
@@ -118,6 +117,9 @@ void applyWaveEffect() {
       newPos = position;
     }
 
+    vUv = uv;
+    vPosition = newPos;
+
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
 }
 
@@ -126,36 +128,24 @@ void main() {
 	#include <uv_vertex>
 	#include <uv2_vertex>
 	#include <color_vertex>
-
 	#include <beginnormal_vertex>
 	#include <morphnormal_vertex>
 	#include <skinbase_vertex>
 	#include <skinnormal_vertex>
 	#include <defaultnormal_vertex>
-
-#ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
-
-	vNormal = normalize( transformedNormal );
-
-#endif
-
 	#include <begin_vertex>
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
-	#include <displacementmap_vertex>
 	#include <project_vertex>
-
-  applyWaveEffect();
-
 	#include <logdepthbuf_vertex>
 	#include <clipping_planes_vertex>
-
-	vViewPosition = - mvPosition.xyz;
-
 	#include <worldpos_vertex>
 	#include <envmap_vertex>
+	#include <lights_lambert_vertex>
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
+
+  applyWaveEffect();
 
 }
 
