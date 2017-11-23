@@ -42,7 +42,7 @@ class Box {
       this.mtlLoader = new MTLLoader()
       this.objLoader = new THREE.OBJLoader()
 
-      that.objLoader.load( 'assets/NEW/box/closed-box_base.obj', function ( object ) {
+      that.objLoader.load( 'assets/NEW/box/closed-box_base2.obj', function ( object ) {
         object.rotation.y = Math.PI
         object.name = 'base_boite'
 

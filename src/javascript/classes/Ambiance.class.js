@@ -9,6 +9,7 @@ class Ambiance {
 
       this.createLight()
       this.createBackground()
+      this.createFlor()
     }
 
     createLight() {
@@ -50,11 +51,21 @@ class Ambiance {
     }
 
     createBackground() {
-      const geometry = new THREE.BoxGeometry(15000, 15000, 15000)
+      const geometry = new THREE.SphereGeometry(4000, 32, 32)
       const material = new THREE.MeshLambertMaterial({color: 0x303848, side: THREE.DoubleSide, reflectivity: 0 })
       const cube = new THREE.Mesh(geometry, material)
       STORAGE.background = cube
       STORAGE.scene.add(cube)
+    }
+
+    createFlor() {
+      const geometry = new THREE.PlaneBufferGeometry( 8000, 8000, 10, 10 )
+      const material = new THREE.MeshPhongMaterial({color: 0x303848, side: THREE.DoubleSide, reflectivity: 0, shininess: 5 })
+      const floor = new THREE.Mesh(geometry, material)
+      floor.rotation.x = Math.PI / 2
+      floor.receiveShadow= true
+      STORAGE.floor = floor
+      STORAGE.scene.add(floor)
     }
 
     updateAmbiance(step, chordsDatas, currentChord) {
@@ -64,7 +75,7 @@ class Ambiance {
       step === 2 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][2]) : ''
       step === 3 ? targetColor = new THREE.Color(chordsDatas.chords[currentChord][1][3]) : ''
 
-      TweenLite.to( STORAGE.background.material.color, 0.6, {
+      TweenLite.to( [STORAGE.background.material.color, STORAGE.floor.material.color], 0.6, {
         r: targetColor.r,
         g: targetColor.g,
         b: targetColor.b,

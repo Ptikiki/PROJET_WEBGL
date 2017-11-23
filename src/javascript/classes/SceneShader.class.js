@@ -201,9 +201,9 @@ class SceneShader {
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
 
-      for(let i = 0; i < 9; i++) {
+      for(let i = 0; i < 11; i++) {
 
-        let radius = Math.round( (Math.random() * (15 - 5) + 9 ) * 100 ) / 100
+        let radius = Math.round( (Math.random() * (14 - 5) + 9 ) * 100 ) / 100
         let frequence = Math.round( (Math.random() * (0.3 - 0.11) + 0.11 ) * 100 ) / 100
 
         let xLeft = Math.round( (Math.random() * (-60 - (-200)) + (-200)) * 100 ) / 100
