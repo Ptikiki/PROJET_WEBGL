@@ -102,18 +102,43 @@ float cnoise(vec3 P){
 
 void applyWaveEffect() {
 
-  scalarMove = 160. * cnoise(0.012 * position + u_time * .08);
+  scalarMove = 120. * cnoise(0.010 * position + u_time * .08);
     newPos = position + normal * scalarMove;
 
-    if (uv.x > 0.95 || uv.x < 0.05) {
+    if (uv.x > 0.98 || uv.x < 0.02) {
       newPos = position;
     }
 
-    if (uv.y > 0.95 || uv.y < 0.05) {
+    if (uv.y > 0.98 || uv.y < 0.12) {
       newPos = position;
     }
 
-    if (uv.y > 0.30 && uv.y < 0.70 && uv.x > 0.30 && uv.x < 0.70 ) {
+    if ( (uv.y < 0.3 && uv.x < 0.24)  || (uv.y < 0.3 && uv.x > 0.70)) {
+      newPos = position;
+    }
+
+    vec2 centerSpeakerLeft = vec2(0.08, 0.92);
+    float distL = distance(uv, centerSpeakerLeft);
+    if (distL < 0.1) {
+      newPos = position;
+    }
+
+    vec2 centerSpeakerRight = vec2(0.92, 0.92);
+    float distR = distance(uv, centerSpeakerRight);
+    if (distR < 0.1) {
+      newPos = position;
+    }
+
+     vec2 centerSpeakerCenter = vec2(0.5, 0.97);
+    float distC = distance(uv, centerSpeakerCenter);
+    if (distC < 0.15) {
+      newPos = position;
+    }
+
+
+    vec2 centerPoint = vec2(0.5);
+    float dist = distance(uv, centerPoint);
+    if (dist < 0.15) {
       newPos = position;
     }
 

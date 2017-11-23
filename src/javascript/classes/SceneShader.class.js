@@ -184,28 +184,26 @@ class SceneShader {
       this.petitBiscuitUniformsSphere = THREE.UniformsUtils.merge([
         THREE.ShaderLib.lambert.uniforms,
         { specular: { value: new THREE.Color(0x1b1b1b) } },
-        { emissive: { value: new THREE.Color(0x444444) } },
+        { emissive: { value: new THREE.Color(0x777777) } },
         { shininess : { value: 30 } },
         { hue : { value: 1 } },
         { u_time: { type: "f", value: 1.0 } },
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
         { u_mouse: { type: "v2", value: new THREE.Vector2() } },
         { u_color1: { value: new THREE.Color(0x2ed7fd) } },
-        { u_color2: { value: new THREE.Color(0x77ffff) } }
+        { u_color2: { value: new THREE.Color(0xfbafd6) } }
+        // { u_color2: { value: new THREE.Color(0x77ffff) } }
       ])
 
       console.log(THREE.ShaderLib.lambert)
-
-      let sphereRadius = [21, 18, 12, 21, 20, 18, 11, 9]
-      let sphereFrequence = [0.2, 0.18, 0.12, 0.15, 0.2, 0.14, 0.18, 0.14]
 
       let group = new THREE.Group()
       group.position.y = specifications[2].shaderDownPosY
       group.name = 'shaders'
 
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < 9; i++) {
 
-        let radius = Math.round( (Math.random() * (30 - 9) + 9 ) * 100 ) / 100
+        let radius = Math.round( (Math.random() * (15 - 5) + 9 ) * 100 ) / 100
         let frequence = Math.round( (Math.random() * (0.3 - 0.11) + 0.11 ) * 100 ) / 100
 
         let xLeft = Math.round( (Math.random() * (-60 - (-200)) + (-200)) * 100 ) / 100
@@ -256,7 +254,6 @@ class SceneShader {
 
       this.petitBiscuitUniformsGround = THREE.UniformsUtils.merge([
         THREE.ShaderLib.lambert.uniforms,
-        // { diffuse: { value: new THREE.Color(0xf097c4) } },
         { specular: { value: new THREE.Color(0x1b1b1b) } },
         { emissive: { value: new THREE.Color(0x444444) } },
         { shininess : { value: 30 } },
@@ -265,10 +262,10 @@ class SceneShader {
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
         { u_mouse: { type: "v2", value: new THREE.Vector2() } },
         { u_color1: { value: new THREE.Color(0x2ed7fd) } },
-        { u_color2: { value: new THREE.Color(0xf097c4) } }
+        { u_color2: { value: new THREE.Color(0xfbafd6) } }
       ]);
 
-      let groundDeometry = new THREE.PlaneBufferGeometry(380, 380, 150, 150 )
+      let groundDeometry = new THREE.PlaneBufferGeometry(500, 500, 150, 150 )
       
       let groundMaterial = new THREE.ShaderMaterial( {
         uniforms: this.petitBiscuitUniformsGround,
