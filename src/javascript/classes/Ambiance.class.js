@@ -104,7 +104,7 @@ class Ambiance {
       let geometry = new THREE.SphereGeometry(h, 32, 32)
       let material = new THREE.ShadowMaterial({side: THREE.DoubleSide})
       let fakeShadow = new THREE.Mesh( geometry, material )
-      fakeShadow.material.opacity = 0.06
+      fakeShadow.material.opacity = 0.05
       fakeShadow.position.y = h - 12
       fakeShadow.receiveShadow = true
       STORAGE.scene.add( fakeShadow )

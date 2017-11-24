@@ -1,3 +1,5 @@
+import EffectComposer, { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer-es6'
+
 class Renderer {
 
     constructor(options) {
@@ -14,6 +16,7 @@ class Renderer {
 
       this.initScene()
       this.initCamera()
+      this.initEffectComposer()
       this.bind()
     }
 
@@ -43,14 +46,38 @@ class Renderer {
       this.controls.zoomSpeed = 0.3;
     }
 
+    initEffectComposer() {
+      this.composer = new EffectComposer(this.renderer)
+      this.composer.addPass(new RenderPass(this.scene, this.camera))
+
+      // Add shaders! Celebrate! 
+      const horizontalBlurShader = new ShaderPass(THREE.HorizontalBlurShader) 
+      this.composer.addPass(horizontalBlurShader) 
+      const verticalBlurShaderPass = new ShaderPass(THREE.VerticalBlurShader) 
+      this.composer.addPass(verticalBlurShaderPass) 
+  
+      // And draw to the screen 
+      const copyPass = new ShaderPass(CopyShader)
+      copyPass.renderToScreen = true
+      this.composer.addPass(copyPass)
+    }
+
     onWindowResize() {
       STORAGE.camera.aspect = window.innerWidth / window.innerHeight
       STORAGE.camera.updateProjectionMatrix()
       STORAGE.renderer.setSize(window.innerWidth, window.innerHeight)
     }
 
-    animate() {
+    updateCamera() {
       this.controls.update()
+    }
+
+    render() {
+      this.renderer.render(this.scene, this.camera)
+    }
+
+    renderComposer() {
+      this.composer.render()
     }
 }
 

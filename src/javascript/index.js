@@ -7,6 +7,11 @@ const MTLLoader = require('three-mtl-loader')
 
 const Spotify = require('spotify-web-api-js')
 
+import './vendors/HorizontalBlurShader'
+import './vendors/VerticalBlurShader'
+// import './vendors/ShaderPass'
+// import './vendors/RenderPass'
+
 import Renderer from './classes/Renderer.class.js'
 import Ambiance from './classes/Ambiance.class.js'
 import Box from './classes/Box.class.js'
@@ -33,7 +38,10 @@ function initCanvas() {
 function render() {
 	STORAGE.SceneObjectClass.animate()
 	STORAGE.SceneShaderClass.animate()
-	STORAGE.RendererClass.animate()
-	STORAGE.renderer.render(STORAGE.scene, STORAGE.camera)
+	STORAGE.RendererClass.updateCamera()
+	STORAGE.RendererClass.render()
+	// if Menu {
+		// STORAGE.RendererClass.renderComposer()
+	// }
 	requestAnimationFrame(render)
 }
