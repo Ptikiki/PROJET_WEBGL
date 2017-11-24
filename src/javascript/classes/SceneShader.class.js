@@ -89,40 +89,43 @@ class SceneShader {
     initOrelsanShaders(vertex, fragment) {
 
       this.OrelsanUniforms = THREE.UniformsUtils.merge([
-        THREE.ShaderLib.phong.uniforms,
-        { diffuse: { value: new THREE.Color(0xfbae65) } },
+        THREE.ShaderLib.lambert.uniforms,
+        { diffuse: { value: new THREE.Color(0xfdad5b) } },
         { u_time: { type: "f", value: 1.0 } },
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
         { u_mouse: { type: "v2", value: new THREE.Vector2() } }
       ]);
 
-      let geometry = new THREE.BoxBufferGeometry( 500, 6, 14, 200, 20, 20 );
+      let geometry = new THREE.BoxBufferGeometry( 500, 6, 14, 400, 20, 20 );
 
       let material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 200. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 160. }, u_frequence:{ type: "f", value: 0.0055 } }, this.OrelsanUniforms),
         vertexShader: vertex,
-        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+        fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         lights: true,
         fog: true,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        shininess: 3
       } )
 
       let material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 150. }, u_frequence:{ type: "f", value: 0.003 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 250. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
         vertexShader: vertex,
-        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+        fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
         lights: true,
-        fog: true
+        fog: true,
+        shininess: 3
       } )
 
       let material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 220. }, u_frequence:{ type: "f", value: 0.005 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 100. }, u_frequence:{ type: "f", value: 0.008 } }, this.OrelsanUniforms),
         vertexShader: vertex,
-        fragmentShader: THREE.ShaderLib.phong.fragmentShader,
+        fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
         lights: true,
-        fog: true
+        fog: true,
+        shininess: 3
       } )
 
       let plane1 = new THREE.Mesh( geometry, material1 )
@@ -130,7 +133,6 @@ class SceneShader {
       let plane3 = new THREE.Mesh( geometry, material3 )
 
       plane1.position.z = 125
-      plane1.shininess = 30
       plane1.castShadow = true
       plane2.position.z = 175
       plane2.castShadow = true
@@ -192,7 +194,6 @@ class SceneShader {
         { u_mouse: { type: "v2", value: new THREE.Vector2() } },
         { u_color1: { value: new THREE.Color(0x2ed7fd) } },
         { u_color2: { value: new THREE.Color(0xfbafd6) } }
-        // { u_color2: { value: new THREE.Color(0x77ffff) } }
       ])
 
       console.log(THREE.ShaderLib.lambert)

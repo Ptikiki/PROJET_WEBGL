@@ -142,6 +142,10 @@ void applyWaveEffect() {
       newPos = position;
     }
 
+    if (newPos.z > 0. ) {
+      newPos.z = 0.;
+    }
+
     vUv = uv;
     vPosition = newPos;
 
