@@ -109,7 +109,7 @@ class SceneShader {
       } )
 
       let material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 250. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 270. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
