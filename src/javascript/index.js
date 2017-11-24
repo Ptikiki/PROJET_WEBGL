@@ -19,6 +19,7 @@ import SceneManager from './classes/SceneManager.class.js'
 import SceneObject from './classes/SceneObject.class.js'
 import SceneShader from './classes/SceneShader.class.js'
 import SpotifyAPIService from './classes/SpotifyAPIService.class.js'
+import Interface from './classes/Interface.class.js'
 
 window.STORAGE = {}
 initCanvas()
@@ -31,6 +32,7 @@ function initCanvas() {
 	new SceneManager()
 	new Ambiance()
 	new SpotifyAPIService()
+	new Interface()
 
  	render()
 }
@@ -39,9 +41,10 @@ function render() {
 	STORAGE.SceneObjectClass.animate()
 	STORAGE.SceneShaderClass.animate()
 	STORAGE.RendererClass.updateCamera()
-	STORAGE.RendererClass.render()
-	// if Menu {
-		// STORAGE.RendererClass.renderComposer()
-	// }
+	if (!STORAGE.InterfaceClass.interfaceIsBlurred) {
+		STORAGE.RendererClass.render()
+	} else {
+		STORAGE.RendererClass.renderComposer()
+	}
 	requestAnimationFrame(render)
 }

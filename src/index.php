@@ -44,6 +44,10 @@
     <div class="letters">
       <p></p>
     </div>
+
+    <button class="help">
+      HELP
+    </button>
     
   	<script src="javascript/bundle.js"></script>
 </body>

@@ -50,7 +50,7 @@ class Renderer {
       this.composer = new EffectComposer(this.renderer)
       this.composer.addPass(new RenderPass(this.scene, this.camera))
 
-      // Add shaders! Celebrate! 
+      // Add shaders
       const horizontalBlurShader = new ShaderPass(THREE.HorizontalBlurShader) 
       this.composer.addPass(horizontalBlurShader) 
       const verticalBlurShaderPass = new ShaderPass(THREE.VerticalBlurShader) 
