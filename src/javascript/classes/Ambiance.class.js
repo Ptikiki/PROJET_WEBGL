@@ -103,12 +103,11 @@ class Ambiance {
       const h = 8000;
       let geometry = new THREE.SphereGeometry(h, 32, 32)
       let material = new THREE.ShadowMaterial({side: THREE.DoubleSide})
-      let plane = new THREE.Mesh( geometry, material )
-      console.log(plane)
-      plane.material.opacity = 0.06
-      plane.position.y = h - 12
-      plane.receiveShadow = true
-      STORAGE.scene.add( plane )
+      let fakeShadow = new THREE.Mesh( geometry, material )
+      fakeShadow.material.opacity = 0.06
+      fakeShadow.position.y = h - 12
+      fakeShadow.receiveShadow = true
+      STORAGE.scene.add( fakeShadow )
     }
 
     updateAmbiance(step, chordsDatas, currentChord) {
