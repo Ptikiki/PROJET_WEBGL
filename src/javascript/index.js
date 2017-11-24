@@ -33,7 +33,6 @@ function initCanvas() {
 function render() {
 	STORAGE.SceneObjectClass.animate()
 	STORAGE.SceneShaderClass.animate()
-	STORAGE.RendererClass.animate()
 	STORAGE.renderer.render(STORAGE.scene, STORAGE.camera)
 	requestAnimationFrame(render)
 }
