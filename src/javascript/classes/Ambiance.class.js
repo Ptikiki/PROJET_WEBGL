@@ -85,13 +85,11 @@ class Ambiance {
             fragmentShader: fragmentGround,
             side: THREE.BackSide,
             lights: true,
-            fog: true,
-            depthWrite: false
+            fog: true
           } )
   
           const cube = new THREE.Mesh(geometry, material)
-          cube.position.y = h -30
-          // cube.receiveShadow = true
+          cube.position.y = h - 15
     
           console.log(cube, 'HERE')
     
@@ -102,12 +100,13 @@ class Ambiance {
     }
 
     createFakeShadow() {
-      let geometry = new THREE.PlaneGeometry( 3000, 3000 )
-      let material = new THREE.ShadowMaterial()
+      const h = 8000;
+      let geometry = new THREE.SphereGeometry(h, 32, 32)
+      let material = new THREE.ShadowMaterial({side: THREE.DoubleSide})
       let plane = new THREE.Mesh( geometry, material )
-      plane.rotation.x = - Math.PI /2
       console.log(plane)
       plane.material.opacity = 0.06
+      plane.position.y = h - 12
       plane.receiveShadow = true
       STORAGE.scene.add( plane )
     }

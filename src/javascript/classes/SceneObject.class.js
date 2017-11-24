@@ -106,7 +106,7 @@ class SceneObject {
 
           that.objLoader.load( 'assets/NEW/Petit-biscuit/petitbiscuit_base-scene.obj', function ( object ) {
             object.position.x = 0
-            object.position.y = specifications[1].sceneDownPosY
+            object.position.y = specifications[2].sceneDownPosY
             object.position.z = 0
             object.rotation.y = Math.PI
             object.name = 'scene'
@@ -246,7 +246,7 @@ class SceneObject {
             bodyMaterial.needsUpdate = true
 
             that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
-              object.position.y = -85
+              object.position.y = specifications[0].artistDownPosY
               object.name = 'artist'
 
               object.traverse(function(o) {
@@ -277,7 +277,7 @@ class SceneObject {
             bodyMaterial.needsUpdate = true
 
             that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
-              object.position.y = -85
+              object.position.y =  specifications[1].artistDownPosY
               object.name = 'artist'
 
               object.traverse(function(o) {
@@ -308,7 +308,7 @@ class SceneObject {
             bodyMaterial.needsUpdate = true
 
             that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
-              object.position.y = -85
+              object.position.y =  specifications[2].artistDownPosY
               object.position.z = -10
               object.name = 'artist'
 
