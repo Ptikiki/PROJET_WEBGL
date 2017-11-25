@@ -17,6 +17,7 @@ let config = {
   },
   devServer: {
       contentBase: path.resolve(__dirname, './src'),
+      proxy: {'**': 'http://localhost:8888/src/'}
   },
   module: {
     rules: [
@@ -77,11 +78,11 @@ if (process.env.NODE_ENV === 'production') {
   ])
 }
 
-config.devServer.setup = function(app) {
-  const php_gateway = gateway('src', {'.php': 'php-cgi'});
-  app.use(historyApiFallback({index: 'index.php', verbose:false}));
-  app.get('*.php', php_gateway);
-  app.post('*.php', php_gateway);
-};
+// config.devServer.setup = function(app) {
+//   const php_gateway = gateway('src', {'.php': 'php-cgi'});
+//   app.use(historyApiFallback({index: 'index.php', verbose:false}));
+//   app.get('*.php', php_gateway);
+//   app.post('*.php', php_gateway);
+// };
 
 module.exports = config;

@@ -180,7 +180,7 @@ class SceneShader {
     }
 
     initPetitBiscuitShaders(vertexPlane, vertexSphere, fragmentPlane, fragmentSphere, vertexGround, fragmentGround) {
-     
+
       // BLOBS
 
       this.petitBiscuitUniformsSphere = THREE.UniformsUtils.merge([
@@ -236,7 +236,7 @@ class SceneShader {
         let randomX = Math.round( Math.random() )
         let randomZ = Math.round( Math.random() )
         if (randomBase === 0) {
-          sphere.position.x =  randomX === 1 ? xLeft : xRight 
+          sphere.position.x =  randomX === 1 ? xLeft : xRight
           sphere.position.y = y
           sphere.position.z = randomX === 1 ? zAvoidBox : zAll
         } else {
@@ -267,7 +267,7 @@ class SceneShader {
       ]);
 
       let groundDeometry = new THREE.PlaneBufferGeometry(495, 495, 150, 150 )
-      
+
       let groundMaterial = new THREE.ShaderMaterial( {
         uniforms: this.petitBiscuitUniformsGround,
         vertexShader: vertexGround,
@@ -286,7 +286,7 @@ class SceneShader {
 
       this.shadersTab.push(group)
 
-      
+
       // ECRAN
 
       this.petitBiscuitUniformsEcran = {
@@ -294,9 +294,9 @@ class SceneShader {
         u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
         u_mouse: { type: "v2", value: new THREE.Vector2() }
       }
-       
+
        let ecranGeometry = new THREE.PlaneBufferGeometry( 470, 265 )
-       
+
         let ecranMaterial = new THREE.ShaderMaterial( {
           uniforms: this.petitBiscuitUniformsEcran,
           vertexShader: vertexPlane,
