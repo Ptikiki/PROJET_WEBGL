@@ -119,9 +119,6 @@ class Chords {
       this.win = true
       this.boxIsOpen = true
 
-      // this.songToPlay = new Audio(song)
-      // this.songToPlay.play()
-
       this.songPlaying = true
 
       STORAGE.AudioClass.play(0, this.currentChord)
@@ -139,19 +136,15 @@ class Chords {
 
     launchNextSong(that, event) {
       if ( (event.keyCode === 32 || event === 32) && that.boxIsOpen) {
-        that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
 
         let newIndexSongToPlay = Math.round(Math.random() * (chordsDatas.songs[that.currentChord].length -1) )
         let song = chordsDatas.songs[that.currentChord][newIndexSongToPlay]
+
         that.setSongName(chordsDatas.songsName[that.currentChord][newIndexSongToPlay])
 
         STORAGE.AudioClass.stop(that.currentSongToPlayIndex, that.currentChord)
         STORAGE.AudioClass.play(newIndexSongToPlay, that.currentChord)
         that.currentSongToPlayIndex = newIndexSongToPlay
-
-        // that.nextSongToPlay = new Audio(song)
-        // that.songToPlay.pause()
-        // that.nextSongToPlay.play()
 
         that.previewStartedTime = Math.round(Date.now() / 1000)
         that.previewStarted = true

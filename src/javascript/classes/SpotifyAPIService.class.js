@@ -30,12 +30,13 @@ class SpotifyAPIService {
     if(this.token) {
       this.spotifyApi.setAccessToken(this.token);
       this.spotifyApi.setPromiseImplementation(Q);
-      this.getTopTracks()
+      this.getTopTracksOrelsan()
     }
   }
 
-  getTopTracks() {
+  getTopTracksOrelsan() {
     // get Orelsan top tracks
+    let that = this
     this.spotifyApi.getArtistTopTracks('4FpJcNgOvIpSBeJgRg3OfN', 'FR')
       .then(function(data) {
         let urlsTab = []
@@ -44,10 +45,52 @@ class SpotifyAPIService {
           chordsDatas.songsName[0].push(track.name)
           urlsTab.push(track.preview_url)
         })
-        STORAGE.AudioClass.initAudio(urlsTab, 0)
+        STORAGE.AudioClass.initAudio(urlsTab, 0).then((response)=> {
+          // that.getTopTracksMlleK()
+          console.log('GOOD')
+        }).catch((error)=> { console.warn(error) })
       }, function(err) {
         console.error(err);
       });
+  }
+
+  getTopTracksMlleK() {
+    // get MlleK top tracks
+    let that = this
+    this.spotifyApi.getArtistTopTracks('5O2FUMAWxdTikjoCBAXrNI', 'FR')
+      .then(function(data) {
+        let urlsTab = []
+        data.tracks.forEach((track) =>{
+          chordsDatas.songs[1].push(track.preview_url)
+          chordsDatas.songsName[1].push(track.name)
+          urlsTab.push(track.preview_url)
+        })
+        STORAGE.AudioClass.initAudio(urlsTab, 1).then((response)=> {
+          that.getTopTracksPetitBiscuit()
+        }).catch((error)=> { console.warn(error) })
+      }, function(err) {
+        console.error(err);
+      });
+  }
+
+  getTopTracksPetitBiscuit() {
+    // get PetitBiscuit top tracks
+    let that = this
+    this.spotifyApi.getArtistTopTracks('6gK1Uct5FEdaUWRWpU4Cl2', 'FR')
+      .then(function(data) {
+        let urlsTab = []
+        data.tracks.forEach((track) =>{
+          chordsDatas.songs[2].push(track.preview_url)
+          chordsDatas.songsName[2].push(track.name)
+          urlsTab.push(track.preview_url)
+        })
+        STORAGE.AudioClass.initAudio(urlsTab, 2).then((response)=> {
+          console.log('ALL SOUND DATA LOADED')
+        }).catch((error)=> { console.warn(error) })
+      }, function(err) {
+        console.error(err);
+      });
+  }
 
     // get Mademoiselle K top tracks
     // this.spotifyApi.getArtistTopTracks('5O2FUMAWxdTikjoCBAXrNI', 'FR')
@@ -70,7 +113,7 @@ class SpotifyAPIService {
     //   }, function(err) {
     //     console.error(err);
     //   });
-  }
+  // }
 
 }
 
