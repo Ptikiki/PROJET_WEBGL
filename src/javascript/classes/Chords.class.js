@@ -19,7 +19,7 @@ class Chords {
 
       this.songPlaying = false
 
-      this.currentSongToPlayIndex = 0
+      this.currentSongPlayingIndex = 0
 
       this.artistNameText = document.querySelector('.songsName .artist')
       this.songNameText = document.querySelector('.songsName .song')
@@ -53,7 +53,7 @@ class Chords {
         that.keysPressedTab.push(event.key)
 
         if ( that.songPlaying) {
-          STORAGE.AudioClass.stopWithSmooth(that.currentSongToPlayIndex, that.currentChord)
+          STORAGE.AudioClass.stopWithSmooth(that.currentSongPlayingIndex, that.currentChord)
           that.songPlaying = false
         }
 
@@ -67,7 +67,7 @@ class Chords {
         that.openBox()
         that.launchNote(chordsDatas.notes[event.key])
         that.setAmbiance()
-        that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
+        that.step === 3 ? that.launchSound() : ''
       }
     }
 
@@ -114,15 +114,15 @@ class Chords {
       this.boxIsOpen = false
     }
 
-    launchSound(song) {
-      console.log('GAGNE', song)
+    launchSound() {
+      console.log('GAGNE')
       this.win = true
       this.boxIsOpen = true
 
       this.songPlaying = true
 
       STORAGE.AudioClass.play(0, this.currentChord)
-      this.currentSongToPlayIndex = 0
+      this.currentSongPlayingIndex = 0
 
       this.setSongName(chordsDatas.songsName[this.currentChord][0])
       this.setArtistName(chordsDatas.artists[this.currentChord])
@@ -142,9 +142,9 @@ class Chords {
 
         that.setSongName(chordsDatas.songsName[that.currentChord][newIndexSongToPlay])
 
-        STORAGE.AudioClass.stop(that.currentSongToPlayIndex, that.currentChord)
+        STORAGE.AudioClass.stop(that.currentSongPlayingIndex, that.currentChord)
         STORAGE.AudioClass.play(newIndexSongToPlay, that.currentChord)
-        that.currentSongToPlayIndex = newIndexSongToPlay
+        that.currentSongPlayingIndex = newIndexSongToPlay
 
         that.previewStartedTime = Math.round(Date.now() / 1000)
         that.previewStarted = true

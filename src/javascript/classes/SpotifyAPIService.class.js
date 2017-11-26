@@ -10,10 +10,6 @@ class SpotifyAPIService {
     this.token = this.getCookie('spotifyToken')
     this.initFisrtsSongs()
 
-    setTimeout(() => {
-      this.initAPI()
-    }, 2000)
-
   }
 
   getCookie(name) {
@@ -22,7 +18,14 @@ class SpotifyAPIService {
   }
 
   initFisrtsSongs() {
-    STORAGE.AudioClass.initAudio(['assets/songs/orelsan.mp3'], 0)
+    let that = this
+    STORAGE.AudioClass.initAudio(['assets/songs/orelsan.mp3'], 0).then((response)=>{
+      STORAGE.AudioClass.initAudio(['assets/songs/mademoisellek.mp3'], 1).then((response)=>{
+        STORAGE.AudioClass.initAudio(['assets/songs/petitbiscuit.mp3'], 2).then((response)=>{
+          that.initAPI()
+        }).catch((error)=> { console.warn(error) })
+      }).catch((error)=> { console.warn(error) })
+    }).catch((error)=> { console.warn(error) })
   }
 
   initAPI() {
@@ -46,8 +49,7 @@ class SpotifyAPIService {
           urlsTab.push(track.preview_url)
         })
         STORAGE.AudioClass.initAudio(urlsTab, 0).then((response)=> {
-          // that.getTopTracksMlleK()
-          console.log('GOOD')
+          that.getTopTracksMlleK()
         }).catch((error)=> { console.warn(error) })
       }, function(err) {
         console.error(err);
@@ -91,29 +93,6 @@ class SpotifyAPIService {
         console.error(err);
       });
   }
-
-    // get Mademoiselle K top tracks
-    // this.spotifyApi.getArtistTopTracks('5O2FUMAWxdTikjoCBAXrNI', 'FR')
-    //   .then(function(data) {
-    //     data.tracks.forEach((track) =>{
-    //       chordsDatas.songs[1].push(track.preview_url)
-    //       chordsDatas.songsName[1].push(track.name)
-    //     })
-    //   }, function(err) {
-    //     console.error(err);
-    //   });
-    //
-    // // get Petit Biscuit top tracks
-    // this.spotifyApi.getArtistTopTracks('6gK1Uct5FEdaUWRWpU4Cl2', 'FR')
-    //   .then(function(data) {
-    //     data.tracks.forEach((track) =>{
-    //       chordsDatas.songs[2].push(track.preview_url)
-    //       chordsDatas.songsName[2].push(track.name)
-    //     })
-    //   }, function(err) {
-    //     console.error(err);
-    //   });
-  // }
 
 }
 

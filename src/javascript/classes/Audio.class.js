@@ -3,7 +3,6 @@ import chordsDatas from '../datas/chordsDatas.js'
 class Audio {
 
   constructor( url, index ){
-    console.log('API')
     STORAGE.AudioClass = this
     this.audioCtx = new AudioContext()
     this.audioBuffer
@@ -26,7 +25,6 @@ class Audio {
       this.analyser = this.audioCtx.createAnalyser()
 
       this.audioIndex = 0
-      console.log(this.urls, index, resolve)
       this.loadSound(this.urls, index, resolve)
     })
   }
@@ -43,7 +41,6 @@ class Audio {
 
         this.audioBuffersTab[index].push(buffer)
         this.analyserTab[index].push(this.analyser)
-        // this.frequencyDataTab[index].push(this.frequencyData)
 
         if (this.audioIndex < this.urls.length - 1) {
           this.audioIndex ++
@@ -118,9 +115,18 @@ class Audio {
 
 
     let rapidity = Math.round(volumeTotalMoyen + highFrequenciesMoyenne)
-    console.log(volumeTotalMoyen)
-    if (indexTab === 0) {
+
+    if (indexTab === 0 && STORAGE.SceneShaderClass.OrelsanUniforms) {
       STORAGE.SceneShaderClass.OrelsanUniforms.u_time.value += rapidity / 2000.
+    }
+
+    if (indexTab === 2 &&
+      STORAGE.SceneShaderClass.petitBiscuitUniformsEcran &&
+      STORAGE.SceneShaderClass.petitBiscuitUniformsSphere &&
+      STORAGE.SceneShaderClass.petitBiscuitUniformsGround) {
+      STORAGE.SceneShaderClass.petitBiscuitUniformsEcran.u_time.value += rapidity / 2000.
+      STORAGE.SceneShaderClass.petitBiscuitUniformsSphere.u_time.value += rapidity / 600.
+      STORAGE.SceneShaderClass.petitBiscuitUniformsGround.u_time.value += rapidity / 1000.
     }
   }
 }

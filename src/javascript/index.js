@@ -26,17 +26,16 @@ window.STORAGE = {}
 initCanvas()
 
 function initCanvas() {
+	new Audio()
+	new SpotifyAPIService()
+
 	new Renderer()
 	new Box()
 	new SceneShader()
 	new SceneObject()
 	new SceneManager()
 	new Ambiance()
-	new Audio()
-	new SpotifyAPIService()
 	new Interface()
-
-	setInterval(animateShaderWithAudio, 200)
 
  	render()
 }
@@ -51,13 +50,7 @@ function render() {
 		STORAGE.RendererClass.renderComposer()
 	}
 	if (STORAGE.chordsClass && STORAGE.chordsClass.boxIsOpen) {
-		STORAGE.AudioClass.animate(STORAGE.chordsClass.currentSongToPlayIndex, STORAGE.chordsClass.currentChord)
+		STORAGE.AudioClass.animate(STORAGE.chordsClass.currentSongPlayingIndex, STORAGE.chordsClass.currentChord)
 	}
 	requestAnimationFrame(render)
-}
-
-function animateShaderWithAudio() {
-	// if (STORAGE.chordsClass && STORAGE.chordsClass.boxIsOpen) {
-	// 	STORAGE.AudioClass.animate(STORAGE.chordsClass.currentSongToPlayIndex, STORAGE.chordsClass.currentChord)
-	// }
 }

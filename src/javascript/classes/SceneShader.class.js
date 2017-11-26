@@ -345,11 +345,6 @@ class SceneShader {
         this.MlleKUniforms.u_time.value += 0.05
       }
 
-      if( this.petitBiscuitUniformsEcran && this.petitBiscuitUniformsSphere && this.petitBiscuitUniformsGround ) {
-        this.petitBiscuitUniformsEcran.u_time.value += 0.05
-        this.petitBiscuitUniformsSphere.u_time.value += 0.1
-        this.petitBiscuitUniformsGround.u_time.value += 0.05
-      }
     }
 }
 
