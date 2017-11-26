@@ -11,38 +11,38 @@
  */
 
 THREE.VerticalBlurShader = {
-	
+
 		uniforms: {
-	
+
 			"tDiffuse": { type: "t", value: null },
-			"v":        { type: "f", value: 1.0 / 512.0 }
-	
+			"v":        { type: "f", value: 0. }
+
 		},
-	
+
 		vertexShader: [
-	
+
 			"varying vec2 vUv;",
-	
+
 			"void main() {",
-	
+
 				"vUv = uv;",
 				"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-	
+
 			"}"
-	
+
 		].join("\n"),
-	
+
 		fragmentShader: [
-	
+
 			"uniform sampler2D tDiffuse;",
 			"uniform float v;",
-	
+
 			"varying vec2 vUv;",
-	
+
 			"void main() {",
-	
+
 				"vec4 sum = vec4( 0.0 );",
-	
+
 				"sum += texture2D( tDiffuse, vec2( vUv.x, vUv.y - 4.0 * v ) ) * 0.051;",
 				"sum += texture2D( tDiffuse, vec2( vUv.x, vUv.y - 3.0 * v ) ) * 0.0918;",
 				"sum += texture2D( tDiffuse, vec2( vUv.x, vUv.y - 2.0 * v ) ) * 0.12245;",
@@ -52,12 +52,11 @@ THREE.VerticalBlurShader = {
 				"sum += texture2D( tDiffuse, vec2( vUv.x, vUv.y + 2.0 * v ) ) * 0.12245;",
 				"sum += texture2D( tDiffuse, vec2( vUv.x, vUv.y + 3.0 * v ) ) * 0.0918;",
 				"sum += texture2D( tDiffuse, vec2( vUv.x, vUv.y + 4.0 * v ) ) * 0.051;",
-	
+
 				"gl_FragColor = sum;",
-	
+
 			"}"
-	
+
 		].join("\n")
-	
+
 	};
-	

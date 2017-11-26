@@ -103,7 +103,22 @@ class Audio {
       value: 0,
       onComplete: () => { that.audioSourceTab[indexTab][indexInTab].stop() }
     })
+  }
 
+  lowVolume() {
+    if (this.gainNode) {
+      TweenLite.to(this.gainNode.gain, 0.6, {
+        value: 0.10
+      })
+    }
+  }
+
+  upVolume() {
+    if (this.gainNode) {
+      TweenLite.to(this.gainNode.gain, 0.6, {
+        value: 1
+      })
+    }
   }
 
   animate(indexInTab, indexTab) {

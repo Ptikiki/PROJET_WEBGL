@@ -1,4 +1,5 @@
 import EffectComposer, { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer-es6'
+import TweenLite from 'gsap'
 
 class Renderer {
 
@@ -51,12 +52,12 @@ class Renderer {
       this.composer.addPass(new RenderPass(this.scene, this.camera))
 
       // Add shaders
-      const horizontalBlurShader = new ShaderPass(THREE.HorizontalBlurShader) 
-      this.composer.addPass(horizontalBlurShader) 
-      const verticalBlurShaderPass = new ShaderPass(THREE.VerticalBlurShader) 
-      this.composer.addPass(verticalBlurShaderPass) 
-  
-      // And draw to the screen 
+      const horizontalBlurShader = new ShaderPass(THREE.HorizontalBlurShader)
+      this.composer.addPass(horizontalBlurShader)
+      const verticalBlurShaderPass = new ShaderPass(THREE.VerticalBlurShader)
+      this.composer.addPass(verticalBlurShaderPass)
+
+      // And draw to the screen
       const copyPass = new ShaderPass(CopyShader)
       copyPass.renderToScreen = true
       this.composer.addPass(copyPass)
@@ -78,6 +79,26 @@ class Renderer {
 
     renderComposer() {
       this.composer.render()
+    }
+
+    animateBlur(value) {
+      if (value === 0) {
+        STORAGE.InterfaceClass.interfaceIsBlurred = true
+        TweenLite.to(this.composer.passes[1].uniforms.h, 0.3, {
+          value: 1 / window.innerWidth,
+          ease: Power2.easeIn,
+        })
+        TweenLite.to(this.composer.passes[2].uniforms.v, 0.3, {
+          value: 1 / window.innerHeight,
+          ease: Power2.easeIn,
+        })
+      } else if(value === 1) {
+        TweenLite.to([this.composer.passes[1].uniforms.h, this.composer.passes[2].uniforms.v], 0.3, {
+          value: 0.,
+          ease: Power2.easeIn,
+          onComplete: () => { STORAGE.InterfaceClass.interfaceIsBlurred = false }
+        })
+      }
     }
 }
 

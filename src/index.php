@@ -20,7 +20,7 @@
   $response = json_decode(curl_exec($ch), true);
   curl_close($ch);
 
-  setcookie('spotifyToken',$response['access_token'] );  
+  setcookie('spotifyToken',$response['access_token'] );
 ?>
 
 <!DOCTYPE html>
@@ -30,25 +30,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ARPEGIA</title>
-  <link rel="stylesheet" href="stylesheet/main.css"> 
+  <link rel="stylesheet" href="stylesheet/main.css">
 </head>
 <body>
-
+    <!-- webGL -->
   	<div id="container"></div>
+    <!-- webGL -->
 
-    <div class="songsName">
-      <p class="artist"></p>
-      <p class="song"></p>
+    <div class="interface">
+      <button class="help">HELP</button>
+      <div class="overlay"></div>
     </div>
 
-    <div class="letters">
-      <p></p>
+    <div class="songCarateristics">
+      <div class="songsName">
+        <p class="artist"></p>
+        <p class="song"></p>
+      </div>
+
+      <div class="letters">
+        <p></p>
+      </div>
     </div>
 
-    <button class="help">
-      HELP
-    </button>
-    
   	<script src="javascript/bundle.js"></script>
 </body>
 </html>
