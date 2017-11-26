@@ -93,13 +93,14 @@ class SceneShader {
         { diffuse: { value: new THREE.Color(0xfdad5b) } },
         { u_time: { type: "f", value: 1.0 } },
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },
-        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } },
+        { u_soundLevel: { type: "f", value: 1.0 } }
       ]);
 
       let geometry = new THREE.BoxBufferGeometry( 500, 6, 14, 400, 20, 20 );
 
       let material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 160. }, u_frequence:{ type: "f", value: 0.0055 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 260. }, u_frequence:{ type: "f", value: 0.0055 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         lights: true,
@@ -109,7 +110,7 @@ class SceneShader {
       } )
 
       let material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 270. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 300. }, u_frequence:{ type: "f", value: 0.004 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
@@ -119,7 +120,7 @@ class SceneShader {
       } )
 
       let material3 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 100. }, u_frequence:{ type: "f", value: 0.008 } }, this.OrelsanUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 210. }, u_frequence:{ type: "f", value: 0.008 } }, this.OrelsanUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
@@ -339,17 +340,11 @@ class SceneShader {
       if (STORAGE.ecranGeant && STORAGE.ecranGeant.children.length === 0 && this.shaderTV) {
        STORAGE.ecranGeant.add(this.shaderTV)
       }
-      if( this.OrelsanUniforms ) {
-        this.OrelsanUniforms.u_time.value += 0.05
-      }
+
       if( this.MlleKUniforms ) {
         this.MlleKUniforms.u_time.value += 0.05
       }
-      if( this.petitBiscuitUniformsEcran && this.petitBiscuitUniformsSphere && this.petitBiscuitUniformsGround ) {
-        this.petitBiscuitUniformsEcran.u_time.value += 0.05
-        this.petitBiscuitUniformsSphere.u_time.value += 0.1
-        this.petitBiscuitUniformsGround.u_time.value += 0.05
-      }
+
     }
 }
 

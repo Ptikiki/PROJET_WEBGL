@@ -23,6 +23,7 @@ varying vec3 vLightFront;
 uniform float u_time;
 uniform float u_amplitude;
 uniform float u_frequence;
+uniform float u_soundLevel;
 
 float scalarMove;
 vec3 newPos;
@@ -102,9 +103,10 @@ void applyWave() {
 
   float scale = smoothstep(1., .8, abs(uv.x * 2. - 1.));
 
-  vec3 pp = vec3( position.x, 0, 0 );
+  vec3 pp = vec3( position.x, 0., 0. );
+	vec3 test = vec3(position.y * u_soundLevel, 0., 0.);
 
-  scalarMove = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15);
+  scalarMove = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15 );
 
   newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
 
@@ -152,7 +154,3 @@ void main() {
   applyWave();
 
 }
-
-
-
-

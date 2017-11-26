@@ -18,6 +18,7 @@ import Box from './classes/Box.class.js'
 import SceneManager from './classes/SceneManager.class.js'
 import SceneObject from './classes/SceneObject.class.js'
 import SceneShader from './classes/SceneShader.class.js'
+import Audio from './classes/Audio.class.js'
 import SpotifyAPIService from './classes/SpotifyAPIService.class.js'
 import Interface from './classes/Interface.class.js'
 
@@ -25,13 +26,15 @@ window.STORAGE = {}
 initCanvas()
 
 function initCanvas() {
+	new Audio()
+	new SpotifyAPIService()
+
 	new Renderer()
 	new Box()
 	new SceneShader()
 	new SceneObject()
 	new SceneManager()
 	new Ambiance()
-	new SpotifyAPIService()
 	new Interface()
 
  	render()
@@ -45,6 +48,9 @@ function render() {
 		STORAGE.RendererClass.render()
 	} else {
 		STORAGE.RendererClass.renderComposer()
+	}
+	if (STORAGE.chordsClass && STORAGE.chordsClass.boxIsOpen) {
+		STORAGE.AudioClass.animate(STORAGE.chordsClass.currentSongPlayingIndex, STORAGE.chordsClass.currentChord)
 	}
 	requestAnimationFrame(render)
 }

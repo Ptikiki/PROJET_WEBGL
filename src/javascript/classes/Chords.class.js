@@ -16,6 +16,11 @@ class Chords {
 
       this.songToPlay
       this.nextSongToPlay
+
+      this.songPlaying = false
+
+      this.currentSongPlayingIndex = 0
+
       this.artistNameText = document.querySelector('.songsName .artist')
       this.songNameText = document.querySelector('.songsName .song')
       this.lettersText = document.querySelector('.letters p')
@@ -47,17 +52,9 @@ class Chords {
       if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3) {
         that.keysPressedTab.push(event.key)
 
-        if ( that.songToPlay) {
-          TweenLite.to(that.songToPlay, 0.8, {
-            volume: 0,
-            onComplete: () => { that.songToPlay = null }
-          })
-        }
-        if (that.nextSongToPlay) {
-          TweenLite.to(that.nextSongToPlay, 0.8, {
-            volume: 0,
-            onComplete: () => { that.nextSongToPlay = null }
-          })
+        if ( that.songPlaying) {
+          STORAGE.AudioClass.stopWithSmooth(that.currentSongPlayingIndex, that.currentChord)
+          that.songPlaying = false
         }
 
         chordsDatas.chords.forEach((chord, index) => {
@@ -70,7 +67,7 @@ class Chords {
         that.openBox()
         that.launchNote(chordsDatas.notes[event.key])
         that.setAmbiance()
-        that.step === 3 ? that.launchSound(chordsDatas.chords[that.currentChord][2]) : ''
+        that.step === 3 ? that.launchSound() : ''
       }
     }
 
@@ -117,18 +114,20 @@ class Chords {
       this.boxIsOpen = false
     }
 
-    launchSound(song) {
-      console.log('GAGNE', song)
+    launchSound() {
+      console.log('GAGNE')
       this.win = true
       this.boxIsOpen = true
 
-      this.songToPlay = new Audio(song)
-      this.songToPlay.play()
+      this.songPlaying = true
+
+      STORAGE.AudioClass.play(0, this.currentChord)
+      this.currentSongPlayingIndex = 0
+
       this.setSongName(chordsDatas.songsName[this.currentChord][0])
       this.setArtistName(chordsDatas.artists[this.currentChord])
       this.setLetters(1)
 
-      this.nextSongIndex = 1
       window.addEventListener('keydown', this.nextSongListener)
 
       window.removeEventListener('keyup', this.keyDownListener)
@@ -137,16 +136,15 @@ class Chords {
 
     launchNextSong(that, event) {
       if ( (event.keyCode === 32 || event === 32) && that.boxIsOpen) {
-        that.nextSongToPlay ? that.nextSongToPlay.pause() : ''
 
-        let indexSongToPlay = Math.round(Math.random() * (chordsDatas.songs[that.currentChord].length -1) )
-        let song = chordsDatas.songs[that.currentChord][indexSongToPlay]
-        that.setSongName(chordsDatas.songsName[that.currentChord][indexSongToPlay])
+        let newIndexSongToPlay = Math.round(Math.random() * (chordsDatas.songs[that.currentChord].length -1) )
+        let song = chordsDatas.songs[that.currentChord][newIndexSongToPlay]
 
-        that.nextSongToPlay = new Audio(song)
-        that.songToPlay.pause()
-        that.nextSongToPlay.play()
-        that.nextSongIndex ++
+        that.setSongName(chordsDatas.songsName[that.currentChord][newIndexSongToPlay])
+
+        STORAGE.AudioClass.stop(that.currentSongPlayingIndex, that.currentChord)
+        STORAGE.AudioClass.play(newIndexSongToPlay, that.currentChord)
+        that.currentSongPlayingIndex = newIndexSongToPlay
 
         that.previewStartedTime = Math.round(Date.now() / 1000)
         that.previewStarted = true
