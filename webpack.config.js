@@ -17,7 +17,7 @@ let config = {
   },
   devServer: {
       contentBase: path.resolve(__dirname, './src'),
-      proxy: {'**': 'http://localhost:8888/src/'}
+      proxy: {'**': 'http://localhost:8000/PROJET_WEBGL/PROJET_WEBGL/src/'}
   },
   module: {
     rules: [
