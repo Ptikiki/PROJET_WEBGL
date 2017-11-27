@@ -45,4 +45,10 @@ const artists = [
   'Petit Biscuit'
 ]
 
-export default { chords, notes, songs, songsName, artists }
+const artistsFound = [
+  ['Orelsan', 'M J C', false],
+  ['Mademoiselle K', 'X U S', false],
+  ['Petit Biscuit', 'P H Q', false]
+]
+
+export default { chords, notes, songs, songsName, artists, artistsFound }

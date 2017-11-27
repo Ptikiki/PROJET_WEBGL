@@ -21,9 +21,10 @@ class Chords {
 
       this.currentSongPlayingIndex = 0
 
-      this.artistNameText = document.querySelector('.songsName .artist')
-      this.songNameText = document.querySelector('.songsName .song')
-      this.lettersText = document.querySelector('.letters p')
+      this.artistNameText = document.querySelector('.songCarateristics .songsName .artist')
+      this.songNameText = document.querySelector('.songCarateristics .songsName .song')
+      this.lettersText = document.querySelector('.songCarateristics .letters p')
+      this.artistsLibraryContainer = document.querySelector('.artistsLibrary')
 
       this.previewStarted = false
 
@@ -127,6 +128,8 @@ class Chords {
       this.setSongName(chordsDatas.songsName[this.currentChord][0])
       this.setArtistName(chordsDatas.artists[this.currentChord])
       this.setLetters(1)
+
+      this.updateLibrary()
 
       window.addEventListener('keydown', this.nextSongListener)
 
@@ -250,6 +253,29 @@ class Chords {
           ease: Power2.easeInOut,
           onComplete: () => { this.lettersText.innerText = '' }
         })
+      }
+    }
+
+    updateLibrary() {
+      if (!chordsDatas.artistsFound[this.currentChord][2]) {
+        let artist = document.createElement('div')
+        artist.classList.add('artist')
+        let name = document.createElement('p')
+        name.classList.add('name')
+        let chord = document.createElement('p')
+        chord.classList.add('chord')
+        let nameText = document.createTextNode(chordsDatas.artistsFound[this.currentChord][0])
+        let chordText = document.createTextNode(chordsDatas.artistsFound[this.currentChord][1])
+
+        name.appendChild(nameText)
+        chord.appendChild(chordText)
+
+        artist.appendChild(name)
+        artist.appendChild(chord)
+        console.log(this.artistsLibraryContainer)
+        this.artistsLibraryContainer.appendChild(artist)
+
+        chordsDatas.artistsFound[this.currentChord][2] = true
       }
     }
 
