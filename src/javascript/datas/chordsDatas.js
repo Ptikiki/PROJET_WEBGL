@@ -3,7 +3,7 @@ const chords = [
     [ [0x303848, 0x2a3040],[0x1d242e, 0x161a21], [0x383d42, 0x2e3134], [0x464c51, 0x17181a] ],
     'assets/songs/orelsan.mp3' ],
 
-  [ ['x', 'd', 'f'],
+  [ ['a', 'w', 'q'],
     [ [0x303848, 0x2a3040], [0xf9c9c7], [0xf78e8a], [0x31030d] ],
     'assets/songs/mademoisellek.mp3' ],
 
@@ -12,35 +12,35 @@ const chords = [
     'assets/songs/petitbiscuit.mp3' ]
 ]
 const notes = {
-  'o' : 'assets/notes/orelsan/e5o.wav',
-  'k' : 'assets/notes/orelsan/g5do.wav',
-  'j' : 'assets/notes/orelsan/b5o.wav',
+  'o' : 'assets/notes/orelsan/eb4o.wav',
+  'k' : 'assets/notes/orelsan/c4o.wav',
+  'j' : 'assets/notes/orelsan/g4o.wav',
 
-  'x' : 'assets/notes/a4k.wav',
-  'd' : 'assets/notes/c5k.wav',
-  'f' : 'assets/notes/e5k.wav',
+  'a' : 'assets/notes/mllek/a4k.wav',
+  'w' : 'assets/notes/mllek/c5k.wav',
+  'q' : 'assets/notes/mllek/e5k.wav',
 
-  'g' : 'assets/notes/a3p.wav',
-  'b' : 'assets/notes/c4p.wav',
-  'y' : 'assets/notes/e4p.wav',
+  'g' : 'assets/notes/petit-biscuit/a3p.wav',
+  'b' : 'assets/notes/petit-biscuit/c4p.wav',
+  'y' : 'assets/notes/petit-biscuit/e4p.wav',
 
-  'a' : 'assets/notes/e5o.wav',
-  'c' : 'assets/notes/e5o.wav',
-  'e' : 'assets/notes/e5o.wav',
-  'h' : 'assets/notes/e5o.wav',
-  'i' : 'assets/notes/e5o.wav',
-  'l' : 'assets/notes/e5o.wav',
-  'm' : 'assets/notes/e5o.wav',
-  'n' : 'assets/notes/e5o.wav',
-  'p' : 'assets/notes/e5o.wav',
-  'q' : 'assets/notes/e5o.wav',
-  'r' : 'assets/notes/e5o.wav',
-  's' : 'assets/notes/e5o.wav',
-  't' : 'assets/notes/e5o.wav',
-  'u' : 'assets/notes/e5o.wav',
-  'v' : 'assets/notes/e5o.wav',
-  'w' : 'assets/notes/e5o.wav',
-  'z' : 'assets/notes/e5o.wav'
+  'f' : 'assets/notes/petit-biscuit/a3p.wav',
+  'c' : 'assets/notes/petit-biscuit/a3p.wav',
+  'e' : 'assets/notes/petit-biscuit/a3p.wav',
+  'h' : 'assets/notes/petit-biscuit/a3p.wav',
+  'i' : 'assets/notes/petit-biscuit/a3p.wav',
+  'l' : 'assets/notes/petit-biscuit/a3p.wav',
+  'm' : 'assets/notes/petit-biscuit/a3p.wav',
+  'n' : 'assets/notes/petit-biscuit/a3p.wav',
+  'p' : 'assets/notes/petit-biscuit/a3p.wav',
+  'x' : 'assets/notes/petit-biscuit/a3p.wav',
+  'r' : 'assets/notes/petit-biscuit/a3p.wav',
+  's' : 'assets/notes/petit-biscuit/a3p.wav',
+  't' : 'assets/notes/petit-biscuit/a3p.wav',
+  'u' : 'assets/notes/petit-biscuit/a3p.wav',
+  'v' : 'assets/notes/petit-biscuit/a3p.wav',
+  'd' : 'assets/notes/petit-biscuit/a3p.wav',
+  'z' : 'assets/notes/petit-biscuit/a3p.wav'
 }
 
 const songs = [
@@ -63,7 +63,7 @@ const artists = [
 
 const artistsFound = [
   ['Orelsan', 'O K J', false],
-  ['Mademoiselle K', 'X D F', false],
+  ['Mademoiselle K', 'A W Q', false],
   ['Petit Biscuit', 'B G Y', false]
 ]
 
