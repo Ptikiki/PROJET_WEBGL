@@ -43,10 +43,6 @@
     </div>
 
     <div class="artistsLibrary">
-      <!-- <div class="artist">
-        <p class="name">Orelsan</p>
-        <p class="chord">M J C</p>
-      </div> -->
     </div>
 
     <div class="songCarateristics">
