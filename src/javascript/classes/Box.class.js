@@ -129,11 +129,14 @@ class Box {
             this.openIsImpossible = true
             setTimeout(() => {
               this.openIsImpossible = false
+              console.log(STORAGE.chordsClass.step)
               this.openBox(STORAGE.chordsClass.step)
             }, 1000)
-          } else if (step === 2 && !this.boxOpened) {
+          } else if (step === 2) {
+            console.log('jouvre a deux')
             this.openBoxToStep2()
-          }  else if (step === 3 && !this.boxOpened) {
+          }  else if (step === 3) {
+            console.log('jouvre a trois')
             this.openBoxToStep3()
           }
         }

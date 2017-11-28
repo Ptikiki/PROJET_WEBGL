@@ -70,13 +70,13 @@ class Chords {
         return
       }
 
+      if (that.songPlaying) {
+        STORAGE.AudioClass.stopWithSmooth(that.currentSongPlayingIndex, that.currentChord)
+        that.songPlaying = false
+      }
+
       if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3 && !that.tutoMode) {
         that.keysPressedTab.push(event.key)
-
-        if (that.songPlaying) {
-          STORAGE.AudioClass.stopWithSmooth(that.currentSongPlayingIndex, that.currentChord)
-          that.songPlaying = false
-        }
 
         chordsDatas.chords.forEach((chord, index) => {
           if (chord[0].indexOf(that.keysPressedTab[0]) !== -1) {

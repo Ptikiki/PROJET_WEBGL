@@ -84,16 +84,29 @@ class SceneObject {
     loadMlleKScene() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.objLoader.load( 'assets/scene_riles.obj', function ( object ) {
+        this.mtlLoader.load('assets/NEW/Mlle-k/mademoisellek_base-scene.mtl', function(matl) {
+          matl.preload()
+          that.objLoader.setMaterials( matl )
 
-          object.position.x = 0
-          object.position.y = specifications[1].sceneDownPosY
-          object.position.z = 0
-          object.name = 'scene'
+          that.objLoader.load( 'assets/NEW/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
+            object.position.x = 0
+            object.position.y = specifications[1].sceneDownPosY
+            object.position.z = 0
+            object.rotation.y = Math.PI
+            object.name = 'scene'
+            that.scenesTab.push(object)
 
-          that.scenesTab.push(object)
-          resolve()
-        } )
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.receiveShadow = true
+                o.castShadow = true
+                o.material.shininess = 2
+                o.material.reflectivity = 20
+              }
+            })
+            resolve()
+          })
+        })
       })
     }
 
@@ -166,35 +179,27 @@ class SceneObject {
     loadMlleKWall() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_mur.mtl', function(matl) {
+        this.mtlLoader.load('assets/NEW/Mlle-k/mademoisellek_mur.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let briquesMaterial = matl.materials['Briques rectangles']
-          let briquesTexture = that.textureLoader.load("assets/NEW/Orelsan/textures/color_brick.png", () => {
-            briquesTexture.wrapS = THREE.RepeatWrapping
-            briquesTexture.wrapT = THREE.RepeatWrapping
-            briquesTexture.repeat.set(5, 5)
-            briquesMaterial.map = briquesTexture
-            briquesMaterial.shininess = 5
+          that.objLoader.load( 'assets/NEW/Mlle-k/mademoisellek_mur.obj', function ( object ) {
+            object.position.x = 0
+            object.position.y = 165
+            object.position.z = -280
+            object.rotation.y = Math.PI
+            object.name = 'wall'
 
-            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_mur.obj', function ( object ) {
-              object.position.x = 0
-              object.position.y = 165
-              object.position.z = -280
-              object.rotation.y = Math.PI
-              object.name = 'wall'
-
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.receiveShadow = true
-                  o.castShadow = true
-                }
-              })
-
-              that.wallsTab.push(object)
-              resolve()
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.receiveShadow = true
+                o.castShadow = true
+                o.material.shininess = 2
+              }
             })
+
+            that.wallsTab.push(object)
+            resolve()
           })
         })
       })
@@ -327,7 +332,7 @@ class SceneObject {
     }
 
 
-    
+
 
     removeScene() {
       STORAGE.scene.children.forEach((child, index) => {
