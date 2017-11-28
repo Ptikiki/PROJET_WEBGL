@@ -27,7 +27,7 @@ illum 7
 newmtl Cuir
 Ka 1 1 1
 Kd 0.10000000149012 0.10000000149012 0.10000000149012
-map_Kd assets/NEW/Mlle-K/tex/leather.jpg
+map_Kd /Volumes/Eleves-Paris/Dmii2019/ldomingues/Projet WebGL/Maquettes/Mademoiselle K/tex/leather.jpg
 Ks 1 1 1
 Ns 50
 illum 7
@@ -84,12 +84,18 @@ Ka 1 1 1
 Kd 0.86666667461395 0.12156862765551 0.28235295414925
 Ks 1 1 1
 Ns 50
-d 0.5
+d 0.75
 Tf 1 1 1
 illum 7
 
 newmtl Noir métalisé
 Ka 1 1 1
+Kd 0 0 0
+Ks 1 1 1
+Ns 50
+illum 7
+
+newmtl Noir mat_1
 Kd 0 0 0
 Ks 1 1 1
 Ns 50
@@ -102,14 +108,14 @@ Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl Touches noires clavier
+newmtl Touches clavier
 Ka 0.48627451062202 0.48627451062202 0.48627451062202
 Kd 0.02879999950528 0.02950000017881 0.02999999932945
 Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl Touches clavier
+newmtl Touches clavier_1
 Ka 0.48627451062202 0.48627451062202 0.48627451062202
 Kd 0.95247060060501 0.97562092542648 0.99215686321259
 Ks 1 1 1
@@ -117,3 +123,4 @@ Ns 50
 d 0.75
 Tf 1 1 1
 illum 7
+

@@ -14,11 +14,11 @@ const specifications = [
   {
     'name' : 'MlleK',
     'sceneDownPosY' : -85,
-    'sceneUpPosY' : 90,
+    'sceneUpPosY' : 180,
     'shaderDownPosY' : 0,
     'shaderUpPosY' : 140,
     'artistDownPosY' : -85,
-    'artistUpPosY' : 150,
+    'artistUpPosY' : 240,
     'light1' : 0x8fffe7,
     'light2' : 0xffffff,
     'light3' : 0xffbff9
