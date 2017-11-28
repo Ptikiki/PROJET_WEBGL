@@ -49,35 +49,39 @@ class SceneObject {
     loadOrelsanScene() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_base-scene5.mtl', function(matl) {
+        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_base-scene2.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let poisMaterial = matl.materials.Pois
-          let poisTexture = that.textureLoader.load("assets/pois.png", () => {
-            poisTexture.wrapS = THREE.RepeatWrapping
-            poisTexture.wrapT = THREE.RepeatWrapping
-            poisTexture.repeat.set(10, 10)
-            poisMaterial.map = poisTexture
+          let poisMaterial = matl.materials['Pois']
+          that.textureLoader.load("assets/NEW/Orelsan/textures/color_bande.png", (pois) => {
+              pois.wrapS = THREE.RepeatWrapping
+              pois.wrapT = THREE.RepeatWrapping
+              pois.repeat.set(1, 1)
+              poisMaterial.map = pois
+              poisMaterial.shininess = 1
+              that.objLoader.load( 'assets/NEW/Orelsan/orelsan_base-scene2.obj', function ( object ) {
+                object.position.x = 0
+                object.position.y = specifications[0].sceneDownPosY
+                object.position.z = 0
+                object.rotation.y = Math.PI
+                object.name = 'scene'
+                that.scenesTab.push(object)
 
-            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_base-scene5.obj', function ( object ) {
-              object.position.x = 0
-              object.position.y = specifications[0].sceneDownPosY
-              object.position.z = 0
-              object.rotation.y = Math.PI
-              object.name = 'scene'
-              that.scenesTab.push(object)
+                console.log("pois material", poisMaterial)
+                console.log("pois texture", pois)
 
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.receiveShadow = true
-                  o.castShadow = true
-                  o.material.shininess = 5
-                }
+                object.traverse(function(o) {
+                  if (o.type === 'Mesh') {
+                    o.receiveShadow = true
+                    o.castShadow = true
+                    o.material.shininess = 5
+                  }
+                })
+                resolve()
               })
-              resolve()
             })
-          })
+ 
         })
       })
     }
@@ -151,7 +155,7 @@ class SceneObject {
           that.textureLoader.load("assets/NEW/Orelsan/textures/color_brick.png", (briques) => {
             briques.wrapS = THREE.RepeatWrapping
             briques.wrapT = THREE.RepeatWrapping
-            briques.repeat.set(5, 5)
+            briques.repeat.set(1.3, 1.3)
             briquesMurMaterial.map = briques
             briquesMurMaterial.shininess = 5
 
