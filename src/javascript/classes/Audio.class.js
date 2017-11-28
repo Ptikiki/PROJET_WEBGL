@@ -135,6 +135,10 @@ class Audio {
       STORAGE.SceneShaderClass.OrelsanUniforms.u_time.value += rapidity / 2000.
     }
 
+    if (indexTab === 1 && STORAGE.SceneShaderClass.MlleKUniforms) {
+      STORAGE.SceneShaderClass.MlleKUniforms.u_time.value += rapidity / 1500.
+    }
+
     if (indexTab === 2 &&
       STORAGE.SceneShaderClass.petitBiscuitUniformsEcran &&
       STORAGE.SceneShaderClass.petitBiscuitUniformsSphere &&
