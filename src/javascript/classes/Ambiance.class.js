@@ -57,6 +57,16 @@ class Ambiance {
 
       this.lightAmb = new THREE.AmbientLight(0xffffff, 0.36)
       STORAGE.scene.add(this.lightAmb)
+
+      this.spotLight1 = new THREE.SpotLight( 0xffffff, 0, 1000, 0.5, 0.9 );
+      this.spotLight1.position.set( 180, 600, -250 );
+      this.spotLight1.rotation.y = Math.PI / 5
+      STORAGE.scene.add( this.spotLight1 );
+
+      this.spotLight2 = new THREE.SpotLight( 0xe82857, 0, 1000, 0.5, 0.9 );
+      this.spotLight2.position.set( -180, 600, -250 );
+      this.spotLight2.rotation.y = - Math.PI / 5
+      STORAGE.scene.add( this.spotLight2 );
     }
 
     createBackground() {
@@ -65,7 +75,7 @@ class Ambiance {
         that.fragment_loader.load('../javascript/glsl/BackgroundFragment.frag', function (fragmentGround) {
           const h = 8000;
           const geometry = new THREE.SphereGeometry(h, 32, 32)
-    
+
           that.backgroundUniforms = THREE.UniformsUtils.merge([
             THREE.ShaderLib.lambert.uniforms,
             { specular: { value: new THREE.Color(0x1b1b1b) } },
@@ -78,7 +88,7 @@ class Ambiance {
             { u_color1: { value: new THREE.Color(0x303848) } },
             { u_color2: { value: new THREE.Color(0x2a3040) } }
           ]);
-    
+
           let material = new THREE.ShaderMaterial( {
             uniforms: that.backgroundUniforms,
             vertexShader: vertexGround,
@@ -87,12 +97,12 @@ class Ambiance {
             lights: true,
             fog: true
           } )
-  
+
           const cube = new THREE.Mesh(geometry, material)
           cube.position.y = h - 15
-    
+
           console.log(cube, 'HERE')
-    
+
           STORAGE.background = cube
           STORAGE.scene.add(cube)
         })
@@ -174,6 +184,8 @@ class Ambiance {
         this.light2.intensity = 0.02
         this.light3.intensity = 0.03
         this.lightAmb.intensity = 0.36
+        this.spotLight1.intensity = 0
+        this.spotLight2.intensity = 0
       } else if (step === 3 && currentChord == 0) {
         this.light1.color.set(specifications[currentChord].light1)
         this.light2.color.set(specifications[currentChord].light2)
@@ -182,6 +194,18 @@ class Ambiance {
         this.light2.intensity = 0.28
         this.light3.intensity = 0.15
         this.lightAmb.intensity = 0.45
+        this.spotLight1.intensity = 0
+        this.spotLight2.intensity = 0
+      } else if (step === 3 && currentChord == 1) {
+        this.light1.color.set(specifications[currentChord].light1)
+        this.light2.color.set(specifications[currentChord].light2)
+        this.light3.color.set(specifications[currentChord].light3)
+        this.light1.intensity = 0.40
+        this.light2.intensity = 0.32
+        this.light3.intensity = 0.25
+        this.lightAmb.intensity = 0.30
+        this.spotLight1.intensity = 0.7
+        this.spotLight2.intensity = 0.9
       } else if (step === 3 && currentChord == 2) {
         this.light1.color.set(specifications[currentChord].light1)
         this.light2.color.set(specifications[currentChord].light2)
@@ -189,6 +213,9 @@ class Ambiance {
         this.light1.intensity = 0.30
         this.light2.intensity = 0.27
         this.light3.intensity = 0.08
+        this.lightAmb.intensity = 0.36
+        this.spotLight1.intensity = 0
+        this.spotLight2.intensity = 0
       }
     }
 }

@@ -85,7 +85,6 @@ class SceneShader {
       })
     }
 
-
     initOrelsanShaders(vertex, fragment) {
 
       this.OrelsanUniforms = THREE.UniformsUtils.merge([
@@ -155,8 +154,9 @@ class SceneShader {
 
       this.MlleKUniforms = THREE.UniformsUtils.merge([
         THREE.ShaderLib.lambert.uniforms,
-        { diffuse: { value: new THREE.Color(0xdf0029) } },
-        { shininess : { value: 3 } },
+        { diffuse: { value: new THREE.Color(0xf80e38) } },
+        { specular: { value: new THREE.Color(0xfff) } },
+        { shininess : { value: 30 } },
         { hue : { value: 1 } },
         { u_time: { type: "f", value: 1.0 } },
         { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) } },

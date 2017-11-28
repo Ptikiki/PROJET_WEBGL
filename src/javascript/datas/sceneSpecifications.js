@@ -21,7 +21,7 @@ const specifications = [
     'artistUpPosY' : 240,
     'light1' : 0x8fffe7,
     'light2' : 0xffffff,
-    'light3' : 0xffbff9
+    'light3' : 0xccfaff
   },
   {
     'name' : 'PetitBiscuit',

@@ -6,7 +6,7 @@ const chords = [
     'assets/songs/orelsan.mp3' ],
 
   [ ['a', 'q', 'w'],
-    [ [0x303848, 0x2a3040], [0xf9c9c7], [0xf78e8a], [0x31030d] ],
+    [ [0x303848, 0x2a3040], [0x230c10, 0x050102] , [0x441920, 0x19090b], [0x9b202d, 0x19050a] ],
     'assets/songs/mademoisellek.mp3' ],
 
   [ ['t', 'f', 'v'],
@@ -53,7 +53,7 @@ const songs = [
 ]
 
 const songsName = [
-  ['Grands Parents'],
+  ['Lumière'],
   ['Sous les brûlures'],
   ['Waterfall']
 ]
