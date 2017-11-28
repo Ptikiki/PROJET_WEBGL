@@ -129,10 +129,6 @@ void main() {
 
     newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
 
-  
-    if (position.y < -1.) {
-      newPos = position;
-    }
 
     if (position.x < -240.) {
       newPos = position;
@@ -140,7 +136,6 @@ void main() {
     if (position.x > 240.) {
       newPos = position;
     }
-
 
 
     if (position.z == -35. && position.y > -1.) {

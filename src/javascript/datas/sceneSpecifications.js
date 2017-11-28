@@ -16,7 +16,7 @@ const specifications = [
     'sceneDownPosY' : -85,
     'sceneUpPosY' : 180,
     'shaderDownPosY' : 0,
-    'shaderUpPosY' : 140,
+    'shaderUpPosY' : 150,
     'artistDownPosY' : -85,
     'artistUpPosY' : 240,
     'light1' : 0x8fffe7,
