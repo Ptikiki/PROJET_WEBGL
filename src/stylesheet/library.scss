@@ -7,6 +7,8 @@
   .artist {
     margin-right: 40px;
     margin-bottom: 20px;
+    opacity: 0;
+
     .name, .chord {
       margin-top: 5px;
       margin-bottom: 5px;
@@ -16,6 +18,11 @@
     .chord {
       letter-spacing: 2px;
       font-weight: 600;
+    }
+
+    &.is-visible {
+      opacity: 1;
+      transition: opacity ease-in 0.3s;
     }
   }
 }

@@ -336,8 +336,9 @@ class Chords {
 
         artist.appendChild(name)
         artist.appendChild(chord)
-        console.log(this.artistsLibraryContainer)
         this.artistsLibraryContainer.appendChild(artist)
+
+        setTimeout(()=> { artist.classList.add('is-visible') },200)
 
         chordsDatas.artistsFound[this.currentChord][2] = true
       }
