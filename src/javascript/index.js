@@ -9,8 +9,6 @@ const Spotify = require('spotify-web-api-js')
 
 import './vendors/HorizontalBlurShader'
 import './vendors/VerticalBlurShader'
-// import './vendors/ShaderPass'
-// import './vendors/RenderPass'
 
 import Renderer from './classes/Renderer.class.js'
 import Ambiance from './classes/Ambiance.class.js'
@@ -28,14 +26,15 @@ initCanvas()
 function initCanvas() {
 	new Audio()
 	new SpotifyAPIService()
-
 	new Renderer()
+
+	new Interface()
+
 	new Box()
 	new SceneShader()
 	new SceneObject()
 	new SceneManager()
 	new Ambiance()
-	new Interface()
 
  	render()
 }

@@ -98,6 +98,12 @@ class Renderer {
           ease: Power2.easeIn,
           onComplete: () => { STORAGE.InterfaceClass.interfaceIsBlurred = false }
         })
+      } else if(value === 2) {
+        TweenLite.to([this.composer.passes[1].uniforms.h, this.composer.passes[2].uniforms.v], 0.8, {
+          value: 0.,
+          ease: Power2.easeInOut,
+          onComplete: () => { STORAGE.InterfaceClass.interfaceIsBlurred = false }
+        })
       }
     }
 }

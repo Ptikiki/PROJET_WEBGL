@@ -38,6 +38,7 @@
     <!-- webGL -->
 
     <div class="interface">
+      <img src="assets/loader.gif" alt="" class="loader">
       <button class="help">HELP</button>
       <div class="overlay"></div>
     </div>

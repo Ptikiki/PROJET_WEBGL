@@ -32,7 +32,8 @@ class SceneObject {
                   this.loadOrelsanArtist().then((response)=> {
                     this.loadMlleKArtist().then((response)=> {
                       this.loadPetitBiscuitArtist().then((response)=> {
-                        console.log('ALL LOADED')
+                        console.log('ALL ASSETS LOADED')
+                        STORAGE.InterfaceClass.removeLoader()
                         new Chords()
                       }).catch((error)=> { console.warn(error) })
                     }).catch((error)=> { console.warn(error) })

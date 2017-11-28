@@ -15,7 +15,7 @@ THREE.VerticalBlurShader = {
 		uniforms: {
 
 			"tDiffuse": { type: "t", value: null },
-			"v":        { type: "f", value: 0. }
+			"v":        { type: "f", value: 1 / window.innerHeight * 6}
 
 		},
 

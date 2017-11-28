@@ -2,10 +2,12 @@ class Interface {
 
   constructor(options) {
     STORAGE.InterfaceClass = this
+    this.canvas = document.querySelector('canvas')
+    this.loader = document.querySelector('.loader')
     this.helpButton = document.querySelector('.help')
     this.overlay = document.querySelector('.overlay')
 
-    this.interfaceIsBlurred = false
+    this.interfaceIsBlurred = true
     this.bind()
   }
 
@@ -36,6 +38,30 @@ class Interface {
     })
     TweenLite.to(that.overlay, 0.3 , {
       opacity: 0
+    })
+  }
+
+  removeLoader() {
+    TweenLite.set(this.overlay, {
+      css : {'pointerEvents' : 'none'}
+    })
+    TweenLite.to(this.loader, 0.3 , {
+      opacity: 0,
+      ease: Power2.easeInOut
+    })
+    TweenLite.to(this.canvas, 0.3, {
+      opacity: 1,
+      onComplete: () => {
+        TweenLite.to(this.overlay, 0.6 , {
+          opacity: 0,
+          ease: Power2.easeInOut,
+          onComplete: () => {
+            let enterSong = new Audio('assets/ambiance/enter.mp3')
+            enterSong.play()
+            STORAGE.RendererClass.animateBlur(2)
+          }
+        })
+      }
     })
   }
 }
