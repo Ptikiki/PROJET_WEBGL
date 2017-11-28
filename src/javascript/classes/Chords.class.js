@@ -10,30 +10,36 @@ class Chords {
       this.keyUpListener = this.handleKeyup.bind(event, this)
       this.nextSongListener = this.launchNextSong.bind(event, this)
 
+      this.tutoMode = true
+
       this.step = 0
       this.currentChord = 0
       this.boxIsOpen = false
 
-      this.songToPlay
-      this.nextSongToPlay
-
       this.songPlaying = false
-
       this.currentSongPlayingIndex = 0
+
+      this.previewStarted = false
 
       this.artistNameText = document.querySelector('.songCarateristics .songsName .artist')
       this.songNameText = document.querySelector('.songCarateristics .songsName .song')
       this.lettersText = document.querySelector('.songCarateristics .letters p')
       this.artistsLibraryContainer = document.querySelector('.artistsLibrary')
 
-      this.previewStarted = false
-
       this.bind()
-      this.enableGame()
+      this.enableTuto()
     }
 
     bind() {
       window.setInterval(this.checkPreviewState.bind(event, this), 1000)
+    }
+
+    enableTuto() {
+      console.log('TUTO ENABLE')
+      let that = this
+      that.keysPressedTutoTab = []
+      window.addEventListener('keydown', that.keyDownListener)
+      window.addEventListener('keyup', that.keyUpListener)
     }
 
     enableGame() {
@@ -50,10 +56,24 @@ class Chords {
       if (event.keyCode === 32) {
         return
       }
-      if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3) {
+
+      if (that.tutoMode === true) {
+        if (that.keysPressedTutoTab.indexOf(event.key) === -1 && that.keysPressedTutoTab.length < 3) {
+          that.keysPressedTutoTab.push(event.key)
+          chordsDatas.tuto.forEach((chord, index) => {
+            if (chord.indexOf(that.keysPressedTutoTab[0]) !== -1) {
+              that.checkTuto(event.key)
+            }
+          })
+          that.launchNote(chordsDatas.notes[event.key])
+        }
+        return
+      }
+
+      if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3 && !that.tutoMode) {
         that.keysPressedTab.push(event.key)
 
-        if ( that.songPlaying) {
+        if (that.songPlaying) {
           STORAGE.AudioClass.stopWithSmooth(that.currentSongPlayingIndex, that.currentChord)
           that.songPlaying = false
         }
@@ -76,16 +96,51 @@ class Chords {
       if (event.keyCode === 32) {
         return
       }
-      console.log('PERDU')
-      window.removeEventListener('keydown', that.keyDownListener)
-      window.removeEventListener('keyup', that.keyUpListener)
-      !that.win ? that.openBox(true) : ''
-      !that.win ? that.step = 0 : ''
-      !that.win ? that.setAmbiance() : ''
-      !that.win ? that.setSongName() : ''
-      !that.win ? that.setArtistName() : ''
-      !that.win ? that.setLetters(0) : ''
-      !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
+      if (that.tutoMode === true) {
+        console.log('PERDU')
+        window.removeEventListener('keydown', that.keyDownListener)
+        window.removeEventListener('keyup', that.keyUpListener)
+        that.setLetters(0)
+        setTimeout( () => { that.enableTuto() }, 300)
+      } else {
+        console.log('PERDU')
+        window.removeEventListener('keydown', that.keyDownListener)
+        window.removeEventListener('keyup', that.keyUpListener)
+        !that.win ? that.openBox(true) : ''
+        !that.win ? that.step = 0 : ''
+        !that.win ? that.setAmbiance() : ''
+        !that.win ? that.setSongName() : ''
+        !that.win ? that.setArtistName() : ''
+        !that.win ? that.setLetters(0) : ''
+        !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
+      }
+    }
+
+    checkTuto(key) {
+      let that = this
+      let numberOfNotesOk = 0
+      this.keysPressedTutoTab.forEach((key) => {
+        if (chordsDatas.tuto.indexOf(key) !== -1){
+          numberOfNotesOk ++
+        }
+      })
+      if (this.keysPressedTutoTab.length > numberOfNotesOk) {
+        numberOfNotesOk = 0
+        this.setLetters(0)
+      } else {
+        this.setLetters('tuto')
+      }
+
+      if (numberOfNotesOk === 3) {
+        window.removeEventListener('keydown', that.keyDownListener)
+        window.removeEventListener('keyup', that.keyUpListener)
+        that.setLetters(1)
+        that.tutoMode = false
+        setTimeout(() => {
+          that.enableGame()
+        }, 2000)
+
+      }
     }
 
     checkChords(key) {
@@ -100,7 +155,7 @@ class Chords {
         numberOfNotesOk = 0
         this.setLetters(0)
       } else {
-        this.setLetters(key)
+        this.setLetters('game')
       }
       this.step = numberOfNotesOk
     }
@@ -232,7 +287,11 @@ class Chords {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => {
-            this.lettersText.innerText += letter
+            if (letter === 'tuto') {
+              this.lettersText.innerText = this.keysPressedTutoTab.join("")
+            } else if (letter === 'game') {
+              this.lettersText.innerText = this.keysPressedTab.join("")
+            }
             TweenLite.to(this.lettersText, 0.3, {
               opacity: 1,
               ease: Power2.easeInOut
@@ -251,7 +310,12 @@ class Chords {
           opacity: 0,
           delay: 0.6,
           ease: Power2.easeInOut,
-          onComplete: () => { this.lettersText.innerText = '' }
+          onComplete: () => {
+            TweenLite.set(this.lettersText, {
+              scale: 1
+            })
+            this.lettersText.innerText = ''
+          }
         })
       }
     }
