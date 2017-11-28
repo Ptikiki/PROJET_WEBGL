@@ -9,6 +9,11 @@
     margin-bottom: 20px;
     opacity: 0;
 
+    .name {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+    }
     .name, .chord {
       margin-top: 5px;
       margin-bottom: 5px;

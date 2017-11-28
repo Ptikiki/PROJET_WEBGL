@@ -324,8 +324,10 @@ class Chords {
       if (!chordsDatas.artistsFound[this.currentChord][2]) {
         let artist = document.createElement('div')
         artist.classList.add('artist')
-        let name = document.createElement('p')
+        let name = document.createElement('a')
         name.classList.add('name')
+        name.setAttribute('href', 'http://www.asterios.fr/fr/agenda')
+        name.setAttribute('target', '_blanck')
         let chord = document.createElement('p')
         chord.classList.add('chord')
         let nameText = document.createTextNode(chordsDatas.artistsFound[this.currentChord][0])
