@@ -141,9 +141,15 @@ void main() {
       newPos = position;
     }
 
-    if (position.z == -60. && position.y > -1.) {
+
+
+    if (position.z == -35. && position.y > -1.) {
       newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
     }
+    if (position.z == 35. && position.y > -1.) {
+      newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
+    }
+
 
     if (newPos.y < 60. ) {
       newPos.y += abs(newPos.y) * 2.;
