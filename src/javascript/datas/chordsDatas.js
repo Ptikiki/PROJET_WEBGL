@@ -1,5 +1,7 @@
+const tuto = ['o', 'u', 'i']
+
 const chords = [
-  [ ['o', 'k', 'j'],
+  [ ['p', 'l', 'k'],
     [ [0x303848, 0x2a3040],[0x1d242e, 0x161a21], [0x383d42, 0x2e3134], [0x464c51, 0x17181a] ],
     'assets/songs/orelsan.mp3' ],
 
@@ -11,10 +13,11 @@ const chords = [
     [ [0x303848, 0x2a3040], [0x081f38, 0x05182d], [0x113966, 0x0b2d53], [0x204e9f, 0x021227] ],
     'assets/songs/petitbiscuit.mp3' ]
 ]
+
 const notes = {
-  'o' : 'assets/notes/orelsan/eb4o.wav',
-  'k' : 'assets/notes/orelsan/c4o.wav',
-  'j' : 'assets/notes/orelsan/g4o.wav',
+  'p' : 'assets/notes/orelsan/eb4o.wav',
+  'l' : 'assets/notes/orelsan/c4o.wav',
+  'k' : 'assets/notes/orelsan/g4o.wav',
 
   'a' : 'assets/notes/mllek/a4k.wav',
   'w' : 'assets/notes/mllek/c5k.wav',
@@ -29,10 +32,10 @@ const notes = {
   'e' : 'assets/notes/petit-biscuit/a3p.wav',
   'h' : 'assets/notes/petit-biscuit/a3p.wav',
   'i' : 'assets/notes/petit-biscuit/a3p.wav',
-  'l' : 'assets/notes/petit-biscuit/a3p.wav',
+  'j' : 'assets/notes/petit-biscuit/a3p.wav',
   'm' : 'assets/notes/petit-biscuit/a3p.wav',
   'n' : 'assets/notes/petit-biscuit/a3p.wav',
-  'p' : 'assets/notes/petit-biscuit/a3p.wav',
+  'o' : 'assets/notes/petit-biscuit/a3p.wav',
   'x' : 'assets/notes/petit-biscuit/a3p.wav',
   'r' : 'assets/notes/petit-biscuit/a3p.wav',
   's' : 'assets/notes/petit-biscuit/a3p.wav',
@@ -62,9 +65,9 @@ const artists = [
 ]
 
 const artistsFound = [
-  ['Orelsan', 'O K J', false],
+  ['Orelsan', 'P L K', false],
   ['Mademoiselle K', 'A W Q', false],
   ['Petit Biscuit', 'B G Y', false]
 ]
 
-export default { chords, notes, songs, songsName, artists, artistsFound }
+export default { chords, notes, songs, songsName, artists, artistsFound, tuto }
