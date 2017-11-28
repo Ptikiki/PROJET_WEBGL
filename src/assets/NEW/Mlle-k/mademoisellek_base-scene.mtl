@@ -27,7 +27,6 @@ illum 7
 newmtl Cuir
 Ka 1 1 1
 Kd 0.10000000149012 0.10000000149012 0.10000000149012
-map_Kd /Volumes/Eleves-Paris/Dmii2019/ldomingues/Projet WebGL/Maquettes/Mademoiselle K/tex/leather.jpg
 Ks 1 1 1
 Ns 50
 illum 7
@@ -123,4 +122,3 @@ Ns 50
 d 0.75
 Tf 1 1 1
 illum 7
-

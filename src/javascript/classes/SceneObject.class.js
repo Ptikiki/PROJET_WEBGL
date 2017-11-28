@@ -89,23 +89,31 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          that.objLoader.load( 'assets/NEW/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
-            object.position.x = 0
-            object.position.y = specifications[1].sceneDownPosY
-            object.position.z = 0
-            object.rotation.y = Math.PI
-            object.name = 'scene'
-            that.scenesTab.push(object)
+          let leatherMaterial = matl.materials.Cuir
+          let leatherTexture = that.textureLoader.load("assets/NEW/Mlle-k/tex/leather.jpg", () => {
+            leatherTexture.wrapS = THREE.RepeatWrapping
+            leatherTexture.wrapT = THREE.RepeatWrapping
+            leatherTexture.repeat.set(2, 2)
+            leatherMaterial.map = leatherTexture
 
-            object.traverse(function(o) {
-              if (o.type === 'Mesh') {
-                o.receiveShadow = true
-                o.castShadow = true
-                o.material.shininess = 2
-                o.material.reflectivity = 20
-              }
+            that.objLoader.load( 'assets/NEW/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
+              object.position.x = 0
+              object.position.y = specifications[1].sceneDownPosY
+              object.position.z = 0
+              object.rotation.y = Math.PI
+              object.name = 'scene'
+              that.scenesTab.push(object)
+
+              object.traverse(function(o) {
+                if (o.type === 'Mesh') {
+                  o.receiveShadow = true
+                  o.castShadow = true
+                  o.material.shininess = 2
+                  o.material.reflectivity = 20
+                }
+              })
+              resolve()
             })
-            resolve()
           })
         })
       })
