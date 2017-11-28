@@ -163,10 +163,10 @@ class SceneShader {
         { u_mouse: { type: "v2", value: new THREE.Vector2() } }
       ])
 
-      this.geometry = new THREE.BoxBufferGeometry( 500, 60, 70, 50, 100, 100 );
+      this.geometry = new THREE.BoxBufferGeometry( 500, 60, 70, 50, 50, 50 );
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 20. }, u_frequence:{ type: "f", value: 0.005 } }, this.MlleKUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 15. }, u_frequence:{ type: "f", value: 0.005 } }, this.MlleKUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
@@ -174,7 +174,7 @@ class SceneShader {
         fog: true
       } )
       this.material2 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 20. }, u_frequence:{ type: "f", value: 0.008 } }, this.MlleKUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 15. }, u_frequence:{ type: "f", value: 0.008 } }, this.MlleKUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
@@ -185,8 +185,8 @@ class SceneShader {
       let plane1 = new THREE.Mesh( this.geometry, this.material1 )
       let plane2 = new THREE.Mesh( this.geometry, this.material2 )
 
-      plane1.position.z = 218
-      plane2.position.z = 155
+      plane1.position.z = 219
+      plane2.position.z = 147
 
       plane1.position.y = 0
       plane1.position.y = -20
