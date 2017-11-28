@@ -188,6 +188,9 @@ class SceneShader {
       plane1.position.z = 218
       plane2.position.z = 155
 
+      plane1.position.y = 0
+      plane1.position.y = -20
+
       let group = new THREE.Group()
       group.add( plane1, plane2 )
       group.name = 'shaders'
