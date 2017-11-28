@@ -153,23 +153,28 @@ class SceneShader {
 
     initMlleKShaders(vertex, fragment) {
 
-      this.MlleKUniforms = {
-        u_time: { type: "f", value: 1.0 },
-        u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) },
-        u_mouse: { type: "v2", value: new THREE.Vector2() }
-      }
+      this.MlleKUniforms = THREE.UniformsUtils.merge([
+        THREE.ShaderLib.lambert.uniforms,
+        { diffuse: { value: new THREE.Color(0xdf0029) } },
+        { shininess : { value: 3 } },
+        { hue : { value: 1 } },
+        { u_time: { type: "f", value: 1.0 } },
+        { u_resolution: { type: "v2", value: new THREE.Vector2(1024, 768) }, u_frequence:{ type: "f", value: 0.005 }, u_amplitude:{ type: "f", value: 20. } },
+        { u_mouse: { type: "v2", value: new THREE.Vector2() } }
+      ])
 
-      this.geometry = new THREE.PlaneBufferGeometry( 500, 128, 10, 10 )
+      this.geometry = new THREE.BoxBufferGeometry( 500, 60, 120, 50, 100, 100 );
 
       this.material = new THREE.ShaderMaterial( {
         uniforms: this.MlleKUniforms,
         vertexShader: vertex,
-        fragmentShader: fragment,
-        side: THREE.DoubleSide
+        fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
+        side: THREE.DoubleSide,
+        lights: true,
+        fog: true
       } )
 
       let plane = new THREE.Mesh( this.geometry, this.material )
-      plane.rotation.x = Math.PI/2
       plane.position.z = 185
 
       let group = new THREE.Group()
@@ -340,11 +345,6 @@ class SceneShader {
       if (STORAGE.ecranGeant && STORAGE.ecranGeant.children.length === 0 && this.shaderTV) {
        STORAGE.ecranGeant.add(this.shaderTV)
       }
-
-      if( this.MlleKUniforms ) {
-        this.MlleKUniforms.u_time.value += 0.05
-      }
-
     }
 }
 

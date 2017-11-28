@@ -1,15 +1,34 @@
-precision mediump float;
+#define LAMBERT
+varying vec3 vLightFront;
+#ifdef DOUBLE_SIDED
+  varying vec3 vLightBack;
+#endif
+
+#include <common>
+#include <uv_pars_vertex>
+#include <uv2_pars_vertex>
+#include <envmap_pars_vertex>
+#include <bsdfs>
+#include <lights_pars>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+#include <morphtarget_pars_vertex>
+#include <skinning_pars_vertex>
+#include <shadowmap_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>
 
 uniform float u_time;
 uniform float u_amplitude;
-uniform float u_frequency;
+uniform float u_frequence;
+
 
 float scalarMove;
 vec3 newPos;
 
 varying vec3 v_position;
 varying float v_time;
-varying vec2 v_uv;
+varying vec2 vUv;
 
 //	Classic Perlin 3D Noise
 //	by Stefan Gustavson
@@ -80,27 +99,60 @@ float cnoise(vec3 P){
 
 
 void main() {
-		scalarMove = 150. * cnoise(0.006 * position + u_time * .2);
-    newPos = position + normal * scalarMove;
-    if (position.x < -235.0) {
+
+    #include <uv_vertex>
+    #include <uv2_vertex>
+    #include <color_vertex>
+    #include <beginnormal_vertex>
+    #include <morphnormal_vertex>
+    #include <skinbase_vertex>
+    #include <skinnormal_vertex>
+    #include <defaultnormal_vertex>
+    #include <begin_vertex>
+    #include <morphtarget_vertex>
+    #include <skinning_vertex>
+    #include <project_vertex>
+    #include <logdepthbuf_vertex>
+    #include <clipping_planes_vertex>
+    #include <worldpos_vertex>
+    #include <envmap_vertex>
+    #include <lights_lambert_vertex>
+    #include <shadowmap_vertex>
+    #include <fog_vertex>
+
+    
+    float scale = smoothstep(1., .8, abs(uv.x * 2. - 1.));
+
+    vec3 pp = vec3( position.x, 0., 0. );
+
+    scalarMove = scale * u_amplitude * cnoise(u_frequence * pp + u_time * .15 );
+
+    newPos = position + normal.y * scalarMove * vec3(0.,1.,  0.) + normal.z * scalarMove * vec3(0.,1.,  0.);
+
+  
+    if (position.y < -1.) {
       newPos = position;
     }
 
-    if (position.x > 235.0) {
+    if (position.x < -240.) {
+      newPos = position;
+    }
+    if (position.x > 240.) {
       newPos = position;
     }
 
-    if (position.y < -55.0) {
-      newPos = position;
+    if (position.z == -60. && position.y > -1.) {
+      newPos = position + normal.y * scalarMove * vec3(0.,-1.,  0.) + normal.z * scalarMove * vec3(0.,-1.,  0.);
     }
 
-    if (position.y > 55.0) {
-      newPos = position;
+    if (newPos.y < 60. ) {
+      newPos.y += abs(newPos.y) * 2.;
     }
 
     v_position = newPos;
     v_time = u_time;
-    v_uv = uv;
+    vUv = uv;
 
-    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos, 1.);
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(newPos.x, newPos.y, newPos.z, 1.);
+
 }
