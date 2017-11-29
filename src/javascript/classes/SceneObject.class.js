@@ -49,35 +49,39 @@ class SceneObject {
     loadOrelsanScene() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_base-scene5.mtl', function(matl) {
+        this.mtlLoader.load('assets/NEW/Orelsan/orelsan_base-scene2.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let poisMaterial = matl.materials.Pois
-          let poisTexture = that.textureLoader.load("assets/pois.png", () => {
-            poisTexture.wrapS = THREE.RepeatWrapping
-            poisTexture.wrapT = THREE.RepeatWrapping
-            poisTexture.repeat.set(10, 10)
-            poisMaterial.map = poisTexture
+          let poisMaterial = matl.materials['Pois']
+          that.textureLoader.load("assets/NEW/Orelsan/textures/color_bande.png", (pois) => {
+              pois.wrapS = THREE.RepeatWrapping
+              pois.wrapT = THREE.RepeatWrapping
+              pois.repeat.set(1, 1)
+              poisMaterial.map = pois
+              poisMaterial.shininess = 1
+              that.objLoader.load( 'assets/NEW/Orelsan/orelsan_base-scene2.obj', function ( object ) {
+                object.position.x = 0
+                object.position.y = specifications[0].sceneDownPosY
+                object.position.z = 0
+                object.rotation.y = Math.PI
+                object.name = 'scene'
+                that.scenesTab.push(object)
 
-            that.objLoader.load( 'assets/NEW/Orelsan/orelsan_base-scene5.obj', function ( object ) {
-              object.position.x = 0
-              object.position.y = specifications[0].sceneDownPosY
-              object.position.z = 0
-              object.rotation.y = Math.PI
-              object.name = 'scene'
-              that.scenesTab.push(object)
+                console.log("pois material", poisMaterial)
+                console.log("pois texture", pois)
 
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.receiveShadow = true
-                  o.castShadow = true
-                  o.material.shininess = 5
-                }
+                object.traverse(function(o) {
+                  if (o.type === 'Mesh') {
+                    o.receiveShadow = true
+                    o.castShadow = true
+                    o.material.shininess = 5
+                  }
+                })
+                resolve()
               })
-              resolve()
             })
-          })
+ 
         })
       })
     }
@@ -159,7 +163,7 @@ class SceneObject {
           that.textureLoader.load("assets/NEW/Orelsan/textures/color_brick.png", (briques) => {
             briques.wrapS = THREE.RepeatWrapping
             briques.wrapT = THREE.RepeatWrapping
-            briques.repeat.set(5, 5)
+            briques.repeat.set(1.3, 1.3)
             briquesMurMaterial.map = briques
             briquesMurMaterial.shininess = 5
 
@@ -268,7 +272,7 @@ class SceneObject {
                   o.castShadow = true
                 }
               })
-
+              
               that.artistsTab.push(object)
               resolve()
             })
@@ -311,37 +315,56 @@ class SceneObject {
     loadPetitBiscuitArtist() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/test_perso/orelsan/orelsan_v2_baker.mtl', function(matl) {
+        this.mtlLoader.load('assets/persos/petit-biscuit/petitbiscuit.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let bodyMaterial = matl.materials.orelsan
-          let bodyTexture = that.textureLoader.load("assets/test_perso/orelsan/orelsanSurface_Color2.png", () => {
+          console.log("MATERIAUX", matl)
+
+          let bodyMaterial = matl.materials.Body
+          let bottomsMaterial = matl.materials.Bottoms
+          let hairMaterial = matl.materials.Hair
+          let shoesMaterial = matl.materials.Shoes
+          let topsMaterial = matl.materials.Tops
+          let eyesMaterial = matl.materials.eyes
+
+          let bodyTexture = that.textureLoader.load("assets/persos/petit-biscuit/BodySurface_Color.png", () => {
             bodyMaterial.map = bodyTexture
             bodyMaterial.shininess = 5
-            bodyMaterial.needsUpdate = true
+          let bottomsTexture = that.textureLoader.load("assets/persos/petit-biscuit/BottomsSurface_Color.png", () => {
+            bottomsMaterial.map = bottomsTexture
+            bottomsMaterial.shininess = 5
+          let hairTexture = that.textureLoader.load("assets/persos/petit-biscuit/HairSurface_Color.png", () => {
+            hairMaterial.map = hairTexture
+            hairMaterial.shininess = 5
+          let shoesTexture = that.textureLoader.load("assets/persos/petit-biscuit/ShoesSurface_Color.png", () => {
+            shoesMaterial.map = shoesTexture
+            shoesMaterial.shininess = 5
+          let topsTexture = that.textureLoader.load("assets/persos/petit-biscuit/TopsSurface_Color.png", () => {
+            topsMaterial.map = topsTexture
+            topsMaterial.shininess = 5
+          let eyesTexture = that.textureLoader.load("assets/persos/petit-biscuit/eyesSurface_Color.png", () => {
+            eyesMaterial.map = eyesTexture
+            eyesMaterial.shininess = 5
 
-            that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
-              object.position.y =  specifications[2].artistDownPosY
-              object.position.z = -10
-              object.name = 'artist'
+              that.objLoader.load( 'assets/persos/petit-biscuit/petitbiscuit.obj', function ( object ) {
+                object.position.y =  specifications[2].artistDownPosY
+                object.position.z = -10
+                object.name = 'artist'
 
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.castShadow = true
-                }
+                object.traverse(function(o) {
+                  if (o.type === 'Mesh') {
+                    o.castShadow = true
+                  }
+                })
+
+                that.artistsTab.push(object)
+                resolve()
               })
-
-              that.artistsTab.push(object)
-              resolve()
-            })
-          })
+          })})})})})})
         })
       })
     }
-
-
-
 
     removeScene() {
       STORAGE.scene.children.forEach((child, index) => {
