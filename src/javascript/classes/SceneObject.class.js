@@ -264,7 +264,7 @@ class SceneObject {
                   o.castShadow = true
                 }
               })
-
+              
               that.artistsTab.push(object)
               resolve()
             })

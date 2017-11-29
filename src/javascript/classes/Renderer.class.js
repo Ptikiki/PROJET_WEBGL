@@ -71,6 +71,7 @@ class Renderer {
 
     updateCamera() {
       this.controls.update()
+      STORAGE.camera.lookAt(new THREE.Vector3(0,230,0))
     }
 
     render() {
