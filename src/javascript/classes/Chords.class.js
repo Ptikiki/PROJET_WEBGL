@@ -83,29 +83,27 @@ class Chords {
         chordsDatas.chords.forEach((chord, index) => {
           
           if (chord[0].indexOf(that.keysPressedTab[0]) == -1 && that.noteTested != true) {
-            console.log("accord", chord[0])
             console.log("note sans accord", event.key)
             that.lettersText.innerText = event.key
-            TweenLite.to(that.lettersText, 0.1, {
+            TweenLite.to(that.lettersText, 0.2, {
               opacity: 1,
               ease: Power2.easeInOut,
               onComplete: () => {
-                that.lettersText.innerText = ''
-                TweenLite.to(that.lettersText, 1, {
+                TweenLite.to(that.lettersText, 0.5, {
                   opacity: 0,
+                  delay: 10,
                   ease: Power2.easeInOut,
+                  onComplete: () => { that.lettersText.innerText = '' }
                 })
               }
             })
           }
           else if (chord[0].indexOf(that.keysPressedTab[0]) !== -1 ) {
-            console.log("accord", chord[0])
             console.log("note avec accord", event.key)
             that.currentChord = index
             that.checkChords(event.key)
             that.noteTested = true
           }
-
         })
 
         that.openBox()
