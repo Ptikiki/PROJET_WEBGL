@@ -34,7 +34,6 @@ class SceneObject {
                       this.loadPetitBiscuitArtist().then((response)=> {
                         console.log('ALL ASSETS LOADED')
                         STORAGE.InterfaceClass.removeLoader()
-                        // new Chords()
                       }).catch((error)=> { console.warn(error) })
                     }).catch((error)=> { console.warn(error) })
                   }).catch((error)=> { console.warn(error) })
@@ -81,7 +80,7 @@ class SceneObject {
                 resolve()
               })
             })
- 
+
         })
       })
     }
@@ -272,7 +271,7 @@ class SceneObject {
                   o.castShadow = true
                 }
               })
-              
+
               that.artistsTab.push(object)
               resolve()
             })

@@ -22,7 +22,7 @@
     z-index: 15;
   }
 
-  .loader {
+  .overlay {
     position: absolute;
     z-index: 2;
     top: 0;
@@ -38,6 +38,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    z-index: 3;
     transform: translate(-50%,-50%);
     width: 200px;
   }
