@@ -5,14 +5,17 @@ class Interface {
   constructor(options) {
     STORAGE.InterfaceClass = this
     this.canvas = document.querySelector('canvas')
-    this.loader = document.querySelector('.loader')
-    this.helpButton = document.querySelector('.help')
+    this.loader = document.querySelector('.loader_logo')
+
     this.overlay = document.querySelector('.overlay')
     this.interface = document.querySelector('.interface')
     this.splash = document.querySelector('.splash')
+
     this.tuto_explanations = document.querySelector('.tuto_explanations')
     this.tuto_training = document.querySelector('.tuto_training')
+
     this.interface_logo = document.querySelector('.interface_logo')
+    this.helpButton = document.querySelector('.interface_help')
     this.pause = document.querySelector('.pause')
     this.game = document.querySelector('.game')
     this.game_consigne = document.querySelector('.game_consigne')
@@ -25,7 +28,7 @@ class Interface {
 
   bind() {
     this.OverlayClickListener = this.handleOverlayClick.bind(event, this)
-    this.loader.addEventListener('click', this.OverlayClickListener)
+    this.overlay.addEventListener('click', this.OverlayClickListener)
 
     this.HelpClickListener = this.handleHelpClick.bind(event, this)
     this.helpButton.addEventListener('click', this.HelpClickListener)
@@ -57,7 +60,7 @@ class Interface {
     TweenLite.to(this.canvas, 0.3, {
       opacity: 1,
       onComplete: () => {
-        TweenLite.to(this.loader, 0.6 , {
+        TweenLite.to([this.overlay, this.loader], 0.6 , {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => {
@@ -119,7 +122,7 @@ class Interface {
         })
       }
     })
-    
+
   }
 
 }

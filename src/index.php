@@ -38,9 +38,10 @@
     <!-- webGL -->
 
     <div class="interface">
-    <div class="pause">
+      <div class="pause">
 
-      <div class="loader">
+        <div class="overlay"></div>
+
         <img src="assets/logo_loader.svg" alt="" class="loader_logo">
       </div>
       <div class="splash">
@@ -72,7 +73,6 @@
         <img src="assets/twitter.svg" alt="" class="interface_twitter">
         <p class="game_consigne">Pourquoi ne pas essayer quelques touches ?</p>
       </div>
-      <button class="help">HELP</button>
     </div>
 
     <div class="artistsLibrary">
@@ -85,7 +85,9 @@
       </div>
 
       <div class="letters">
-        <p></p>
+        <span class="one"></span>
+        <span class="two"></span>
+        <span class="three"></span>
       </div>
     </div>
 
