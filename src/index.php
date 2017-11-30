@@ -53,7 +53,9 @@
       </div>
 
       <div class="letters">
-        <p></p>
+        <span class="one"></span>
+        <span class="two"></span>
+        <span class="three"></span>
       </div>
     </div>
 

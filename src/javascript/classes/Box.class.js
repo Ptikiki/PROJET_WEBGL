@@ -37,8 +37,6 @@ class Box {
     createBox() {
       let that = this
 
-      // 303848
-
       this.mtlLoader = new MTLLoader()
       this.objLoader = new THREE.OBJLoader()
 
@@ -129,14 +127,11 @@ class Box {
             this.openIsImpossible = true
             setTimeout(() => {
               this.openIsImpossible = false
-              console.log(STORAGE.chordsClass.step)
               this.openBox(STORAGE.chordsClass.step)
-            }, 1000)
+            }, 650)
           } else if (step === 2) {
-            console.log('jouvre a deux')
             this.openBoxToStep2()
           }  else if (step === 3) {
-            console.log('jouvre a trois')
             this.openBoxToStep3()
           }
         }

@@ -23,8 +23,13 @@ class Chords {
 
       this.artistNameText = document.querySelector('.songCarateristics .songsName .artist')
       this.songNameText = document.querySelector('.songCarateristics .songsName .song')
-      this.lettersText = document.querySelector('.songCarateristics .letters p')
       this.artistsLibraryContainer = document.querySelector('.artistsLibrary')
+
+      this.lettersText = [
+        document.querySelector('.songCarateristics .letters span.one'),
+        document.querySelector('.songCarateristics .letters span.two'),
+        document.querySelector('.songCarateristics .letters span.three')
+      ]
 
       this.bind()
       this.enableTuto()
@@ -53,8 +58,6 @@ class Chords {
     }
 
     handleKeydown(that, event) {
-      that.noteTested = false
-
       if (event.keyCode === 32) {
         return
       }
@@ -80,31 +83,18 @@ class Chords {
       if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3 && !that.tutoMode) {
         that.keysPressedTab.push(event.key)
 
+        let noteInAChord = false
         chordsDatas.chords.forEach((chord, index) => {
-          
-          if (chord[0].indexOf(that.keysPressedTab[0]) == -1 && that.noteTested != true) {
-            console.log("note sans accord", event.key)
-            that.lettersText.innerText = event.key
-            TweenLite.to(that.lettersText, 0.2, {
-              opacity: 1,
-              ease: Power2.easeInOut,
-              onComplete: () => {
-                TweenLite.to(that.lettersText, 0.5, {
-                  opacity: 0,
-                  delay: 10,
-                  ease: Power2.easeInOut,
-                  onComplete: () => { that.lettersText.innerText = '' }
-                })
-              }
-            })
-          }
-          else if (chord[0].indexOf(that.keysPressedTab[0]) !== -1 ) {
-            console.log("note avec accord", event.key)
+          if (chord[0].indexOf(that.keysPressedTab[0]) !== -1 ) {
             that.currentChord = index
             that.checkChords(event.key)
-            that.noteTested = true
+            noteInAChord = true
           }
         })
+
+        if (!noteInAChord && event.keyCode >= 65 && event.keyCode <= 90) {
+          that.setLetters(event.key, false)
+        }
 
         that.openBox()
         that.launchNote(chordsDatas.notes[event.key])
@@ -135,7 +125,7 @@ class Chords {
         !that.win ? that.setSongName() : ''
         !that.win ? that.setArtistName() : ''
         !that.win ? that.setLetters(0) : ''
-        !that.win ? setTimeout( () => { that.enableGame() }, 1000) : ''
+        !that.win ? setTimeout( () => { that.enableGame() }, 650) : ''
       }
     }
 
@@ -151,16 +141,16 @@ class Chords {
         numberOfNotesOk = 0
         this.setLetters(0)
       } else {
-        this.setLetters('tuto')
+        this.setLetters('tuto', true)
       }
 
       if (numberOfNotesOk === 3) {
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
-        that.setLetters(1)
         that.tutoMode = false
         setTimeout(() => {
           that.enableGame()
+          that.setLetters(0)
         }, 2000)
 
       }
@@ -178,7 +168,7 @@ class Chords {
         numberOfNotesOk = 0
         this.setLetters(0)
       } else {
-        this.setLetters('game')
+        this.setLetters('game', true)
       }
       this.step = numberOfNotesOk
     }
@@ -304,42 +294,89 @@ class Chords {
       }
     }
 
-    setLetters(letter) {
-      if (typeof letter === 'string') {
-        TweenLite.to(this.lettersText, 0.3, {
+    setLetters(letter, goodLetter) {
+      if (typeof letter === 'string' && goodLetter) { // good letter
+        if (letter === 'tuto') {
+          this.keysPressedTutoTab[0] ? this.lettersText[0].innerText = this.keysPressedTutoTab[0] : ''
+          this.keysPressedTutoTab[1] ? this.lettersText[1].innerText = this.keysPressedTutoTab[1] : ''
+          this.keysPressedTutoTab[2] ? this.lettersText[2].innerText = this.keysPressedTutoTab[2] : ''
+
+          TweenLite.set(this.lettersText[this.keysPressedTutoTab.length - 1], {
+            y: 50,
+            onComplete : () => {
+              TweenLite.to(this.lettersText[this.keysPressedTutoTab.length - 1], 0.2, {
+                opacity: 1,
+                y: 0,
+                ease: Power2.easeInOut
+              })
+            }
+          })
+
+        } else if (letter === 'game') {
+          this.keysPressedTab[0] ? this.lettersText[0].innerText = this.keysPressedTab[0] : ''
+          this.keysPressedTab[1] ? this.lettersText[1].innerText = this.keysPressedTab[1] : ''
+          this.keysPressedTab[2] ? this.lettersText[2].innerText = this.keysPressedTab[2] : ''
+
+          TweenLite.set(this.lettersText[this.keysPressedTab.length - 1], {
+            y: 50,
+            onComplete : () => {
+              TweenLite.to(this.lettersText[this.keysPressedTab.length - 1], 0.2, {
+                opacity: 1,
+                y: 0,
+                ease: Power2.easeInOut
+              })
+            }
+          })
+        }
+
+      } else if (typeof letter === 'string' && !goodLetter) { // wrong letter
+        TweenLite.to(this.lettersText, 0.2, {
+          opacity: 0,
+          y: 50,
+          ease: Power2.easeInOut
+        })
+        let randomIndex = Math.round(Math.random() * 2)
+        this.lettersText[randomIndex].innerText = letter
+        TweenLite.to(this.lettersText[randomIndex], 0.2, {
+          opacity: 1,
+          y: 0,
+          delay: 0.2,
+          ease: Power2.easeInOut
+        })
+
+      } else if (letter === 0) { // remove letters
+        TweenLite.to(this.lettersText, 0.2, {
+          opacity: 0,
+          y: 50,
+          ease: Power2.easeInOut,
+          onComplete: () => {
+            this.lettersText[0].innerText = ''
+            this.lettersText[1].innerText = ''
+            this.lettersText[2].innerText = ''
+            this.lettersText[0].classList.remove('blue', 'gray', 'red')
+            this.lettersText[1].classList.remove('blue', 'gray', 'red')
+            this.lettersText[2].classList.remove('blue', 'gray', 'red')
+          }
+        })
+      } else if (letter === 1) { // change color
+        TweenLite.to(this.lettersText, 0.6, {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => {
-            if (letter === 'tuto') {
-              this.lettersText.innerText = this.keysPressedTutoTab.join("")
-            } else if (letter === 'game') {
-              this.lettersText.innerText = this.keysPressedTab.join("")
-            }
-            TweenLite.to(this.lettersText, 0.3, {
+            let clasName
+            this.currentChord === 0 ? clasName = 'gray' : ''
+            this.currentChord === 1 ? clasName = 'red' : ''
+            this.currentChord === 2 ? clasName = 'blue' : ''
+            this.lettersText[0].classList.add(clasName)
+            this.lettersText[1].classList.add(clasName)
+            this.lettersText[2].classList.add(clasName)
+            TweenLite.to(this.lettersText, 0.6, {
               opacity: 1,
               ease: Power2.easeInOut
             })
           }
         })
-      } else if (letter === 0) {
-        TweenLite.to(this.lettersText, 0.3, {
-          opacity: 0,
-          ease: Power2.easeInOut,
-          onComplete: () => { this.lettersText.innerText = '' }
-        })
-      } else if (letter === 1) {
-        TweenLite.to(this.lettersText, 0.3, {
-          scale: 1.3,
-          opacity: 0,
-          delay: 0.6,
-          ease: Power2.easeInOut,
-          onComplete: () => {
-            TweenLite.set(this.lettersText, {
-              scale: 1
-            })
-            this.lettersText.innerText = ''
-          }
-        })
+
       }
     }
 
@@ -363,7 +400,7 @@ class Chords {
         artist.appendChild(chord)
         this.artistsLibraryContainer.appendChild(artist)
 
-        setTimeout(()=> { artist.classList.add('is-visible') },200)
+        setTimeout(()=> { artist.classList.add('is-visible') }, 200)
 
         chordsDatas.artistsFound[this.currentChord][2] = true
       }
