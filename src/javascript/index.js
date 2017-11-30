@@ -20,6 +20,7 @@ import SceneShader from './classes/SceneShader.class.js'
 import Audio from './classes/Audio.class.js'
 import SpotifyAPIService from './classes/SpotifyAPIService.class.js'
 import Interface from './classes/Interface.class.js'
+import Share from './classes/Share.class.js'
 
 window.STORAGE = {}
 initCanvas()
@@ -37,6 +38,8 @@ function initCanvas() {
 	new SceneObject()
 	new SceneManager()
 	new Ambiance()
+
+	new Share()
 
  	render()
 }
