@@ -1,4 +1,14 @@
 .interface {
+  color: white;
+
+  .pause {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: solid white 10px;
+    box-sizing: border-box;
+  }
+
   .help {
     position: absolute;
     background: none;
@@ -9,24 +19,118 @@
     border: none;
     cursor: pointer;
     opacity: 0;
-  }
-
-  .overlay {
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 0.8;
-    pointer-events: none;
+    z-index: 15;
   }
 
   .loader {
     position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #16191C;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .loader_logo {
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+    width: 200px;
   }
+
+  .splash_logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 200px;
+  }
+
+  .splash_baseline {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%,-50%);
+  }
+
+  .tuto_explanations, .tuto_training {
+    opacity: 0;
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+  }
+
+  .oui_img {
+    margin-top: 40px;
+    width: 230px;
+  }
+
+  .game {
+
+    opacity: 0;
+  }
+
+  .game p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+  }
+
+  .interface_logo {
+    position: absolute;
+    left: 3.5%;
+    top: 3%;
+    width: 50px;
+  }
+
+  .interface_about {
+    position: absolute;
+    left: 91%;
+    top: 3%;
+    width: 50px;
+  }
+
+  .about_text {
+    width: 150px;
+    left: 82%;
+    top: 4.5%;
+  }
+
+  .interface_help {
+    position: absolute;
+    left: 3.5%;
+    top: 92.5%;
+    width: 50px;
+  }
+
+  .help_text {
+    width: 150px;
+    left: 9%;
+    top: 94%;
+  }
+
+  .interface_fb {
+    position: absolute;
+    left: 85%;
+    top: 92.5%;
+    width: 14px;
+  }
+
+  .interface_twitter {
+    position: absolute;
+    left: 91%;
+    top: 93%;
+    width: 26px;
+  }
+
+
 }

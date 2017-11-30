@@ -151,6 +151,7 @@ class Chords {
         setTimeout(() => {
           that.enableGame()
           that.setLetters(0)
+          STORAGE.InterfaceClass.beginGame()
         }, 2000)
 
       }
