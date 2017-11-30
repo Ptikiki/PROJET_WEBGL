@@ -16,6 +16,8 @@ class Interface {
     this.pause = document.querySelector('.pause')
     this.game = document.querySelector('.game')
     this.game_consigne = document.querySelector('.game_consigne')
+    this.skip_tuto = document.querySelector('.skip_tuto')
+    this.skip_arrow = document.querySelector('.skip_arrow')
 
     this.interfaceIsBlurred = true
     this.bind()
@@ -74,11 +76,11 @@ class Interface {
       opacity: 0,
       delay: 4,
       onComplete: () => {
-        TweenLite.to([this.tuto_explanations, this.interface_logo], 0.5, {
+        TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow, this.interface_logo], 0.5, {
           opacity: 1,
           ease: Power2.easeInOut,
           onComplete: () => {
-            TweenLite.to(this.tuto_explanations, 0.5, {
+            TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow], 0.5, {
               opacity: 0,
               ease: Power2.easeInOut,
               delay: 4,
