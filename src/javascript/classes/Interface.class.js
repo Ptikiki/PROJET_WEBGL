@@ -15,7 +15,7 @@ class Interface {
     this.tuto_training = document.querySelector('.tuto_training')
 
     this.interface_logo = document.querySelector('.interface_logo')
-    this.helpButton = document.querySelector('.interface_help')
+    this.helpButton = document.querySelector('.help')
     this.pause = document.querySelector('.pause')
     this.game = document.querySelector('.game')
     this.game_consigne = document.querySelector('.game_consigne')

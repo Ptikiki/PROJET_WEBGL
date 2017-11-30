@@ -5,21 +5,10 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 4;
     border: solid white 10px;
     box-sizing: border-box;
-  }
-
-  .help {
-    position: absolute;
-    background: none;
-    color: #fff;
-    font-size: 16px;
-    right: 8%;
-    top: 5%;
-    border: none;
-    cursor: pointer;
-    opacity: 0;
-    z-index: 15;
+    pointer-events: none;
   }
 
   .overlay {
@@ -29,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #16191C;
+    background-color: #16181e;
     opacity: 1;
     pointer-events: none;
   }
@@ -101,45 +90,48 @@
     left: 72.5%;
   }
 
-  .interface_about {
+  .about {
     position: absolute;
-    left: 91%;
+    display: flex;
+    align-items: center;
+    right: 3.5%;
     top: 3%;
-    width: 50px;
+    .interface_about {
+      width: 50px;
+    }
+    .about_text {
+      width: 150px;
+      text-align: right;
+      margin-right: 20px;
+    }
   }
 
-  .about_text {
-    width: 150px;
-    left: 82%;
-    top: 4.5%;
-  }
-
-  .interface_help {
+  .help {
     position: absolute;
+    display: flex;
+    align-items: center;
     left: 3.5%;
     top: 92.5%;
-    width: 50px;
+    .interface_help {
+      width: 50px;
+    }
+    .help_text {
+      width: 150px;
+      margin-left: 20px;
+    }
   }
 
-  .help_text {
-    width: 150px;
-    left: 9%;
-    top: 94%;
-  }
-
-  .interface_fb {
+  .socials {
     position: absolute;
-    left: 85%;
+    right: 3.5%;
     top: 92.5%;
-    width: 14px;
+    .interface_fb {
+      width: 14px;
+    }
+    .interface_twitter {
+      width: 26px;
+      margin-left: 20px;
+    }
   }
-
-  .interface_twitter {
-    position: absolute;
-    left: 91%;
-    top: 93%;
-    width: 26px;
-  }
-
 
 }
