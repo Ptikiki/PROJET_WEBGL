@@ -161,6 +161,7 @@ class Chords {
         that.tutoMode = false
         setTimeout(() => {
           that.enableGame()
+          STORAGE.InterfaceClass.beginGame()
         }, 2000)
 
       }
