@@ -334,15 +334,17 @@ class Chords {
         TweenLite.to(this.lettersText, 0.2, {
           opacity: 0,
           y: 50,
-          ease: Power2.easeInOut
-        })
-        let randomIndex = Math.round(Math.random() * 2)
-        this.lettersText[randomIndex].innerText = letter
-        TweenLite.to(this.lettersText[randomIndex], 0.2, {
-          opacity: 1,
-          y: 0,
-          delay: 0.2,
-          ease: Power2.easeInOut
+          ease: Power2.easeInOut,
+          onComplete: () => {
+            let randomIndex = Math.round(Math.random() * 2)
+            this.lettersText[randomIndex].innerText = letter
+            TweenLite.to(this.lettersText[randomIndex], 0.2, {
+              opacity: 1,
+              y: 0,
+              delay: 0.2,
+              ease: Power2.easeInOut
+            })
+          }
         })
 
       } else if (letter === 0) { // remove letters

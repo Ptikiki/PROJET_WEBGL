@@ -15,7 +15,10 @@ class Interface {
     this.tuto_training = document.querySelector('.tuto_training')
 
     this.interface_logo = document.querySelector('.interface_logo')
+
     this.helpButton = document.querySelector('.help')
+    this.aboutButton = document.querySelector('.about')
+
     this.pause = document.querySelector('.pause')
     this.game = document.querySelector('.game')
     this.game_consigne = document.querySelector('.game_consigne')
@@ -32,9 +35,22 @@ class Interface {
 
     this.HelpClickListener = this.handleHelpClick.bind(event, this)
     this.helpButton.addEventListener('click', this.HelpClickListener)
+
+    this.AboutClickListener = this.handleAboutClick.bind(event, this)
+    this.aboutButton.addEventListener('click', this.AboutClickListener)
   }
 
   handleHelpClick(that, event) {
+    STORAGE.RendererClass.animateBlur(0)
+    STORAGE.AudioClass.lowVolume()
+    TweenLite.set(that.overlay, {
+      css : {'pointerEvents' : 'all'}
+    })
+    TweenLite.to(that.overlay, 0.3,{
+      opacity: 0.6
+    })
+  }
+  handleAboutClick(that, event) {
     STORAGE.RendererClass.animateBlur(0)
     STORAGE.AudioClass.lowVolume()
     TweenLite.set(that.overlay, {
