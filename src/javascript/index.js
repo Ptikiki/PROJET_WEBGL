@@ -13,6 +13,7 @@ import './vendors/VerticalBlurShader'
 import Renderer from './classes/Renderer.class.js'
 import Ambiance from './classes/Ambiance.class.js'
 import Box from './classes/Box.class.js'
+import Particles from './classes/Particles.class.js'
 import SceneManager from './classes/SceneManager.class.js'
 import SceneObject from './classes/SceneObject.class.js'
 import SceneShader from './classes/SceneShader.class.js'
@@ -31,6 +32,7 @@ function initCanvas() {
 	new Interface()
 
 	new Box()
+	new Particles()
 	new SceneShader()
 	new SceneObject()
 	new SceneManager()
@@ -40,6 +42,7 @@ function initCanvas() {
 }
 
 function render() {
+	STORAGE.ParticlesClass.animate()
 	STORAGE.SceneObjectClass.animate()
 	STORAGE.SceneShaderClass.animate()
 	STORAGE.RendererClass.updateCamera()
