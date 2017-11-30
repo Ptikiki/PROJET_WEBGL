@@ -41,10 +41,10 @@ class Renderer {
       this.controls.maxPolarAngle = Math.PI/2.2
       this.controls.minDistance = 800
       this.controls.maxDistance = 1500
-      this.controls.enableDamping = true;
-      this.controls.dampingFactor = 0.09;
-      this.controls.rotateSpeed = 0.18;
-      this.controls.zoomSpeed = 0.3;
+      this.controls.enableDamping = true
+      this.controls.dampingFactor = 0.09
+      this.controls.rotateSpeed = 0.18
+      this.controls.zoomSpeed = 0.3
     }
 
     initEffectComposer() {
