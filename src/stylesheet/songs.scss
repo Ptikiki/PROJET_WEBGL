@@ -17,16 +17,53 @@
   .letters {
     position: absolute;
     width: 100%;
-    height: 5%;
-    bottom: 5%;
+    height: 100%;
     display: flex;
 
-    p {
-      margin: auto;
-      color: gray;
-      font-size: 22px;
+    span {
+      position: absolute;
+      color: #fff;
+      font-size: 220px;
       text-transform: uppercase;
       letter-spacing: 10px;
+      font-size: 'Gilroy';
+      opacity: 0;
+      background: #fff;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      &.one {
+        left: 16%;
+        top: 13%;
+      }
+
+      &.two {
+        left: 25%;
+        bottom: 10%;
+      }
+
+      &.three {
+        right: 20%;
+        top: 30%;
+      }
+
+      &.gray {
+        background: -webkit-linear-gradient(bottom left, #3b403f, #0f1010);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.red {
+        background: -webkit-linear-gradient(bottom left, #7e2930, #0f0508);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.blue {
+        background: -webkit-linear-gradient(bottom left, #203d75, #020a14);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
   }
 }
