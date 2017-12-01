@@ -79,7 +79,7 @@ class Interface {
       x : -20,
       autoAlpha : 1
     })
-  }  
+  }
   handleAboutMouseOut(that, event) {
     TweenLite.to(that.aboutButton_text, 0.3, {
       x : +7,
@@ -138,9 +138,16 @@ class Interface {
     TweenLite.to(that.pause, 0, {
       css : {'border' : '0px'},
     })
-    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-      opacity: 1
-    })
+    if (STORAGE.chordsClass.boxIsOpen) {
+      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
+        opacity: 1
+      })
+    } else {
+      TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
+        opacity: 1
+      })
+    }
+
   }
 
   handleSkipClick(that, event) {
@@ -181,7 +188,7 @@ class Interface {
     TweenLite.to(this.splash, 0.5, {
       opacity: 0,
       delay: 4,
-      onComplete: () => { 
+      onComplete: () => {
         TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow, this.interface_logo], 0.5, {
           opacity: 1,
           ease: Power2.easeInOut,
@@ -205,7 +212,7 @@ class Interface {
       opacity: 1,
       ease: Power2.easeInOut
     })
-    new Chords() 
+    new Chords()
   }
 
   beginGame() {

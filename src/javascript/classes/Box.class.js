@@ -149,9 +149,9 @@ class Box {
     this.artist ? TweenLite.to(this.artist.position, 0.8, { y : this.artistDownPosY, ease: Power2.easeOut }) : ''
     TweenLite.to(this.myShadersOnScene.position, 0.5, { y : this.shaderDownPosY, ease: Power2.easeOut })
 
-    TweenLite.to([STORAGE.InterfaceClass.helpButton, STORAGE.InterfaceClass.aboutButton], 0.3, {
+    TweenLite.to([STORAGE.InterfaceClass.helpButton], 0.3, {
       opacity: 1,
-      delay: 1
+      delay: 0.5
     })
   }
 
@@ -178,7 +178,7 @@ class Box {
     this.artist ? TweenLite.to(this.artist.position, 1.2, { y : this.artistUpPosY, ease: Power2.easeOut }) : ''
     TweenLite.to(this.myShadersOnScene.position, 1, { y : this.shaderUpPosY, ease: Power2.easeOut })
 
-    TweenLite.to([STORAGE.InterfaceClass.helpButton, STORAGE.InterfaceClass.aboutButton], 0.3, {
+    TweenLite.to([STORAGE.InterfaceClass.helpButton], 0.3, {
       opacity: 0
     })
   }
