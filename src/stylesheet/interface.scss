@@ -147,6 +147,7 @@
 
   .help_screen, .about_screen{
     opacity: 0;
+    visibility: hidden;
     position: absolute;
     z-index: 5;
     left: 50%;
@@ -156,6 +157,7 @@
     width: 850px;
     font-family: overpass-light;
     font-size: 24px;
+    pointer-events: none;
   }
 
   .bold {

@@ -103,16 +103,23 @@ class Interface {
       css : {'pointerEvents' : 'all'}
     })
     TweenLite.to(that.overlay, 0.3,{
-      opacity: 0.6
+      opacity: 0.6,
+      'visibility' : 'visible'
     })
     TweenLite.to(that.help_screen, 0.3,{
-      opacity: 1
+      opacity: 1,
+      'visibility' : 'visible'
     })
     TweenLite.to(that.pause, 0, {
       css : { 'border': 'solid 10px white'}
     })
     TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-      opacity: 0
+      opacity: 0,
+      onComplete: () => {
+        TweenLite.set([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], {
+          'visibility': 'hidden'
+        })
+      }
     })
   }
   handleAboutClick(that, event) {
@@ -122,16 +129,23 @@ class Interface {
       css : {'pointerEvents' : 'all'}
     })
     TweenLite.to(that.overlay, 0.3,{
-      opacity: 0.6
+      opacity: 0.6,
+      'visibility' : 'visible'
     })
     TweenLite.to(that.about_screen, 0.3,{
-      opacity: 1
+      opacity: 1,
+      'visibility' : 'visible'
     })
     TweenLite.to(that.pause, 0, {
       css : { 'border': 'solid 10px white'}
     })
     TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-      opacity: 0
+      opacity: 0,
+      onComplete: () => {
+        TweenLite.set([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], {
+          'visibility': 'hidden'
+        })
+      }
     })
   }
 
@@ -142,18 +156,25 @@ class Interface {
       css : {'pointerEvents' : 'none'}
     })
     TweenLite.to([that.overlay, that.help_screen, that.about_screen], 0.3 , {
-      opacity: 0
+      opacity: 0,
+      onComplete: () => {
+        TweenLite.set([that.overlay, that.help_screen, that.about_screen], {
+          'visibility': 'hidden'
+        })
+      }
     })
     TweenLite.to(that.pause, 0, {
       css : {'border' : '0px'},
     })
     if (STORAGE.chordsClass.boxIsOpen) {
-      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-        opacity: 1
+      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter], 0.3, {
+        opacity: 1,
+        'visibility' : 'visible'
       })
     } else {
-      TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-        opacity: 1
+      TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3, {
+        opacity: 1,
+        'visibility' : 'visible'
       })
     }
 
@@ -233,6 +254,9 @@ class Interface {
               delay: 4,
               onComplete: () => {
                 this.skipIntro != true ? this.addTuto() : ''
+                TweenLite.set([this.tuto_explanations, this.skip_tuto, this.skip_arrow], {
+                  'display': 'none'
+                })
               }
             })
           }
@@ -256,6 +280,9 @@ class Interface {
       onComplete: () => {
         TweenLite.to(this.pause, 0, {
           css : {'border' : 'solid 0px white'}
+        })
+        TweenLite.set(this.tuto_training, {
+          'display': 'none'
         })
         TweenLite.to(this.game, 0.5, {
           opacity: 1,
