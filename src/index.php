@@ -65,8 +65,10 @@
           <p>La boîte à muzik zik zik</p>
           <p>Pour révéler ce que renferme cette boîte, il faut réussir à trouver un accord de 3 notes.</p>
         </div>
-        <span class="skip_tuto">PASSER L'INTRODUCTION</span>
-        <img src="assets/skip.svg" alt="" class="skip_tuto skip_arrow">
+        <div class="skip">
+          <span class="skip_tuto">PASSER L'INTRODUCTION</span>
+          <img src="assets/skip.svg" alt="" class="skip_tuto skip_arrow">
+        </div>
 
         <div class="tuto_training">
           <p>Utilise ton clavier comme un piano et retrouve les combinaisons de touches adjacentes.</p>

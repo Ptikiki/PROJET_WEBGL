@@ -24,6 +24,9 @@ class Interface {
     this.game_consigne = document.querySelector('.game_consigne')
     this.skip_tuto = document.querySelector('.skip_tuto')
     this.skip_arrow = document.querySelector('.skip_arrow')
+    this.skip = document.querySelector('.skip')
+
+    this.skipIntro = false
 
     this.interfaceIsBlurred = true
     this.bind()
@@ -32,6 +35,9 @@ class Interface {
   bind() {
     this.OverlayClickListener = this.handleOverlayClick.bind(event, this)
     this.overlay.addEventListener('click', this.OverlayClickListener)
+
+    this.skipClickListener = this.handleSkipClick.bind(event, this)
+    this.skip.addEventListener('click', this.skipClickListener)
 
     this.HelpClickListener = this.handleHelpClick.bind(event, this)
     this.helpButton.addEventListener('click', this.HelpClickListener)
@@ -61,6 +67,24 @@ class Interface {
     })
   }
 
+  handleSkipClick(that, event) {
+    console.log("skip")
+    that.skipIntro = true
+    TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
+      opacity: 0,
+      ease: Power2.easeInOut,
+      delay: 0.5,
+      onComplete: () => {
+        that.beginGame()
+        new Chords()
+        STORAGE.chordsClass.tutoMode = false
+        STORAGE.chordsClass.enableGame()
+        // STORAGE.chordsClass.setLetters(0)
+      }
+    })
+    
+  }
+
   handleOverlayClick(that, event) {
     STORAGE.RendererClass.animateBlur(1)
     STORAGE.AudioClass.upVolume()
@@ -83,18 +107,18 @@ class Interface {
             let enterSong = new Audio('assets/ambiance/enter.mp3')
             enterSong.play()
             STORAGE.RendererClass.animateBlur(2)
-            this.addTuto()
+            this.removeSplash()
           }
         })
       }
     })
   }
 
-  addTuto() {
+  removeSplash() {
     TweenLite.to(this.splash, 0.5, {
       opacity: 0,
       delay: 4,
-      onComplete: () => {
+      onComplete: () => { 
         TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow, this.interface_logo], 0.5, {
           opacity: 1,
           ease: Power2.easeInOut,
@@ -104,17 +128,21 @@ class Interface {
               ease: Power2.easeInOut,
               delay: 4,
               onComplete: () => {
-                TweenLite.to(this.tuto_training, 0.5, {
-                  opacity: 1,
-                  ease: Power2.easeInOut
-                })
-                new Chords()
+                this.skipIntro != true ? this.addTuto() : ''
               }
             })
           }
         })
       }
     })
+  }
+
+  addTuto() {
+    TweenLite.to(this.tuto_training, 0.5, {
+      opacity: 1,
+      ease: Power2.easeInOut
+    })
+    new Chords() 
   }
 
   beginGame() {
