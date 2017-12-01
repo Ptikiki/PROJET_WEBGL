@@ -2,6 +2,7 @@ import TweenLite from 'gsap'
 const MTLLoader = require('three-mtl-loader')
 
 import specifications from '../datas/sceneSpecifications.js'
+import chordsDatas from '../datas/chordsDatas.js'
 
 class Box {
 
@@ -117,23 +118,24 @@ class Box {
         this.artistDownPosY = specifications[this.index].artistDownPosY
         this.artistUpPosY = specifications[this.index].artistUpPosY
 
-        if (!this.openIsImpossible) {
+        if (!this.boxOpened && !this.openIsImpossible) {
           if (step === 0) {
             this.openBoxToStep0()
-          } else if (step === 1 && !this.boxOpened) {
+          } else if (step === 1) {
             this.openBoxToStep1()
-          } else if (step === 1 && this.boxOpened) {
-            this.openBoxToStep0()
-            this.openIsImpossible = true
-            setTimeout(() => {
-              this.openIsImpossible = false
-              this.openBox(STORAGE.chordsClass.step)
-            }, 650)
           } else if (step === 2) {
             this.openBoxToStep2()
           }  else if (step === 3) {
             this.openBoxToStep3()
           }
+        } else {
+          this.openIsImpossible = true
+          this.openBoxToStep0()
+          STORAGE.chordsClass.setLetters(0)
+          STORAGE.AmbianceClass.updateAmbiance(0, chordsDatas, 0)
+          setTimeout(() => {
+           this.openIsImpossible = false
+         }, 850)
         }
      }
   }

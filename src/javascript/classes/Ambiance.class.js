@@ -31,8 +31,6 @@ class Ambiance {
       this.light1.shadow.mapSize.height = SHADOW_MAP_HEIGHT
       this.light1.shadow.camera.far = 10000
 
-      console.log(this.light1)
-
       STORAGE.scene.add(this.light1)
 
       this.light2 = new THREE.PointLight(0xffffff, 0.02, 0, 2)

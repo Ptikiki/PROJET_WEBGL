@@ -19,6 +19,9 @@ class Chords {
       this.songPlaying = false
       this.currentSongPlayingIndex = 0
 
+      this.currentSongPlayingIndexSave
+      this.currentChordSave
+
       this.previewStarted = false
 
       this.artistNameText = document.querySelector('.songCarateristics .songsName .artist')
@@ -75,10 +78,8 @@ class Chords {
         return
       }
 
-      if (that.songPlaying) {
-        STORAGE.AudioClass.stopWithSmooth(that.currentSongPlayingIndex, that.currentChord)
-        that.songPlaying = false
-      }
+      that.currentSongPlayingIndexSave = that.currentSongPlayingIndex
+      that.currentChordSave = that.currentChord
 
       if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3 && !that.tutoMode) {
         that.keysPressedTab.push(event.key)
@@ -96,12 +97,13 @@ class Chords {
           that.setLetters(event.key, false)
         }
 
-        that.openBox()
-        that.launchNote(chordsDatas.notes[event.key])
-        that.setAmbiance()
-        that.step === 3 ? that.launchSound() : ''
+        if (!STORAGE.BoxClass.openIsImpossible) {
+          that.openBox()
+          that.launchNote(chordsDatas.notes[event.key])
+          that.setAmbiance()
+          that.step === 3 ? that.launchSound() : ''
+        }
       }
-
 
     }
 
@@ -116,7 +118,6 @@ class Chords {
         that.setLetters(0)
         setTimeout( () => { that.enableTuto() }, 300)
       } else {
-        console.log('PERDU')
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
         !that.win ? that.openBox(true) : ''
@@ -125,7 +126,7 @@ class Chords {
         !that.win ? that.setSongName() : ''
         !that.win ? that.setArtistName() : ''
         !that.win ? that.setLetters(0) : ''
-        !that.win ? setTimeout( () => { that.enableGame() }, 650) : ''
+        !that.win ? setTimeout( () => { that.enableGame() }, 950) : ''
       }
     }
 
@@ -200,10 +201,12 @@ class Chords {
 
       this.updateLibrary()
 
+      console.log(this.currentChord, 'HERE')
+
       window.addEventListener('keydown', this.nextSongListener)
 
       window.removeEventListener('keyup', this.keyDownListener)
-      setTimeout( () => { this.enableGame() }, 4000)
+      setTimeout( () => { this.enableGame() }, 6000)
     }
 
     launchNextSong(that, event) {
@@ -227,7 +230,9 @@ class Chords {
     }
 
     setAmbiance() {
-      STORAGE.AmbianceClass.updateAmbiance(this.step, chordsDatas, this.currentChord)
+      if (!STORAGE.BoxClass.openIsImpossible) {
+        STORAGE.AmbianceClass.updateAmbiance(this.step, chordsDatas, this.currentChord)
+      }
     }
 
     openBox(close) {
@@ -338,6 +343,9 @@ class Chords {
           onComplete: () => {
             let randomIndex = Math.round(Math.random() * 2)
             this.lettersText[randomIndex].innerText = letter
+            this.lettersText[0].classList.remove('blue', 'gray', 'red')
+            this.lettersText[1].classList.remove('blue', 'gray', 'red')
+            this.lettersText[2].classList.remove('blue', 'gray', 'red')
             TweenLite.to(this.lettersText[randomIndex], 0.2, {
               opacity: 1,
               y: 0,
@@ -348,6 +356,7 @@ class Chords {
         })
 
       } else if (letter === 0) { // remove letters
+        this.boxIsOpen = false
         TweenLite.to(this.lettersText, 0.2, {
           opacity: 0,
           y: 50,

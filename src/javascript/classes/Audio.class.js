@@ -93,15 +93,22 @@ class Audio {
 
     this.frequencyData = new Uint8Array( this.analyserTab[indexTab][indexInTab].frequencyBinCount )
   }
+
   stop(indexInTab, indexTab) {
     this.audioSourceTab[indexTab][indexInTab].stop()
   }
 
-  stopWithSmooth(indexInTab, indexTab) {
+  stopWithSmooth() {
     let that = this
     TweenLite.to(this.gainNode.gain, 0.6, {
       value: 0,
-      onComplete: () => { that.audioSourceTab[indexTab][indexInTab].stop() }
+      onComplete: () => {
+        that.audioSourceTab.forEach((audiotab)=> {
+          audiotab.forEach((audio) => {
+            audio.stop()
+          })
+        })
+      }
     })
   }
 
@@ -127,7 +134,6 @@ class Audio {
     // get datas from the treaments of the song to pass them to canvas elements and make them react with
     var volumeTotalMoyen = this.getVolumeTotalMoyen(indexInTab, indexTab)
     var highFrequenciesMoyenne = this.getHighFrequencies(indexInTab, indexTab)
-
 
     let rapidity = Math.round(volumeTotalMoyen + highFrequenciesMoyenne)
 

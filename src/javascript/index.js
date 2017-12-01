@@ -21,6 +21,7 @@ import Audio from './classes/Audio.class.js'
 import SpotifyAPIService from './classes/SpotifyAPIService.class.js'
 import Interface from './classes/Interface.class.js'
 import Share from './classes/Share.class.js'
+import Chords from './classes/Chords.class.js'
 
 window.STORAGE = {}
 initCanvas()
@@ -57,5 +58,10 @@ function render() {
 	if (STORAGE.chordsClass && STORAGE.chordsClass.boxIsOpen) {
 		STORAGE.AudioClass.animate(STORAGE.chordsClass.currentSongPlayingIndex, STORAGE.chordsClass.currentChord)
 	}
+	if (STORAGE.chordsClass && STORAGE.chordsClass.songPlaying && !STORAGE.chordsClass.boxIsOpen) {
+		STORAGE.AudioClass.stopWithSmooth()
+		STORAGE.chordsClass.songPlaying = false
+	}
+
 	requestAnimationFrame(render)
 }
