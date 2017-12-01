@@ -166,7 +166,7 @@ class SceneShader {
       this.geometry = new THREE.BoxBufferGeometry( 500, 60, 70, 50, 50, 50 );
 
       this.material1 = new THREE.ShaderMaterial( {
-        uniforms: Object.assign({u_amplitude:{ type: "f", value: 15. }, u_frequence:{ type: "f", value: 0.005 } }, this.MlleKUniforms),
+        uniforms: Object.assign({u_amplitude:{ type: "f", value: 10. }, u_frequence:{ type: "f", value: 0.005 } }, this.MlleKUniforms),
         vertexShader: vertex,
         fragmentShader: THREE.ShaderLib.lambert.fragmentShader,
         side: THREE.DoubleSide,
@@ -188,7 +188,6 @@ class SceneShader {
       plane1.position.z = 219
       plane2.position.z = 147
 
-      plane1.position.y = 0
       plane1.position.y = -20
 
       let group = new THREE.Group()

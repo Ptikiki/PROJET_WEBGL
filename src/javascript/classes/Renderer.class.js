@@ -39,8 +39,8 @@ class Renderer {
       this.controls = new THREE.OrbitControls( STORAGE.camera )
       this.controls.target.set( 0, 230, 0 )
       this.controls.maxPolarAngle = Math.PI/2.2
-      this.controls.minDistance = 800
-      this.controls.maxDistance = 1500
+      // this.controls.minDistance = 800
+      // this.controls.maxDistance = 1500
       this.controls.enableDamping = true
       this.controls.dampingFactor = 0.09
       this.controls.rotateSpeed = 0.18
