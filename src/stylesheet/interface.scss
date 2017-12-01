@@ -76,19 +76,9 @@
     width: 50px;
   }
 
-  .skip_tuto {
-    position: absolute;
-    left: 78%;
-    top: 94%;
-    width: 300px;
-    opacity: 0;
-  }
-
-  .skip_arrow {
-    top: 92.5%;
-    width: 50px;
-    left: 72.5%;
-  }
+  .skip_tuto { position: absolute; left: 78%; top: 94%; width: 300px; opacity: 0; }
+  .skip_arrow { top: 92.5%; width: 50px; left: 72.5%; }
+  .skip { cursor: pointer; }
 
   .about {
     cursor: pointer;
