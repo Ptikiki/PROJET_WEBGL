@@ -17,8 +17,10 @@ class Interface {
     this.interface_logo = document.querySelector('.interface_logo')
 
     this.helpButton = document.querySelector('.help')
+    this.helpButton_text = document.querySelector('.help_text')
     this.help_screen = document.querySelector('.help_screen')
     this.aboutButton = document.querySelector('.about')
+    this.aboutButton_text = document.querySelector('.about_text')
     this.about_screen = document.querySelector('.about_screen')
 
     this.pause = document.querySelector('.pause')
@@ -44,11 +46,45 @@ class Interface {
     this.skipClickListener = this.handleSkipClick.bind(event, this)
     this.skip.addEventListener('click', this.skipClickListener)
 
+    this.HelpMouseOverListener = this.handleHelpMouseOver.bind(event, this)
+    this.helpButton.addEventListener('mouseover', this.HelpMouseOverListener)
+    this.HelpMouseOutListener = this.handleHelpMouseOut.bind(event, this)
+    this.helpButton.addEventListener('mouseout', this.HelpMouseOutListener)
     this.HelpClickListener = this.handleHelpClick.bind(event, this)
     this.helpButton.addEventListener('click', this.HelpClickListener)
 
+    this.AboutMouseOverListener = this.handleAboutMouseOver.bind(event, this)
+    this.aboutButton.addEventListener('mouseover', this.AboutMouseOverListener)
+    this.AboutMouseOutListener = this.handleAboutMouseOut.bind(event, this)
+    this.aboutButton.addEventListener('mouseout', this.AboutMouseOutListener)
     this.AboutClickListener = this.handleAboutClick.bind(event, this)
     this.aboutButton.addEventListener('click', this.AboutClickListener)
+  }
+
+  handleHelpMouseOver(that, event) {
+    TweenLite.to(that.helpButton_text, 0.3, {
+      x : +20,
+      autoAlpha : 1
+    })
+  }
+  handleHelpMouseOut(that, event) {
+    TweenLite.to(that.helpButton_text, 0.3, {
+      x : -7,
+      autoAlpha : 0
+    })
+  }
+
+  handleAboutMouseOver(that, event) {
+    TweenLite.to(that.aboutButton_text, 0.3, {
+      x : -20,
+      autoAlpha : 1
+    })
+  }  
+  handleAboutMouseOut(that, event) {
+    TweenLite.to(that.aboutButton_text, 0.3, {
+      x : +7,
+      autoAlpha : 0
+    })
   }
 
   handleHelpClick(that, event) {
