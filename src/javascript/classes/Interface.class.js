@@ -17,7 +17,9 @@ class Interface {
     this.interface_logo = document.querySelector('.interface_logo')
 
     this.helpButton = document.querySelector('.help')
+    this.help_screen = document.querySelector('.help_screen')
     this.aboutButton = document.querySelector('.about')
+    this.about_screen = document.querySelector('.about_screen')
 
     this.pause = document.querySelector('.pause')
     this.game = document.querySelector('.game')
@@ -25,6 +27,9 @@ class Interface {
     this.skip_tuto = document.querySelector('.skip_tuto')
     this.skip_arrow = document.querySelector('.skip_arrow')
     this.skip = document.querySelector('.skip')
+
+    this.interface_fb = document.querySelector('.interface_fb')
+    this.interface_twitter = document.querySelector('.interface_twitter')
 
     this.skipIntro = false
 
@@ -55,6 +60,15 @@ class Interface {
     TweenLite.to(that.overlay, 0.3,{
       opacity: 0.6
     })
+    TweenLite.to(that.help_screen, 0.3,{
+      opacity: 1
+    })
+    TweenLite.to(that.pause, 0, {
+      css : { 'border': 'solid 10px white'}
+    })
+    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
+      opacity: 0
+    })
   }
   handleAboutClick(that, event) {
     STORAGE.RendererClass.animateBlur(0)
@@ -64,6 +78,32 @@ class Interface {
     })
     TweenLite.to(that.overlay, 0.3,{
       opacity: 0.6
+    })
+    TweenLite.to(that.about_screen, 0.3,{
+      opacity: 1
+    })
+    TweenLite.to(that.pause, 0, {
+      css : { 'border': 'solid 10px white'}
+    })
+    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
+      opacity: 0
+    })
+  }
+
+  handleOverlayClick(that, event) {
+    STORAGE.RendererClass.animateBlur(1)
+    STORAGE.AudioClass.upVolume()
+    TweenLite.set(that.overlay, {
+      css : {'pointerEvents' : 'none'}
+    })
+    TweenLite.to([that.overlay, that.help_screen, that.about_screen], 0.3 , {
+      opacity: 0
+    })
+    TweenLite.to(that.pause, 0, {
+      css : {'border' : '0px'},
+    })
+    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
+      opacity: 1
     })
   }
 
@@ -79,20 +119,7 @@ class Interface {
         new Chords()
         STORAGE.chordsClass.tutoMode = false
         STORAGE.chordsClass.enableGame()
-        // STORAGE.chordsClass.setLetters(0)
       }
-    })
-    
-  }
-
-  handleOverlayClick(that, event) {
-    STORAGE.RendererClass.animateBlur(1)
-    STORAGE.AudioClass.upVolume()
-    TweenLite.set(that.overlay, {
-      css : {'pointerEvents' : 'none'}
-    })
-    TweenLite.to(that.overlay, 0.3 , {
-      opacity: 0
     })
   }
 
@@ -150,8 +177,8 @@ class Interface {
       opacity: 0,
       ease: Power2.easeInOut,
       onComplete: () => {
-        TweenLite.to(this.pause, 0.5, {
-          css : {'border' : '0px'},
+        TweenLite.to(this.pause, 0, {
+          css : {'border' : 'solid 0px white'}
         })
         TweenLite.to(this.game, 0.5, {
           opacity: 1,
@@ -159,7 +186,7 @@ class Interface {
           onComplete: () => {
             TweenLite.to(this.game_consigne, 0.5, {
               opacity: 0,
-              delay: 3,
+              delay: 2,
               ease: Power2.easeInOut
             })
           }
