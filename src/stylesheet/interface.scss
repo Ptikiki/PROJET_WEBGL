@@ -100,9 +100,9 @@
     width: 50px;
   }
 
-  .skip_tuto { position: absolute; left: 78%; top: 94%; width: 300px; opacity: 0; }
-  .skip_arrow { top: 93%; width: 50px; left: 72.5%; }
-  .skip { cursor: pointer; font-family: overpass-regular; font-size: 20px; }
+  .skip_tuto { opacity: 0; }
+  .skip_arrow { width: 50px; margin-left: 20px;}
+  .skip { cursor: pointer; position: absolute; display: flex; align-items: center; right: 3.5%; bottom: 3%; font-family: overpass-regular; font-size: 20px; }
 
   .about {
     cursor: pointer;
@@ -132,7 +132,7 @@
     display: flex;
     align-items: center;
     left: 3.5%;
-    top: 92.5%;
+    bottom: 3%;
     .interface_help {
       width: 50px;
     }
@@ -195,7 +195,7 @@
     position: absolute;
     z-index: 6;
     right: 3.5%;
-    top: 92.5%;
+    bottom: 3%;
     .interface_fb {
       width: 14px;
       cursor: pointer;

@@ -118,8 +118,11 @@
 
     <div class="songCarateristics">
       <div class="songsName">
-        <p class="artist"></p>
-        <p class="song"></p>
+        <img class="next-button" src=""></img>
+        <div>
+          <p class="artist"></p>
+          <p class="song"></p>
+        </div>
       </div>
 
       <div class="letters">

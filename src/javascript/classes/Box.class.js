@@ -132,6 +132,8 @@ class Box {
           this.openIsImpossible = true
           this.openBoxToStep0()
           STORAGE.chordsClass.setLetters(0)
+          STORAGE.chordsClass.setArtistName()
+          STORAGE.chordsClass.setSongName()
           STORAGE.AmbianceClass.updateAmbiance(0, chordsDatas, 0)
           setTimeout(() => {
            this.openIsImpossible = false
@@ -146,6 +148,11 @@ class Box {
     this.scene ? TweenLite.to(this.scene.position, 0.8, { y : this.sceneDownPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 0.8, { y : this.artistDownPosY, ease: Power2.easeOut }) : ''
     TweenLite.to(this.myShadersOnScene.position, 0.5, { y : this.shaderDownPosY, ease: Power2.easeOut })
+
+    TweenLite.to([STORAGE.InterfaceClass.helpButton, STORAGE.InterfaceClass.aboutButton], 0.3, {
+      opacity: 1,
+      delay: 1
+    })
   }
 
   openBoxToStep1() {
@@ -170,6 +177,10 @@ class Box {
     this.scene ? TweenLite.to(this.scene.position, 1.2, { y : this.sceneUpPosY, ease: Power2.easeOut }) : ''
     this.artist ? TweenLite.to(this.artist.position, 1.2, { y : this.artistUpPosY, ease: Power2.easeOut }) : ''
     TweenLite.to(this.myShadersOnScene.position, 1, { y : this.shaderUpPosY, ease: Power2.easeOut })
+
+    TweenLite.to([STORAGE.InterfaceClass.helpButton, STORAGE.InterfaceClass.aboutButton], 0.3, {
+      opacity: 0
+    })
   }
 
 }

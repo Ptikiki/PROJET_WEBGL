@@ -24,6 +24,7 @@ class Chords {
 
       this.previewStarted = false
 
+      this.nextButton = document.querySelector('.songCarateristics .songsName .next-button')
       this.artistNameText = document.querySelector('.songCarateristics .songsName .artist')
       this.songNameText = document.querySelector('.songCarateristics .songsName .song')
       this.artistsLibraryContainer = document.querySelector('.artistsLibrary')
@@ -258,19 +259,30 @@ class Chords {
 
     setArtistName(artistName) {
       if (artistName) {
-        TweenLite.to(this.artistNameText, 0.3, {
+        TweenLite.to([this.artistNameText, this.nextButton], 0.3, {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => {
             this.artistNameText.innerText = artistName
-            TweenLite.to(this.artistNameText, 0.3, {
+            let src
+            let clasName
+            this.currentChord === 0 ? src = 'assets/next_mademoisellek.svg' : ''
+            this.currentChord === 1 ? src = 'assets/next_mademoisellek.svg' : ''
+            this.currentChord === 2 ? src = 'assets/next_petitbiscuit.svg' : ''
+            this.currentChord === 0 ? clasName = 'gray' : ''
+            this.currentChord === 1 ? clasName = 'yellow' : ''
+            this.currentChord === 2 ? clasName = 'pink' : ''
+            this.nextButton.setAttribute('src', src)
+            this.artistNameText.classList.remove('pink', 'yellow', 'gray')
+            this.artistNameText.classList.add(clasName)
+            TweenLite.to([this.artistNameText, this.nextButton], 0.3, {
               opacity: 1,
               ease: Power2.easeInOut,
             })
           }
         })
       } else {
-        TweenLite.to(this.artistNameText, 0.3, {
+        TweenLite.to([this.artistNameText, this.nextButton], 0.3, {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => { this.artistNameText.innerText = '' }
