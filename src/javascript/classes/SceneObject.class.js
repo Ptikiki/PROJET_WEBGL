@@ -252,17 +252,17 @@ class SceneObject {
     loadOrelsanArtist() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/test_perso/orelsan/orelsan_v2_baker.mtl', function(matl) {
+        this.mtlLoader.load('assets/persos/orelsan/model_orelsan.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let bodyMaterial = matl.materials.orelsan
-          let bodyTexture = that.textureLoader.load("assets/test_perso/orelsan/orelsanSurface_Color2.png", () => {
-            bodyMaterial.map = bodyTexture
-            bodyMaterial.shininess = 5
-            bodyMaterial.needsUpdate = true
+          // let bodyMaterial = matl.materials.orelsan
+          // let bodyTexture = that.textureLoader.load("assets/persos/orelsan/orelsanSurface_Color2.png", () => {
+          //   bodyMaterial.map = bodyTexture
+          //   bodyMaterial.shininess = 5
+          //   bodyMaterial.needsUpdate = true
 
-            that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
+            that.objLoader.load( 'assets/persos/orelsan/model_orelsan.obj', function ( object ) {
               object.position.y = specifications[0].artistDownPosY
               object.name = 'artist'
 
@@ -275,7 +275,7 @@ class SceneObject {
               that.artistsTab.push(object)
               resolve()
             })
-          })
+          //})
         })
       })
     }
@@ -283,18 +283,19 @@ class SceneObject {
     loadMlleKArtist() {
       return new Promise((resolve, reject) => {
         let that = this
-        this.mtlLoader.load('assets/test_perso/orelsan/orelsan_v2_baker.mtl', function(matl) {
+        this.mtlLoader.load('assets/persos/mademoiselle-k/MademoiselleK_Guitar_Playing.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let bodyMaterial = matl.materials.orelsan
-          let bodyTexture = that.textureLoader.load("assets/test_perso/orelsan/orelsanSurface_Color2.png", () => {
-            bodyMaterial.map = bodyTexture
-            bodyMaterial.shininess = 5
-            bodyMaterial.needsUpdate = true
+          console.log("MATERIALS MADK", matl.materials.Tortoise)
 
-            that.objLoader.load( 'assets/test_perso/orelsan/orelsan_v2_baker.obj', function ( object ) {
-              object.position.y =  specifications[1].artistDownPosY
+          let guitareMaterial = matl.materials.Tortoise
+          let guitareTexture = that.textureLoader.load('assets/persos/mademoiselle-k/tortoise.jpg', () => {
+            guitareMaterial.map = guitareTexture
+            guitareMaterial.shininess = 5
+
+            that.objLoader.load( 'assets/persos/mademoiselle-k/MademoiselleK_Guitar_Playing.obj', function ( object ) {
+              object.position.y = specifications[1].artistDownPosY
               object.name = 'artist'
 
               object.traverse(function(o) {
@@ -320,47 +321,20 @@ class SceneObject {
 
           console.log("MATERIAUX", matl)
 
-          let bodyMaterial = matl.materials.Body
-          let bottomsMaterial = matl.materials.Bottoms
-          let hairMaterial = matl.materials.Hair
-          let shoesMaterial = matl.materials.Shoes
-          let topsMaterial = matl.materials.Tops
-          let eyesMaterial = matl.materials.eyes
+          that.objLoader.load( 'assets/persos/petit-biscuit/petitbiscuit.obj', function ( object ) {
+            object.position.y =  specifications[2].artistDownPosY
+            object.position.z = -10
+            object.name = 'artist'
 
-          let bodyTexture = that.textureLoader.load("assets/persos/petit-biscuit/BodySurface_Color.png", () => {
-            bodyMaterial.map = bodyTexture
-            bodyMaterial.shininess = 5
-          let bottomsTexture = that.textureLoader.load("assets/persos/petit-biscuit/BottomsSurface_Color.png", () => {
-            bottomsMaterial.map = bottomsTexture
-            bottomsMaterial.shininess = 5
-          let hairTexture = that.textureLoader.load("assets/persos/petit-biscuit/HairSurface_Color.png", () => {
-            hairMaterial.map = hairTexture
-            hairMaterial.shininess = 5
-          let shoesTexture = that.textureLoader.load("assets/persos/petit-biscuit/ShoesSurface_Color.png", () => {
-            shoesMaterial.map = shoesTexture
-            shoesMaterial.shininess = 5
-          let topsTexture = that.textureLoader.load("assets/persos/petit-biscuit/TopsSurface_Color.png", () => {
-            topsMaterial.map = topsTexture
-            topsMaterial.shininess = 5
-          let eyesTexture = that.textureLoader.load("assets/persos/petit-biscuit/eyesSurface_Color.png", () => {
-            eyesMaterial.map = eyesTexture
-            eyesMaterial.shininess = 5
-
-              that.objLoader.load( 'assets/persos/petit-biscuit/petitbiscuit.obj', function ( object ) {
-                object.position.y =  specifications[2].artistDownPosY
-                object.position.z = -10
-                object.name = 'artist'
-
-                object.traverse(function(o) {
-                  if (o.type === 'Mesh') {
-                    o.castShadow = true
-                  }
-                })
-
-                that.artistsTab.push(object)
-                resolve()
-              })
-          })})})})})})
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.castShadow = true
+              }
+            })
+            that.artistsTab.push(object)
+            resolve()
+          })
+    
         })
       })
     }
