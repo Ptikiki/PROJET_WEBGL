@@ -8,8 +8,6 @@ illum 7
 newmtl Shoes
 Ka 1 1 1
 Kd 1 1 1
-Ks 1 1 1
-Ns 50
 illum 7
 
 newmtl Tops
@@ -20,14 +18,10 @@ illum 7
 newmtl Hair
 Ka 1 1 1
 Kd 0.15000000596046 0.08675000071526 0.08100000023842
-Ks 1 1 1
-Ns 50
 illum 7
 
 newmtl Body
 Ka 1 1 1
 Kd 1 0.86966669559479 0.76999998092651
-Ks 1 1 1
-Ns 50
 illum 7
 
