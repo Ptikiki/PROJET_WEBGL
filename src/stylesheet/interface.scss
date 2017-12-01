@@ -64,9 +64,18 @@
     font-family: overpass-light;
     font-size: 30px;
   }
-
   .tuto_explanations_baseline {
     font-size: 24px;
+    opacity: 0.5;
+  }
+
+  .tuto_training {
+    font-family: overpass-light;
+    font-size: 30px;
+  }
+  .tuto_training_consigne {
+    font-size: 24px;
+    opacity: 0.5;
   }
 
   .oui_img { margin-top: 40px; width: 230px; }
@@ -79,6 +88,8 @@
     top: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
+    font-family: overpass-light;
+    font-size: 30px;
   }
 
   .interface_logo {
@@ -107,7 +118,10 @@
     .about_text {
       width: 150px;
       text-align: right;
-      margin-right: 20px;
+      margin-right: 0px;
+      font-family: overpass-regular;
+      font-size: 20px;
+      opacity: 0;
     }
   }
 
@@ -124,7 +138,10 @@
     }
     .help_text {
       width: 150px;
-      margin-left: 20px;
+      margin-left: 0px;
+      font-family: overpass-regular;
+      font-size: 20px;
+      opacity: 0;
     }
   }
 
@@ -137,6 +154,12 @@
     transform: translate(-50%,-50%);
     text-align: center;
     width: 850px;
+    font-family: overpass-light;
+    font-size: 24px;
+  }
+
+  .bold {
+    font-family: overpass-bold;
   }
 
   .about_logos {

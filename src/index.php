@@ -71,7 +71,7 @@
         </div>
 
         <div class="tuto_training">
-          <p>Utilise ton clavier comme un piano et retrouve les combinaisons de touches adjacentes.</p>
+          <p class="tuto_training_consigne">Utilise ton clavier comme un piano et retrouve les combinaisons de touches adjacentes.</p>
           <p>Es-tu prêt ?</p>
           <img src="assets/key_oui.svg" alt ="" class="oui_img">
         </div>
@@ -98,8 +98,8 @@
       </div>
 
       <div class="about_screen">
-        <p>ARPEGIA est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactif à Gobelins.</p>
-        <p>Merci à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
+        <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactif à Gobelins.</p>
+        <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
         <div class="about_logos">
           <img src="assets/gobelins.svg" alt="" class="gobelins_logo">
           <img src="assets/jardin_imparfait.svg" alt="" class="jardin_logo">
