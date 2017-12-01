@@ -65,9 +65,9 @@ const artists = [
 ]
 
 const artistsFound = [
-  ['Orelsan', 'N J K', false],
-  ['Mademoiselle K', 'A W Q', false],
-  ['Petit Biscuit', 'T F V', false]
+  false,
+  false,
+  false
 ]
 
 export default { chords, notes, songs, songsName, artists, artistsFound, tuto }

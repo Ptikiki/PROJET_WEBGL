@@ -33,6 +33,10 @@ class Interface {
     this.interface_fb = document.querySelector('.interface_fb')
     this.interface_twitter = document.querySelector('.interface_twitter')
 
+    this.library_button = document.querySelector('.artist-lirary-button')
+    this.library_close_button = document.querySelector('.libray-close-button')
+    this.library = document.querySelector('.artistsLibrary')
+
     this.skipIntro = false
 
     this.interfaceIsBlurred = true
@@ -59,6 +63,11 @@ class Interface {
     this.aboutButton.addEventListener('mouseout', this.AboutMouseOutListener)
     this.AboutClickListener = this.handleAboutClick.bind(event, this)
     this.aboutButton.addEventListener('click', this.AboutClickListener)
+
+    this.LibraryButtonClickListener = this.handleLibraryButtonClick.bind(event, this)
+    this.library_button.addEventListener('click', this.LibraryButtonClickListener)
+    this.LibraryCloseButtonClickListener = this.handleLibraryCloseButtonClick.bind(event, this)
+    this.library_close_button.addEventListener('click', this.LibraryCloseButtonClickListener)
   }
 
   handleHelpMouseOver(that, event) {
@@ -162,6 +171,31 @@ class Interface {
         new Chords()
         STORAGE.chordsClass.tutoMode = false
         STORAGE.chordsClass.enableGame()
+      }
+    })
+  }
+
+  handleLibraryButtonClick(that, event) {
+    TweenLite.to(that.library, 0.6, {
+      opacity: 1,
+      ease: Power2.easeInOut,
+      onComplete: () => {
+        TweenLite.set(that.library, {
+          'pointerEvents' : 'all'
+        })
+      }
+    })
+  }
+
+  handleLibraryCloseButtonClick(that, event) {
+    console.log('je click')
+    TweenLite.to(that.library, 0.6, {
+      opacity: 0,
+      ease: Power2.easeInOut,
+      onComplete: () => {
+        TweenLite.set(that.library, {
+          'pointerEvents' : 'none'
+        })
       }
     })
   }

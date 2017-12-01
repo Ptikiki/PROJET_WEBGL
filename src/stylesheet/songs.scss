@@ -18,6 +18,7 @@
       color: #fff;
       text-transform: uppercase;
       opacity: 0;
+      text-decoration: none;
 
       &.gray {
         color: gray;
@@ -50,7 +51,7 @@
     span {
       position: absolute;
       color: #fff;
-      font-family: gilroy-medium;
+      font-family: 'gilroy-medium';
       font-size: 250px;
       text-transform: uppercase;
       letter-spacing: 10px;

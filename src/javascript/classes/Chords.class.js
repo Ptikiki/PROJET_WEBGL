@@ -24,6 +24,9 @@ class Chords {
 
       this.previewStarted = false
 
+      this.numberArtistFound = 0
+      this.numberArtist = 3
+
       this.nextButton = document.querySelector('.songCarateristics .songsName .next-button')
       this.artistNameText = document.querySelector('.songCarateristics .songsName .artist')
       this.songNameText = document.querySelector('.songCarateristics .songsName .song')
@@ -36,11 +39,17 @@ class Chords {
       ]
 
       this.bind()
+      this.setArtistFound()
       this.enableTuto()
     }
 
     bind() {
       window.setInterval(this.checkPreviewState.bind(event, this), 1000)
+    }
+
+    setArtistFound() {
+      STORAGE.InterfaceClass.library_button.querySelector('.found').innerText = this.numberArtistFound
+      STORAGE.InterfaceClass.library_button.querySelector('.total').innerText = this.numberArtist
     }
 
     enableTuto() {
@@ -201,8 +210,6 @@ class Chords {
       this.setLetters(1)
 
       this.updateLibrary()
-
-      console.log(this.currentChord, 'HERE')
 
       window.addEventListener('keydown', this.nextSongListener)
 
@@ -405,28 +412,12 @@ class Chords {
     }
 
     updateLibrary() {
-      if (!chordsDatas.artistsFound[this.currentChord][2]) {
-        let artist = document.createElement('div')
-        artist.classList.add('artist')
-        let name = document.createElement('a')
-        name.classList.add('name')
-        name.setAttribute('href', 'http://www.asterios.fr/fr/agenda')
-        name.setAttribute('target', '_blanck')
-        let chord = document.createElement('p')
-        chord.classList.add('chord')
-        let nameText = document.createTextNode(chordsDatas.artistsFound[this.currentChord][0])
-        let chordText = document.createTextNode(chordsDatas.artistsFound[this.currentChord][1])
-
-        name.appendChild(nameText)
-        chord.appendChild(chordText)
-
-        artist.appendChild(name)
-        artist.appendChild(chord)
-        this.artistsLibraryContainer.appendChild(artist)
-
-        setTimeout(()=> { artist.classList.add('is-visible') }, 200)
-
-        chordsDatas.artistsFound[this.currentChord][2] = true
+      if (!chordsDatas.artistsFound[this.currentChord]) {
+        let lock = document.querySelectorAll('.artistsLibrary .lock')
+        lock[this.currentChord].classList.add('is-hidden')
+        chordsDatas.artistsFound[this.currentChord] = true
+        this.numberArtistFound ++
+        this.setArtistFound()
       }
     }
 

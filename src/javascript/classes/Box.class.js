@@ -151,6 +151,7 @@ class Box {
 
     TweenLite.to([STORAGE.InterfaceClass.helpButton], 0.3, {
       opacity: 1,
+      visibility: 'visible',
       delay: 0.5
     })
   }
@@ -179,7 +180,10 @@ class Box {
     TweenLite.to(this.myShadersOnScene.position, 1, { y : this.shaderUpPosY, ease: Power2.easeOut })
 
     TweenLite.to([STORAGE.InterfaceClass.helpButton], 0.3, {
-      opacity: 0
+      opacity: 0,
+      onComplete: () => {
+        STORAGE.InterfaceClass.helpButton.style.visibility = 'hidden'
+      }
     })
   }
 

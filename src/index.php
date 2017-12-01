@@ -94,6 +94,10 @@
           <img src="assets/twitter.svg" alt="" class="interface_twitter">
         </div>
 
+        <button type="button" class="artist-lirary-button">
+          <span class="found"></span>/<span class="total"></span> artistes trouvés
+        </button>
+
         <p class="game_consigne">Pourquoi ne pas essayer quelques touches ?</p>
       </div>
 
@@ -114,13 +118,31 @@
     </div>
 
     <div class="artistsLibrary">
+      <button type="button" class="libray-close-button">
+        <img src="assets/library/cross.svg" alt="">
+      </button>
+      <div class="artist">
+        <p class="name gray">Orelsan</p>
+        <p class="chord">N J K</p>
+        <div class="lock"></div>
+      </div>
+      <div class="artist">
+        <p class="name yellow">Mademoiselle K</p>
+        <p class="chord">A Q W</p>
+        <div class="lock"></div>
+      </div>
+      <div class="artist">
+        <p class="name pink">Petit Biscuit</p>
+        <p class="chord">V F T</p>
+        <div class="lock"></div>
+      </div>
     </div>
 
     <div class="songCarateristics">
       <div class="songsName">
         <img class="next-button" src=""></img>
         <div>
-          <p class="artist"></p>
+          <a class="artist" href="http://asterios.fr/fr/agenda" target="_blank"></a>
           <p class="song"></p>
         </div>
       </div>
