@@ -9,6 +9,7 @@
     border: solid white 10px;
     box-sizing: border-box;
     pointer-events: none;
+    transition: all 0.5s;
   }
 
   .overlay {
@@ -41,6 +42,8 @@
   }
 
   .splash_baseline {
+    font-family: overpass-light;
+    font-size: 30px;
     position: absolute;
     left: 50%;
     top: 65%;
@@ -57,6 +60,15 @@
     text-align: center;
   }
 
+  .tuto_explanations {
+    font-family: overpass-light;
+    font-size: 30px;
+  }
+
+  .tuto_explanations_baseline {
+    font-size: 24px;
+  }
+
   .oui_img { margin-top: 40px; width: 230px; }
 
   .game { opacity: 0; }
@@ -71,18 +83,20 @@
 
   .interface_logo {
     position: absolute;
+    z-index: 6;
     left: 3.5%;
     top: 3%;
     width: 50px;
   }
 
   .skip_tuto { position: absolute; left: 78%; top: 94%; width: 300px; opacity: 0; }
-  .skip_arrow { top: 92.5%; width: 50px; left: 72.5%; }
-  .skip { cursor: pointer; }
+  .skip_arrow { top: 93%; width: 50px; left: 72.5%; }
+  .skip { cursor: pointer; font-family: overpass-regular; font-size: 20px; }
 
   .about {
     cursor: pointer;
     position: absolute;
+    z-index: 6;
     display: flex;
     align-items: center;
     right: 3.5%;
@@ -100,6 +114,7 @@
   .help {
     cursor: pointer;
     position: absolute;
+    z-index: 6;
     display: flex;
     align-items: center;
     left: 3.5%;
@@ -113,8 +128,49 @@
     }
   }
 
+  .help_screen, .about_screen{
+    opacity: 0;
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    width: 850px;
+  }
+
+  .about_logos {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 75px;
+    align-items: center;
+    height: 145px;
+  }
+
+  .gobelins_logo, .jardin_logo, .asterios_logo {
+    float: left;
+    width: 150px;
+    display: block;
+    margin: auto;
+  }
+
+  .jardin_logo {
+    width: 190px;
+  }
+
+  .asterios_logo {
+    width: 110px;
+  }
+
+  .help_img {
+    width: 430px;
+    margin-top: 50px;
+  }
+
   .socials {
     position: absolute;
+    z-index: 6;
     right: 3.5%;
     top: 92.5%;
     .interface_fb {

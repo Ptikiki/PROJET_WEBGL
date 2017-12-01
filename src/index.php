@@ -62,7 +62,7 @@
       <div class="tuto">
 
         <div class="tuto_explanations">
-          <p>La boîte à muzik zik zik</p>
+          <p class="tuto_explanations_baseline">La boîte à muzik zik zik</p>
           <p>Pour révéler ce que renferme cette boîte, il faut réussir à trouver un accord de 3 notes.</p>
         </div>
         <div class="skip">
@@ -95,6 +95,21 @@
         </div>
 
         <p class="game_consigne">Pourquoi ne pas essayer quelques touches ?</p>
+      </div>
+
+      <div class="about_screen">
+        <p>ARPEGIA est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactif à Gobelins.</p>
+        <p>Merci à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
+        <div class="about_logos">
+          <img src="assets/gobelins.svg" alt="" class="gobelins_logo">
+          <img src="assets/jardin_imparfait.svg" alt="" class="jardin_logo">
+          <img src="assets/asterios.svg" alt="" class="asterios_logo">
+        </div>
+      </div>
+
+      <div class="help_screen">
+        <p>Pour révéler ce que renferme cette boîte, il te faut réussir à trouver un accord de 3 notes. Utilise ton clavier comme un piano et appuie sur 3 lettres adjacentes.</p>
+        <img src="assets/how_to_play.svg" alt="" class="help_img">
       </div>
     </div>
 
