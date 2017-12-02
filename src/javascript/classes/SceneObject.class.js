@@ -52,36 +52,31 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          console.log("MATERIAUX SCENE ORELSAN", matl.materials)
-
           let siegesMaterial = matl.materials.siege
           let briquesMaterial = matl.materials.brique
           let solMaterial = matl.materials.sol
           let poisMaterial = matl.materials.pois
+          siegesMaterial.shininess = 0
 
-          let siegesTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/chaises.png', () => {
-            siegesTexture.wrapS = THREE.RepeatWrapping
-            siegesTexture.wrapT = THREE.RepeatWrapping
-            siegesTexture.repeat.set(4, 4)
-            siegesMaterial.map = siegesTexture
-
-          let briquesTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/color_brick2.png', () => {
-            briquesTexture.wrapS = THREE.RepeatWrapping
-            briquesTexture.wrapT = THREE.RepeatWrapping
-            briquesTexture.repeat.set(20, 10)
-            briquesMaterial.map = briquesTexture
+          let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick2.png', () => {
+            briquesNormal.wrapS = THREE.RepeatWrapping
+            briquesNormal.wrapT = THREE.RepeatWrapping
+            briquesNormal.repeat.set(1, 8)
+            briquesMaterial.normalMap = briquesNormal
+            briquesMaterial.normalScale = new THREE.Vector2( 0.8, 0.8 )
 
           let solTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/sol_quai.png', () => {
             solTexture.wrapS = THREE.RepeatWrapping
             solTexture.wrapT = THREE.RepeatWrapping
-            solTexture.repeat.set(10, 10)
+            solTexture.repeat.set(5, 5)
             solMaterial.map = solTexture
+            solMaterial.shininess = 8
 
-          let poisTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/color_bande.png', () => {
-            poisTexture.wrapS = THREE.RepeatWrapping
-            poisTexture.wrapT = THREE.RepeatWrapping
-            poisTexture.repeat.set(10, 10)
-            poisMaterial.map = poisTexture
+          let poisNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_bande.png', () => {
+            poisNormal.wrapS = THREE.RepeatWrapping
+            poisNormal.wrapT = THREE.RepeatWrapping
+            poisNormal.repeat.set(10, 10)
+            poisMaterial.normalMap = poisNormal
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_base-scene.obj', function ( object ) {
               object.position.x = 0
@@ -98,11 +93,10 @@ class SceneObject {
                   o.material.shininess = 5
                 }
               })
-
               resolve()
             })
 
-          })})})})
+          })})})
         })
       })
     }
@@ -115,6 +109,7 @@ class SceneObject {
           that.objLoader.setMaterials( matl )
 
           let leatherMaterial = matl.materials.Cuir
+
           let leatherTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/leather.jpg", () => {
             leatherTexture.wrapS = THREE.RepeatWrapping
             leatherTexture.wrapT = THREE.RepeatWrapping
@@ -180,16 +175,14 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          console.log("MATERIAUX MUR ORELSAN", matl.materials)
-
           let briquesMaterial = matl.materials.brique
-         
-          let briquesTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/color_brick.png', () => {
-            briquesTexture.wrapS = THREE.RepeatWrapping
-            briquesTexture.wrapT = THREE.RepeatWrapping
-            briquesTexture.repeat.set(3, 3)
-            briquesMaterial.map = briquesTexture
-            briquesMaterial.shininess = 5
+          let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick.png', () => {
+            briquesNormal.wrapS = THREE.RepeatWrapping
+            briquesNormal.wrapT = THREE.RepeatWrapping
+            briquesNormal.repeat.set(5, 6)
+            briquesMaterial.normalMap = briquesNormal
+            briquesMaterial.normalScale = new THREE.Vector2( 0.7, 0.7 )
+            briquesMaterial.shininess = 10
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
@@ -220,23 +213,42 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
-            object.position.x = 0
-            object.position.y = 165
-            object.position.z = -280
-            object.rotation.y = Math.PI
-            object.name = 'wall'
+            that.metalMaterial = matl.materials.Metal
+            let publicTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/leather.jpg", () => {
 
-            object.traverse(function(o) {
-              if (o.type === 'Mesh') {
-                o.receiveShadow = true
-                o.castShadow = true
-                o.material.shininess = 2
-              }
+              let publicMesh = new THREE.Mesh(new THREE.PlaneGeometry( 500, 500, 32 ), new THREE.MeshBasicMaterial( { map: publicTexture } ))
+              publicMesh.position.y = 400
+              publicMesh.position.z = 300
+              publicMesh.rotation.y = Math.PI
+              STORAGE.scene.add(publicMesh)
+
+              that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
+              that.cubeCamera.position.y = 700
+              that.cubeCamera.position.z = -300
+              STORAGE.scene.add( that.cubeCamera )
+
+              that.metalMaterial.envMap = that.cubeCamera.renderTarget
+              that.metalMaterial.needsUpdate = true
+            
+              that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
+
+                object.position.x = 0
+                object.position.y = 165
+                object.position.z = -280
+                object.rotation.y = Math.PI
+                object.name = 'wall'
+
+                object.traverse(function(o) {
+                  if (o.type === 'Mesh') {
+                    o.receiveShadow = true
+                    o.castShadow = true
+                    o.material.shininess = 2
+                  }
+                })
+
+              that.wallsTab.push(object)
+              resolve()
             })
-
-            that.wallsTab.push(object)
-            resolve()
           })
         })
       })
@@ -397,6 +409,12 @@ class SceneObject {
     }
 
     animate() {
+      if (this.metalMaterial && this.cubeCamera) {
+        this.metalMaterial.visible = false
+        this.cubeCamera.update( STORAGE.renderer, STORAGE.scene )
+        this.metalMaterial.visible = true
+      }
+
       if ( this.myObjects[2] ) {
         // this.myObjects[2].rotation.y += 0.01
       }
