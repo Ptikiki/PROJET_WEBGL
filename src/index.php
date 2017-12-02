@@ -98,7 +98,7 @@
           <span class="found"></span>/<span class="total"></span> artistes trouvés
         </button>
 
-        <p class="game_consigne">Pourquoi ne pas essayer quelques touches ?</p>
+        <p class="game_consigne"></p>
       </div>
 
       <div class="about_screen">
