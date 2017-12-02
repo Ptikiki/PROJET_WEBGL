@@ -220,6 +220,8 @@ class SceneObject {
               publicMesh.position.y = 400
               publicMesh.position.z = 300
               publicMesh.rotation.y = Math.PI
+              publicMesh.material.transparent = true
+              publicMesh.material.opacity = 0
               STORAGE.scene.add(publicMesh)
 
               that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )

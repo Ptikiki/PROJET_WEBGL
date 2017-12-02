@@ -187,9 +187,9 @@ class Chords {
 
     launchNote(note) {
       let noteToPlay = new Audio(note)
-      this.step === 0 ? noteToPlay.volume = 0.05 : ''
-      this.step === 1 ? noteToPlay.volume = 0.10 : ''
-      this.step === 2 ? noteToPlay.volume = 0.25 : ''
+      this.step === 0 ? noteToPlay.volume = 0.15 : ''
+      this.step === 1 ? noteToPlay.volume = 0.25 : ''
+      this.step === 2 ? noteToPlay.volume = 0.40 : ''
       this.step === 3 ? noteToPlay.volume = 0.60 : ''
       noteToPlay.play()
       this.boxIsOpen = false
