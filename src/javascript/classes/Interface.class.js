@@ -115,7 +115,7 @@ class Interface {
     })
     TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button], 0.3,{
       opacity: 0,
-      display: "none"
+      visibility: "hidden"
     })
   }
   handleAboutClick(that, event) {
@@ -135,7 +135,7 @@ class Interface {
     })
     TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
       opacity: 0,
-      display: "none"
+      visibility: "hidden"
     })
   }
 
@@ -154,12 +154,12 @@ class Interface {
     if (STORAGE.chordsClass.boxIsOpen) {
       TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
         opacity: 1,
-        display: "block"
+        visibility: "visible"
       })
     } else {
       TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
         opacity: 1,
-        display: "block"
+        visibility: "visible"
       })
     }
 

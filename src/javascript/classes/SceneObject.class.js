@@ -119,8 +119,9 @@ class SceneObject {
           let ampliTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/ampli.png", () => {
             ampliTexture.wrapS = THREE.RepeatWrapping
             ampliTexture.wrapT = THREE.RepeatWrapping
-            ampliTexture.repeat.set(2, 2)
+            ampliTexture.repeat.set(5, 5)
             ampliMaterial.map = ampliTexture
+            ampliMaterial.shininess = 0
 
             that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
               object.position.x = 0
