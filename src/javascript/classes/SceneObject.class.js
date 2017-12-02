@@ -108,13 +108,19 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          // let leatherMaterial = matl.materials.Cuir
+          let betonMaterial = matl.materials.sol
+          let ampliMaterial = matl.materials.ampli
 
-          /*let leatherTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/leather.jpg", () => {
-            leatherTexture.wrapS = THREE.RepeatWrapping
-            leatherTexture.wrapT = THREE.RepeatWrapping
-            leatherTexture.repeat.set(2, 2)
-            leatherMaterial.map = leatherTexture*/
+          let betonTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/beton.png", () => {
+            betonTexture.wrapS = THREE.RepeatWrapping
+            betonTexture.wrapT = THREE.RepeatWrapping
+            betonTexture.repeat.set(2, 2)
+            betonMaterial.map = betonTexture
+          let ampliTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/ampli.png", () => {
+            ampliTexture.wrapS = THREE.RepeatWrapping
+            ampliTexture.wrapT = THREE.RepeatWrapping
+            ampliTexture.repeat.set(2, 2)
+            ampliMaterial.map = ampliTexture
 
             that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
               object.position.x = 0
@@ -134,7 +140,7 @@ class SceneObject {
               })
               resolve()
             })
-          //})
+          })})
         })
       })
     }
@@ -213,45 +219,35 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-            that.metalMaterial = matl.materials.metal_clair
-            //let publicTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/audience.jpg", () => {
+          that.metalMaterial = matl.materials.metal_clair
 
-              let publicMesh = new THREE.Mesh(new THREE.PlaneGeometry( 500, 500, 32 ), new THREE.MeshBasicMaterial( /*{ map: publicTexture }*/ ))
-              publicMesh.position.y = 400
-              publicMesh.position.z = 300
-              publicMesh.rotation.y = Math.PI
-              publicMesh.material.transparent = true
-              publicMesh.material.opacity = 0
-              //STORAGE.scene.add(publicMesh)
+          that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
+          that.cubeCamera.position.y = 700
+          that.cubeCamera.position.z = -300
+          STORAGE.scene.add( that.cubeCamera )
 
-              that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
-              that.cubeCamera.position.y = 700
-              that.cubeCamera.position.z = -300
-              STORAGE.scene.add( that.cubeCamera )
+          that.metalMaterial.envMap = that.cubeCamera.renderTarget
+          that.metalMaterial.needsUpdate = true
+          
+          that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
 
-              that.metalMaterial.envMap = that.cubeCamera.renderTarget
-              that.metalMaterial.needsUpdate = true
-            
-              that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
+            object.position.x = 0
+            object.position.y = 165
+            object.position.z = -280
+            object.rotation.y = Math.PI
+            object.name = 'wall'
 
-                object.position.x = 0
-                object.position.y = 165
-                object.position.z = -280
-                object.rotation.y = Math.PI
-                object.name = 'wall'
-
-                object.traverse(function(o) {
-                  if (o.type === 'Mesh') {
-                    o.receiveShadow = true
-                    o.castShadow = true
-                    o.material.shininess = 2
-                  }
-                })
-
-              that.wallsTab.push(object)
-              resolve()
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.receiveShadow = true
+                o.castShadow = true
+                o.material.shininess = 2
+              }
             })
-          //})
+
+            that.wallsTab.push(object)
+            resolve()
+          })
         })
       })
     }

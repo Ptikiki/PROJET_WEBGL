@@ -63,7 +63,7 @@
 
         <div class="tuto_explanations">
           <p class="tuto_explanations_baseline">La boîte à muzik zik zik</p>
-          <p>Pour révéler ce que renferme cette boîte, il faut réussir à trouver un accord de 3 notes.</p>
+          <p>La serrure de cette mystérieuse boîte à musique est verrouillée...<br>La clé, c'est un accord de 3 notes.</p>
         </div>
         <div class="skip">
           <span class="skip_tuto">PASSER L'INTRODUCTION</span>
@@ -71,8 +71,8 @@
         </div>
 
         <div class="tuto_training">
-          <p class="tuto_training_consigne">Utilise ton clavier comme un piano et retrouve les combinaisons de touches adjacentes.</p>
-          <p>Es-tu prêt ?</p>
+          <p class="tuto_training_consigne">Utilisez votre clavier comme celui d'un piano, et retrouvez les combinaisons de touches adjacentes qui correspondent aux accords déverrouillant la boîte.</p>
+          <p>Etes-vous prêt ?</p>
           <img src="assets/key_oui.svg" alt ="" class="oui_img">
         </div>
       </div>
@@ -102,7 +102,7 @@
       </div>
 
       <div class="about_screen">
-        <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactif à Gobelins.</p>
+        <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactive à Gobelins.</p>
         <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
         <div class="about_logos">
           <img src="assets/gobelins.svg" alt="" class="gobelins_logo">
@@ -112,7 +112,7 @@
       </div>
 
       <div class="help_screen">
-        <p>Pour révéler ce que renferme cette boîte, il te faut réussir à trouver un accord de 3 notes. Utilise ton clavier comme un piano et appuie sur 3 lettres adjacentes.</p>
+        <p>Pour révéler ce que renferme cette boîte, il faut trouver un accord de 3 notes. Utilisez votre clavier comme celui d'un piano et testez différentes combinaisons de touches en appuyant simultanément sur 3 lettres adjacentes; vous trouverez peut-être un accord déverrouillant la boîte.</p>
         <img src="assets/how_to_play.svg" alt="" class="help_img">
       </div>
     </div>

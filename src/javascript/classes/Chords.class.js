@@ -190,7 +190,7 @@ class Chords {
       this.step === 0 ? noteToPlay.volume = 0.15 : ''
       this.step === 1 ? noteToPlay.volume = 0.25 : ''
       this.step === 2 ? noteToPlay.volume = 0.40 : ''
-      this.step === 3 ? noteToPlay.volume = 0.60 : ''
+      this.step === 3 ? noteToPlay.volume = 0.55 : ''
       noteToPlay.play()
       this.boxIsOpen = false
     }

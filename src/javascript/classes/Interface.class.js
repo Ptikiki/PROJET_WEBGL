@@ -36,7 +36,9 @@ class Interface {
     this.library_button = document.querySelector('.artist-lirary-button')
     this.library_close_button = document.querySelector('.libray-close-button')
     this.library = document.querySelector('.artistsLibrary')
-
+    
+    this.songCarateristics = document.querySelector('.songCarateristics')
+ 
     this.skipIntro = false
 
     this.interfaceIsBlurred = true
@@ -111,8 +113,9 @@ class Interface {
     TweenLite.to(that.pause, 0, {
       css : { 'border': 'solid 10px white'}
     })
-    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-      opacity: 0
+    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button], 0.3,{
+      opacity: 0,
+      display: "none"
     })
   }
   handleAboutClick(that, event) {
@@ -130,8 +133,9 @@ class Interface {
     TweenLite.to(that.pause, 0, {
       css : { 'border': 'solid 10px white'}
     })
-    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-      opacity: 0
+    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
+      opacity: 0,
+      display: "none"
     })
   }
 
@@ -148,12 +152,14 @@ class Interface {
       css : {'border' : '0px'},
     })
     if (STORAGE.chordsClass.boxIsOpen) {
-      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-        opacity: 1
+      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
+        opacity: 1,
+        display: "block"
       })
     } else {
-      TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter], 0.3,{
-        opacity: 1
+      TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
+        opacity: 1,
+        display: "block"
       })
     }
 
@@ -164,6 +170,7 @@ class Interface {
     that.skipIntro = true
     TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
       opacity: 0,
+      display: "none",
       ease: Power2.easeInOut,
       delay: 0.5,
       onComplete: () => {
@@ -225,10 +232,12 @@ class Interface {
       onComplete: () => {
         TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow, this.interface_logo], 0.5, {
           opacity: 1,
+          display: "block",
           ease: Power2.easeInOut,
           onComplete: () => {
             TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow], 0.5, {
               opacity: 0,
+              display: "none",
               ease: Power2.easeInOut,
               delay: 4,
               onComplete: () => {
@@ -259,6 +268,7 @@ class Interface {
         })
         TweenLite.to(this.game, 0.5, {
           opacity: 1,
+          display: "block",
           ease: Power2.easeInOut,
           onComplete: () => {
             TweenLite.to(this.game_consigne, 0.5, {

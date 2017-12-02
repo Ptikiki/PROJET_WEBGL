@@ -44,7 +44,7 @@ class Renderer {
       this.controls.enableDamping = true
       this.controls.dampingFactor = 0.09
       this.controls.rotateSpeed = 0.18
-      this.controls.zoomSpeed = 0.3
+      this.controls.zoomSpeed = 0.5
     }
 
     initEffectComposer() {
