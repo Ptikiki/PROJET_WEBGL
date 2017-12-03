@@ -121,20 +121,18 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          console.log("ICIIIIIIIIII", matl.materials)
-
           /*let geometry = new THREE.SphereGeometry( 10, 50, 50 )
           let material = new THREE.MeshBasicMaterial( { color: 0xffff00 } )
-          let mesh = new THREE.Mesh( geometry, material )
-          mesh.position.y = 250
-          mesh.position.z = 0*/
-          //STORAGE.scene.add( mesh )
+          let repere = new THREE.Mesh( geometry, material )
+          repere.position.y = 250
+          repere.position.z = 0*/
+          //STORAGE.scene.add( repere )
 
-          that.plaquesMaterial = matl.materials.Plaques
+          that.plaquesMaterial = matl.materials.carreau
 
           that.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 5000, 512 )
-          that.cubeCameraPetitBiscuit.position.y = 180
-          that.cubeCameraPetitBiscuit.position.z = 0
+          that.cubeCameraPetitBiscuit.position.y = 200
+          that.cubeCameraPetitBiscuit.position.z = 2
           STORAGE.scene.add( that.cubeCameraPetitBiscuit )
 
           that.plaquesMaterial.envMap = that.cubeCameraPetitBiscuit.renderTarget
@@ -309,8 +307,6 @@ class SceneObject {
         this.mtlLoader.load('assets/persos/mademoiselle-k/MademoiselleK_Guitar_Playing.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
-
-          // console.log("MATERIALS MADK", matl.materials.Tortoise)
 
           let guitareMaterial = matl.materials.Tortoise
           let guitareTexture = that.textureLoader.load('assets/persos/mademoiselle-k/tortoise.jpg', () => {
