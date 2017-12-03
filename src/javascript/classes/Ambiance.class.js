@@ -169,6 +169,14 @@ class Ambiance {
           ease: Power2.easeOut
         });
       })
+      STORAGE.boxManivelle.children.forEach((mesh)=>{
+        TweenLite.to( mesh.material.color, 0.6, {
+          r: targetColor.r,
+          g: targetColor.g,
+          b: targetColor.b,
+          ease: Power2.easeOut
+        });
+      })
 
       this.updateLights(step, currentChord)
     }
