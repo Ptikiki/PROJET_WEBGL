@@ -186,10 +186,12 @@ class Interface {
     that.skipIntro = true
     TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
       opacity: 0,
-      display: "none",
       ease: Power2.easeInOut,
       delay: 0.5,
       onComplete: () => {
+        TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
+          display: "none",
+        })
         that.beginGame()
         new Chords()
         STORAGE.chordsClass.tutoMode = false

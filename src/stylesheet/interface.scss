@@ -101,8 +101,8 @@
     width: 50px;
   }
 
-  .skip_tuto { opacity: 0; display: none; }
-  .skip_arrow { width: 50px; margin-left: 10px;}
+  .skip_tuto { transition: all 0.1s; opacity: 0; display: none; }
+  .skip_arrow { transition: all 0.1s; width: 50px; margin-left: 10px;}
   .skip { cursor: pointer; position: absolute; display: flex; align-items: center; right: 3.5%; bottom: 3%; font-family: overpass-regular; font-size: 20px; }
 
   .about {
