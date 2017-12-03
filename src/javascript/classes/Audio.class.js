@@ -149,9 +149,9 @@ class Audio {
       STORAGE.SceneShaderClass.petitBiscuitUniformsEcran &&
       STORAGE.SceneShaderClass.petitBiscuitUniformsSphere &&
       STORAGE.SceneShaderClass.petitBiscuitUniformsGround) {
-      STORAGE.SceneShaderClass.petitBiscuitUniformsEcran.u_time.value += rapidity / 2000.
-      STORAGE.SceneShaderClass.petitBiscuitUniformsSphere.u_time.value += rapidity / 600.
-      STORAGE.SceneShaderClass.petitBiscuitUniformsGround.u_time.value += rapidity / 1000.
+      STORAGE.SceneShaderClass.petitBiscuitUniformsEcran.u_time.value += rapidity / 1500.
+      STORAGE.SceneShaderClass.petitBiscuitUniformsSphere.u_time.value += rapidity / 400.
+      STORAGE.SceneShaderClass.petitBiscuitUniformsGround.u_time.value += rapidity / 800.
     }
   }
 }

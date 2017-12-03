@@ -53,8 +53,6 @@ class SceneObject {
           that.objLoader.setMaterials( matl )
 
           let siegesMaterial = matl.materials.siege
-          let briquesMaterial = matl.materials.brique
-          let solMaterial = matl.materials.sol
           let poisMaterial = matl.materials.pois
           siegesMaterial.shininess = 0
 
@@ -130,18 +128,7 @@ class SceneObject {
           STORAGE.scene.add( repere )*/
 
           that.plaquesMaterial = matl.materials.carreau
-
-          console.log("CARREAUX", that.plaquesMaterial)
           that.plaquesMaterial.specular = new THREE.Color( 0x646464 )
-
-          that.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 5000, 512 )
-          that.cubeCameraPetitBiscuit.position.y = 250 //200 // 250
-          that.cubeCameraPetitBiscuit.position.z = 70 //200 // -50 / 70
-
-          STORAGE.scene.add( that.cubeCameraPetitBiscuit )
-
-          that.plaquesMaterial.envMap = that.cubeCameraPetitBiscuit.renderTarget
-          that.plaquesMaterial.needsUpdate = true
 
           that.objLoader.load( 'assets/scenes/Petit-biscuit/petitbiscuit_base-scene.obj', function ( object ) {
             object.position.x = 0
@@ -210,16 +197,16 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          that.metalMaterial = matl.materials.Metal
-         
-          that.cubeCameraMadK = new THREE.CubeCamera( 0.1, 5000, 512 )
-          that.cubeCameraMadK.position.y = 700
-          that.cubeCameraMadK.position.z = -300
-          STORAGE.scene.add( that.cubeCameraMadK )
+          // that.metalMaterial = matl.materials.Metal
+          //
+          // that.cubeCameraMadK = new THREE.CubeCamera( 0.1, 5000, 512 )
+          // that.cubeCameraMadK.position.y = 700
+          // that.cubeCameraMadK.position.z = -300
+          // STORAGE.scene.add( that.cubeCameraMadK )
+          //
+          // that.metalMaterial.envMap = that.cubeCameraMadK.renderTarget
+          // that.metalMaterial.needsUpdate = true
 
-          that.metalMaterial.envMap = that.cubeCameraMadK.renderTarget
-          that.metalMaterial.needsUpdate = true
-          
           that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
 
             object.position.x = 0
@@ -371,11 +358,17 @@ class SceneObject {
       STORAGE.scene.children.forEach((child, index) => {
         child.name === 'artist' ? STORAGE.scene.remove(child) : ''
       })
+      STORAGE.scene.remove( this.cubeCameraPetitBiscuit )
+      this.cubeCameraPetitBiscuit = null
+      this.plaquesMaterial.envMap = null
       this.myObjects = []
     }
 
     removeSceneSkiped(length) {
       if (this.myObjects.length > 3) {
+        STORAGE.scene.remove( this.cubeCameraPetitBiscuit )
+        this.cubeCameraPetitBiscuit = null
+        this.plaquesMaterial.envMap = null
         let tableToErase = this.myObjects.slice(0, this.myObjects.length - 3)
         tableToErase.forEach((el)=> {
           STORAGE.scene.remove(el)
@@ -398,9 +391,17 @@ class SceneObject {
     }
 
     displayPetitBiscuit() {
+      this.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 2000, 512 )
+      this.cubeCameraPetitBiscuit.position.y = 250 //200 // 250
+      this.cubeCameraPetitBiscuit.position.z = 70 //200 // -50 / 70
+
+      this.plaquesMaterial.envMap = this.cubeCameraPetitBiscuit.renderTarget
+      this.plaquesMaterial.needsUpdate = true
+
       STORAGE.scene.add( this.scenesTab[2] )
       STORAGE.scene.add(this.wallsTab[2])
       STORAGE.scene.add(this.artistsTab[2])
+      STORAGE.scene.add( this.cubeCameraPetitBiscuit )
       this.myObjects.push( this.scenesTab[2], this.wallsTab[2], this.artistsTab[2] )
     }
 
