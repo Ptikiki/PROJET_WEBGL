@@ -58,20 +58,6 @@ class SceneObject {
           let poisMaterial = matl.materials.pois
           siegesMaterial.shininess = 0
 
-          let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick2.png', () => {
-            briquesNormal.wrapS = THREE.RepeatWrapping
-            briquesNormal.wrapT = THREE.RepeatWrapping
-            briquesNormal.repeat.set(1, 8)
-            briquesMaterial.normalMap = briquesNormal
-            briquesMaterial.normalScale = new THREE.Vector2( 0.8, 0.8 )
-
-          let solTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/sol_quai.png', () => {
-            solTexture.wrapS = THREE.RepeatWrapping
-            solTexture.wrapT = THREE.RepeatWrapping
-            solTexture.repeat.set(5, 5)
-            solMaterial.map = solTexture
-            solMaterial.shininess = 8
-
           let poisNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_bande.png', () => {
             poisNormal.wrapS = THREE.RepeatWrapping
             poisNormal.wrapT = THREE.RepeatWrapping
@@ -95,8 +81,7 @@ class SceneObject {
               })
               resolve()
             })
-
-          })})})
+          })
         })
       })
     }
@@ -107,41 +92,24 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Mlle-k/mademoisellek_base-scene.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+          that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
+            object.position.x = 0
+            object.position.y = specifications[1].sceneDownPosY
+            object.position.z = 0
+            object.rotation.y = Math.PI
+            object.name = 'scene'
+            that.scenesTab.push(object)
 
-          let betonMaterial = matl.materials.sol
-          let ampliMaterial = matl.materials.ampli
-
-          let betonTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/beton.png", () => {
-            betonTexture.wrapS = THREE.RepeatWrapping
-            betonTexture.wrapT = THREE.RepeatWrapping
-            betonTexture.repeat.set(2, 2)
-            betonMaterial.map = betonTexture
-          let ampliTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/ampli.png", () => {
-            ampliTexture.wrapS = THREE.RepeatWrapping
-            ampliTexture.wrapT = THREE.RepeatWrapping
-            ampliTexture.repeat.set(5, 5)
-            ampliMaterial.map = ampliTexture
-            ampliMaterial.shininess = 0
-
-            that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
-              object.position.x = 0
-              object.position.y = specifications[1].sceneDownPosY
-              object.position.z = 0
-              object.rotation.y = Math.PI
-              object.name = 'scene'
-              that.scenesTab.push(object)
-
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.receiveShadow = true
-                  o.castShadow = true
-                  o.material.shininess = 2
-                  o.material.reflectivity = 20
-                }
-              })
-              resolve()
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.receiveShadow = true
+                o.castShadow = true
+                o.material.shininess = 2
+                o.material.reflectivity = 20
+              }
             })
-          })})
+            resolve()
+          })
         })
       })
     }
@@ -220,16 +188,16 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          that.metalMaterial = matl.materials.metal_clair
+          // that.metalMaterial = matl.materials.metal_clair
+          //
+          // that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
+          // that.cubeCamera.position.y = 700
+          // that.cubeCamera.position.z = -300
+          // STORAGE.scene.add( that.cubeCamera )
+          //
+          // that.metalMaterial.envMap = that.cubeCamera.renderTarget
+          // that.metalMaterial.needsUpdate = true
 
-          that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
-          that.cubeCamera.position.y = 700
-          that.cubeCamera.position.z = -300
-          STORAGE.scene.add( that.cubeCamera )
-
-          that.metalMaterial.envMap = that.cubeCamera.renderTarget
-          that.metalMaterial.needsUpdate = true
-          
           that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
 
             object.position.x = 0
@@ -368,7 +336,7 @@ class SceneObject {
             that.artistsTab.push(object)
             resolve()
           })
-    
+
         })
       })
     }
