@@ -121,6 +121,25 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
+          console.log("ICIIIIIIIIII", matl.materials)
+
+          /*let geometry = new THREE.SphereGeometry( 10, 50, 50 )
+          let material = new THREE.MeshBasicMaterial( { color: 0xffff00 } )
+          let mesh = new THREE.Mesh( geometry, material )
+          mesh.position.y = 250
+          mesh.position.z = 0*/
+          //STORAGE.scene.add( mesh )
+
+          that.plaquesMaterial = matl.materials.Plaques
+
+          that.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 5000, 512 )
+          that.cubeCameraPetitBiscuit.position.y = 180
+          that.cubeCameraPetitBiscuit.position.z = 0
+          STORAGE.scene.add( that.cubeCameraPetitBiscuit )
+
+          that.plaquesMaterial.envMap = that.cubeCameraPetitBiscuit.renderTarget
+          that.plaquesMaterial.needsUpdate = true
+
           that.objLoader.load( 'assets/scenes/Petit-biscuit/petitbiscuit_base-scene.obj', function ( object ) {
             object.position.x = 0
             object.position.y = specifications[2].sceneDownPosY
@@ -188,16 +207,16 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          // that.metalMaterial = matl.materials.metal_clair
-          //
-          // that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
-          // that.cubeCamera.position.y = 700
-          // that.cubeCamera.position.z = -300
-          // STORAGE.scene.add( that.cubeCamera )
-          //
-          // that.metalMaterial.envMap = that.cubeCamera.renderTarget
-          // that.metalMaterial.needsUpdate = true
+          that.metalMaterial = matl.materials.metal_clair
+         
+          that.cubeCameraMadK = new THREE.CubeCamera( 0.1, 5000, 512 )
+          that.cubeCameraMadK.position.y = 700
+          that.cubeCameraMadK.position.z = -300
+          STORAGE.scene.add( that.cubeCameraMadK )
 
+          that.metalMaterial.envMap = that.cubeCameraMadK.renderTarget
+          that.metalMaterial.needsUpdate = true
+          
           that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
 
             object.position.x = 0
@@ -376,10 +395,16 @@ class SceneObject {
     }
 
     animate() {
-      if (this.metalMaterial && this.cubeCamera) {
+      if (this.metalMaterial && this.cubeCameraMadK) {
         this.metalMaterial.visible = false
-        this.cubeCamera.update( STORAGE.renderer, STORAGE.scene )
+        this.cubeCameraMadK.update( STORAGE.renderer, STORAGE.scene )
         this.metalMaterial.visible = true
+      }
+
+      if (this.plaquesMaterial && this.cubeCameraPetitBiscuit) {
+        this.plaquesMaterial.visible = false
+        this.cubeCameraPetitBiscuit.update( STORAGE.renderer, STORAGE.scene )
+        this.plaquesMaterial.visible = true
       }
 
       if ( this.myObjects[2] ) {

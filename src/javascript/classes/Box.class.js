@@ -8,9 +8,6 @@ class Box {
 
     constructor(options) {
       STORAGE.BoxClass = this
-      this.init()
-      this.bind()
-
       this.box
       this.boxOpened
 
@@ -29,6 +26,12 @@ class Box {
       this.sceneUpPosY
       this.artistDownPosY
       this.artistUpPosY
+
+      this.mtlLoader = new MTLLoader()
+      this.objLoader = new THREE.OBJLoader()
+
+      this.init()
+      this.bind()
     }
 
     init() {
@@ -38,10 +41,7 @@ class Box {
     createBox() {
       let that = this
 
-      this.mtlLoader = new MTLLoader()
-      this.objLoader = new THREE.OBJLoader()
-
-      that.objLoader.load( 'assets/scenes/box/closed-box_base2.obj', function ( object ) {
+      that.objLoader.load( 'assets/scenes/box/closed-box_base.obj', function ( object ) {
         object.rotation.y = Math.PI
         object.name = 'base_boite'
 
@@ -51,7 +51,7 @@ class Box {
         })
         object.traverse( function ( child ) {
           if ( child instanceof THREE.Mesh ) {
-            child.material = material;
+            child.material = material
             child.receiveShadow = true
             child.castShadow = true
             child.material.shininess = 5
@@ -61,8 +61,7 @@ class Box {
         STORAGE.scene.add( object )
       } )
 
-      that.objLoader.load( 'assets/scenes/box/box_couvercle.obj', function ( object ) {
-        object.position.x = 205
+      that.objLoader.load( 'assets/scenes/box/closed-box_couvercle.obj', function ( object ) {
         object.position.z = -285
         object.position.y = 165
         object.rotation.y = Math.PI
@@ -75,7 +74,7 @@ class Box {
 
         object.traverse( function ( child ) {
           if ( child instanceof THREE.Mesh ) {
-            child.material = material;
+            child.material = material
             child.receiveShadow = true
             child.castShadow = true
             child.material.shininess = 5
@@ -84,6 +83,27 @@ class Box {
 
         STORAGE.boxCouvercle = object
         that.object = object
+        STORAGE.scene.add( object )
+      })
+
+      that.objLoader.load( 'assets/scenes/box/manivelle.obj', function ( object ) {
+        object.rotation.y = Math.PI
+        object.name = 'manivelle_boite'
+
+        let material = new THREE.MeshPhongMaterial({
+          color : 0x303848,
+          side: THREE.DoubleSide
+        })
+
+        object.traverse( function ( child ) {
+          if ( child instanceof THREE.Mesh ) {
+            child.material = material
+            child.receiveShadow = true
+            child.castShadow = true
+            child.material.shininess = 5
+          }
+        })
+        STORAGE.boxManivelle = object
         STORAGE.scene.add( object )
       })
     }
