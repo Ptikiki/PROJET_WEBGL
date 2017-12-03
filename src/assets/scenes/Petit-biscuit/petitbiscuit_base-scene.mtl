@@ -3,98 +3,94 @@
 newmtl default
 Kd 1 1 1
 
-newmtl Metal
+newmtl metal
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl Base plateforme
+newmtl plateforme
 Ka 1 1 1
 Kd 0.30000001192093 0.30000001192093 0.30000001192093
 Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl Metal_1
+newmtl spot
 Ka 1 1 1
 Kd 1 1 1
-Ks 1 1 1
-Ns 50
 illum 7
 
-newmtl Hardware
+newmtl hardware
 Ka 1 1 1
 Kd 0 0 0
 Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl Boutons jaunes
+newmtl bouton_jaune
 Ka 0.75 0.71299999952316 0.47249999642372
 Kd 1 0.80000001192093 0
-Ks 1 1 1
-Ns 50
 d 0.75
 Tf 1 1 1
 illum 7
 
-newmtl Boutons oranges
+newmtl bouton_orange
 Ka 0.75 0.62975001335144 0.47249999642372
 Kd 1 0.53333336114883 0
-Ks 1 1 1
-Ns 50
 d 0.75
 Tf 1 1 1
 illum 7
 
-newmtl Boutons bleus
+newmtl bouton_bleu
 Ka 0.08823529630899 0.48627451062202 0.47843137383461
 Kd 0.1803921610117 0.84333330392838 0.99215686321259
-Ks 1 1 1
-Ns 50
 d 0.75
 Tf 1 1 1
 illum 7
 
-newmtl Boutons violets
+newmtl bouton_violet
 Ka 0.46470588445663 0.41470587253571 0.71470588445663
 Kd 0.6235294342041 0.54509806632996 0.93725490570068
-Ks 1 1 1
-Ns 50
 d 0.75
 Tf 1 1 1
 illum 7
 
-newmtl Boutons gris
+newmtl bouton_rouge
+Ka 0.25 0.13750000298023 0.13750000298023
+Kd 1 0.25 0.25
+d 0.75
+Tf 1 1 1
+illum 7
+
+newmtl bouton_blanc
+Ka 0.48627451062202 0.48627451062202 0.48627451062202
+Kd 0.99215686321259 0.99215686321259 0.99215686321259
+d 0.75
+Tf 1 1 1
+illum 7
+
+newmtl bouton_gris
 Ka 1 1 1
 Kd 0.75 0.75 0.75
 Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl default
-Kd 1 1 1
-Ks 1 1 1
-Ns 50
-illum 7
-
-newmtl Noir mat
+newmtl noir_mat
 Ka 1 1 1
 Kd 0.10000000149012 0.10000000149012 0.10000000149012
 Ks 1 1 1
 Ns 50
 illum 7
 
-newmtl Base plateforme_1
+newmtl noir
 Ka 1 1 1
 Kd 0.20000000298023 0.20000000298023 0.20000000298023
-Ks 1 1 1
-Ns 50
 illum 7
 
-newmtl Plaques au sol
+newmtl carreau
 Ka 1 1 1
 Kd 0 0 0
 Ks 1 1 1

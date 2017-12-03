@@ -58,20 +58,6 @@ class SceneObject {
           let poisMaterial = matl.materials.pois
           siegesMaterial.shininess = 0
 
-          let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick2.png', () => {
-            briquesNormal.wrapS = THREE.RepeatWrapping
-            briquesNormal.wrapT = THREE.RepeatWrapping
-            briquesNormal.repeat.set(1, 8)
-            briquesMaterial.normalMap = briquesNormal
-            briquesMaterial.normalScale = new THREE.Vector2( 0.8, 0.8 )
-
-          let solTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/sol_quai.png', () => {
-            solTexture.wrapS = THREE.RepeatWrapping
-            solTexture.wrapT = THREE.RepeatWrapping
-            solTexture.repeat.set(5, 5)
-            solMaterial.map = solTexture
-            solMaterial.shininess = 8
-
           let poisNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_bande.png', () => {
             poisNormal.wrapS = THREE.RepeatWrapping
             poisNormal.wrapT = THREE.RepeatWrapping
@@ -95,8 +81,7 @@ class SceneObject {
               })
               resolve()
             })
-
-          })})})
+          })
         })
       })
     }
@@ -107,41 +92,24 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Mlle-k/mademoisellek_base-scene.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+          that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
+            object.position.x = 0
+            object.position.y = specifications[1].sceneDownPosY
+            object.position.z = 0
+            object.rotation.y = Math.PI
+            object.name = 'scene'
+            that.scenesTab.push(object)
 
-          let betonMaterial = matl.materials.sol
-          let ampliMaterial = matl.materials.ampli
-
-          let betonTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/beton.png", () => {
-            betonTexture.wrapS = THREE.RepeatWrapping
-            betonTexture.wrapT = THREE.RepeatWrapping
-            betonTexture.repeat.set(2, 2)
-            betonMaterial.map = betonTexture
-          let ampliTexture = that.textureLoader.load("assets/scenes/Mlle-k/tex/ampli.png", () => {
-            ampliTexture.wrapS = THREE.RepeatWrapping
-            ampliTexture.wrapT = THREE.RepeatWrapping
-            ampliTexture.repeat.set(5, 5)
-            ampliMaterial.map = ampliTexture
-            ampliMaterial.shininess = 0
-
-            that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
-              object.position.x = 0
-              object.position.y = specifications[1].sceneDownPosY
-              object.position.z = 0
-              object.rotation.y = Math.PI
-              object.name = 'scene'
-              that.scenesTab.push(object)
-
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.receiveShadow = true
-                  o.castShadow = true
-                  o.material.shininess = 2
-                  o.material.reflectivity = 20
-                }
-              })
-              resolve()
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.receiveShadow = true
+                o.castShadow = true
+                o.material.shininess = 2
+                o.material.reflectivity = 20
+              }
             })
-          })})
+            resolve()
+          })
         })
       })
     }
@@ -152,6 +120,28 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Petit-biscuit/petitbiscuit_base-scene.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          /*let geometry = new THREE.SphereGeometry( 10, 50, 50 )
+          let material = new THREE.MeshBasicMaterial( { color: 0xffff00 } )
+          let repere = new THREE.Mesh( geometry, material )
+          repere.position.y = 250 //200 // 250
+          repere.position.z = 70 //200 // -50 / 70
+
+          STORAGE.scene.add( repere )*/
+
+          that.plaquesMaterial = matl.materials.carreau
+
+          console.log("CARREAUX", that.plaquesMaterial)
+          that.plaquesMaterial.specular = new THREE.Color( 0x646464 )
+
+          that.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 5000, 512 )
+          that.cubeCameraPetitBiscuit.position.y = 250 //200 // 250
+          that.cubeCameraPetitBiscuit.position.z = 70 //200 // -50 / 70
+
+          STORAGE.scene.add( that.cubeCameraPetitBiscuit )
+
+          that.plaquesMaterial.envMap = that.cubeCameraPetitBiscuit.renderTarget
+          that.plaquesMaterial.needsUpdate = true
 
           that.objLoader.load( 'assets/scenes/Petit-biscuit/petitbiscuit_base-scene.obj', function ( object ) {
             object.position.x = 0
@@ -220,14 +210,14 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          that.metalMaterial = matl.materials.metal_clair
+          that.metalMaterial = matl.materials.Metal
+         
+          that.cubeCameraMadK = new THREE.CubeCamera( 0.1, 5000, 512 )
+          that.cubeCameraMadK.position.y = 700
+          that.cubeCameraMadK.position.z = -300
+          STORAGE.scene.add( that.cubeCameraMadK )
 
-          that.cubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 )
-          that.cubeCamera.position.y = 700
-          that.cubeCamera.position.z = -300
-          STORAGE.scene.add( that.cubeCamera )
-
-          that.metalMaterial.envMap = that.cubeCamera.renderTarget
+          that.metalMaterial.envMap = that.cubeCameraMadK.renderTarget
           that.metalMaterial.needsUpdate = true
           
           that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
@@ -323,8 +313,6 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          // console.log("MATERIALS MADK", matl.materials.Tortoise)
-
           let guitareMaterial = matl.materials.Tortoise
           let guitareTexture = that.textureLoader.load('assets/persos/mademoiselle-k/tortoise.jpg', () => {
             guitareMaterial.map = guitareTexture
@@ -368,7 +356,7 @@ class SceneObject {
             that.artistsTab.push(object)
             resolve()
           })
-    
+
         })
       })
     }
@@ -408,10 +396,16 @@ class SceneObject {
     }
 
     animate() {
-      if (this.metalMaterial && this.cubeCamera) {
+      if (this.metalMaterial && this.cubeCameraMadK) {
         this.metalMaterial.visible = false
-        this.cubeCamera.update( STORAGE.renderer, STORAGE.scene )
+        this.cubeCameraMadK.update( STORAGE.renderer, STORAGE.scene )
         this.metalMaterial.visible = true
+      }
+
+      if (this.plaquesMaterial && this.cubeCameraPetitBiscuit) {
+        this.plaquesMaterial.visible = false
+        this.cubeCameraPetitBiscuit.update( STORAGE.renderer, STORAGE.scene )
+        this.plaquesMaterial.visible = true
       }
 
       if ( this.myObjects[2] ) {
