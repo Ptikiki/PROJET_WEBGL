@@ -56,6 +56,7 @@ function render() {
 		STORAGE.RendererClass.renderComposer()
 	}
 	if (STORAGE.chordsClass && STORAGE.chordsClass.boxIsOpen) {
+		STORAGE.BoxClass.animate()
 		STORAGE.AudioClass.animate(STORAGE.chordsClass.currentSongPlayingIndex, STORAGE.chordsClass.currentChord)
 	}
 	if (STORAGE.chordsClass && STORAGE.chordsClass.songPlaying && !STORAGE.chordsClass.boxIsOpen) {

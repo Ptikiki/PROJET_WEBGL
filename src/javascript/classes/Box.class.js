@@ -90,6 +90,9 @@ class Box {
         object.rotation.y = Math.PI
         object.name = 'manivelle_boite'
 
+        object.position.x = 270
+        object.position.y = 130
+
         let material = new THREE.MeshPhongMaterial({
           color : 0x303848,
           side: THREE.DoubleSide
@@ -205,6 +208,10 @@ class Box {
         STORAGE.InterfaceClass.helpButton.style.visibility = 'hidden'
       }
     })
+  }
+
+  animate() {
+    STORAGE.boxManivelle.rotation.x += 0.1
   }
 
 }
