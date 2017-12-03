@@ -208,7 +208,7 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          that.metalMaterial = matl.materials.metal_clair
+          that.metalMaterial = matl.materials.Metal
          
           that.cubeCameraMadK = new THREE.CubeCamera( 0.1, 5000, 512 )
           that.cubeCameraMadK.position.y = 700
