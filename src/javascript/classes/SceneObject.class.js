@@ -354,6 +354,15 @@ class SceneObject {
       this.myObjects = []
     }
 
+    removeSceneSkiped(length) {
+      if (this.myObjects.length > 3) {
+        let tableToErase = this.myObjects.slice(0, this.myObjects.length - 3)
+        tableToErase.forEach((el)=> {
+          STORAGE.scene.remove(el)
+        })
+      }
+    }
+
     displayOrelsan() {
       STORAGE.scene.add(this.scenesTab[0])
       STORAGE.scene.add(this.wallsTab[0])

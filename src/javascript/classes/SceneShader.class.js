@@ -339,6 +339,15 @@ class SceneShader {
       this.myShadersOnWall = []
     }
 
+    removeShadersSkiped(length) {
+      if (this.myShadersOnScene.length > 1) {
+        let tableToErase = this.myShadersOnScene.slice(0, this.myShadersOnScene.length - 1)
+        tableToErase.forEach((el)=> {
+          STORAGE.scene.remove(el)
+        })
+      }
+    }
+
     displayOrelsanShader() {
       STORAGE.scene.add( this.shadersTab[0] )
       this.myShadersOnScene.push( this.shadersTab[0] )
