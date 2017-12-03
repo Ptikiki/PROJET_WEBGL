@@ -108,6 +108,7 @@ class Chords {
         }
 
         if (!STORAGE.BoxClass.openIsImpossible) {
+          console.log('je passe')
           that.openBox()
           that.launchNote(chordsDatas.notes[event.key])
           that.setAmbiance()
@@ -130,13 +131,20 @@ class Chords {
       } else {
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
-        !that.win ? that.openBox(true) : ''
+        console.log(that.step)
+
+        if (that.step === 0) {
+          that.enableGame()
+        } else {
+          !that.win ? setTimeout( () => { that.enableGame() }, 650) : ''
+        }
+
         !that.win ? that.step = 0 : ''
+        !that.win ? that.openBox(true) : ''
         !that.win ? that.setAmbiance() : ''
         !that.win ? that.setSongName() : ''
         !that.win ? that.setArtistName() : ''
         !that.win ? that.setLetters(0) : ''
-        !that.win ? setTimeout( () => { that.enableGame() }, 950) : ''
       }
     }
 
@@ -244,6 +252,7 @@ class Chords {
     }
 
     openBox(close) {
+      console.log('HERE')
       let step
       if (close) {
         step = 0
@@ -327,7 +336,7 @@ class Chords {
           this.keysPressedTutoTab[2] ? this.lettersText[2].innerText = this.keysPressedTutoTab[2] : ''
 
           TweenLite.set(this.lettersText[this.keysPressedTutoTab.length - 1], {
-            y: 50,
+            y: 20,
             onComplete : () => {
               TweenLite.to(this.lettersText[this.keysPressedTutoTab.length - 1], 0.2, {
                 opacity: 1,
@@ -343,7 +352,7 @@ class Chords {
           this.keysPressedTab[2] ? this.lettersText[2].innerText = this.keysPressedTab[2] : ''
 
           TweenLite.set(this.lettersText[this.keysPressedTab.length - 1], {
-            y: 50,
+            y: 20,
             onComplete : () => {
               TweenLite.to(this.lettersText[this.keysPressedTab.length - 1], 0.2, {
                 opacity: 1,
@@ -357,7 +366,7 @@ class Chords {
       } else if (typeof letter === 'string' && !goodLetter) { // wrong letter
         TweenLite.to(this.lettersText, 0.2, {
           opacity: 0,
-          y: 50,
+          y: 20,
           ease: Power2.easeInOut,
           onComplete: () => {
             let randomIndex = Math.round(Math.random() * 2)
@@ -368,7 +377,6 @@ class Chords {
             TweenLite.to(this.lettersText[randomIndex], 0.2, {
               opacity: 1,
               y: 0,
-              delay: 0.2,
               ease: Power2.easeInOut
             })
           }
@@ -378,7 +386,7 @@ class Chords {
         this.boxIsOpen = false
         TweenLite.to(this.lettersText, 0.2, {
           opacity: 0,
-          y: 50,
+          y: 20,
           ease: Power2.easeInOut,
           onComplete: () => {
             this.lettersText[0].innerText = ''
