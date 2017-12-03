@@ -126,6 +126,7 @@ class SceneObject {
           let repere = new THREE.Mesh( geometry, material )
           repere.position.y = 250 //200 // 250
           repere.position.z = 70 //200 // -50 / 70
+
           STORAGE.scene.add( repere )*/
 
           that.plaquesMaterial = matl.materials.carreau
@@ -136,6 +137,7 @@ class SceneObject {
           that.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 5000, 512 )
           that.cubeCameraPetitBiscuit.position.y = 250 //200 // 250
           that.cubeCameraPetitBiscuit.position.z = 70 //200 // -50 / 70
+
           STORAGE.scene.add( that.cubeCameraPetitBiscuit )
 
           that.plaquesMaterial.envMap = that.cubeCameraPetitBiscuit.renderTarget
