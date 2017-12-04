@@ -49,6 +49,18 @@ class Chords {
       this.nextButton.addEventListener('click', this.nextButtonClickListener)
     }
 
+    addListerners() {
+      window.addEventListener('keydown', this.keyDownListener)
+      window.addEventListener('keyup', this.keyUpListener)
+      window.addEventListener('keydown', this.nextSongListener)
+    }
+
+    removeListerners() {
+      window.removeEventListener('keydown', this.keyDownListener)
+      window.removeEventListener('keyup', this.keyUpListener)
+      window.removeEventListener('keydown', this.nextSongListener)
+    }
+
     setArtistFound() {
       STORAGE.InterfaceClass.library_button.querySelector('.found').innerText = this.numberArtistFound
       STORAGE.InterfaceClass.library_button.querySelector('.total').innerText = this.numberArtist
@@ -68,8 +80,11 @@ class Chords {
       that.keysPressedTab = []
       this.win = false
       that.step = 0
-      window.addEventListener('keydown', that.keyDownListener)
-      window.addEventListener('keyup', that.keyUpListener)
+
+      if (!STORAGE.InterfaceClass.gamePaused) {
+        window.addEventListener('keydown', that.keyDownListener)
+        window.addEventListener('keyup', that.keyUpListener)
+      }
     }
 
     handleKeydown(that, event) {

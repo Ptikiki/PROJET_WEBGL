@@ -42,6 +42,7 @@ class Interface {
     this.songCarateristics = document.querySelector('.songCarateristics')
 
     this.skipIntro = false
+    this.gamePaused = false
 
     this.interfaceIsBlurred = true
     this.bind()
@@ -103,6 +104,9 @@ class Interface {
   handleHelpClick(that, event) {
     STORAGE.RendererClass.animateBlur(0)
     STORAGE.AudioClass.lowVolume()
+    STORAGE.chordsClass.removeListerners()
+    that.gamePaused = true
+
     TweenLite.set(that.overlay, {
       css : {'pointerEvents' : 'all'}
     })
@@ -129,6 +133,9 @@ class Interface {
   handleAboutClick(that, event) {
     STORAGE.RendererClass.animateBlur(0)
     STORAGE.AudioClass.lowVolume()
+    STORAGE.chordsClass.removeListerners()
+    that.gamePaused = true
+
     TweenLite.set(that.overlay, {
       css : {'pointerEvents' : 'all'}
     })
@@ -143,10 +150,10 @@ class Interface {
     TweenLite.to(that.pause, 0, {
       css : { 'border': 'solid 10px white'}
     })
-    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
+    TweenLite.to([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.billeterie_button, that.songCarateristics], 0.3,{
       opacity: 0,
       onComplete: () => {
-        TweenLite.set([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], {
+        TweenLite.set([that.helpButton, that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.billeterie_button, that.songCarateristics], {
           'visibility': 'hidden'
         })
       }
@@ -156,6 +163,9 @@ class Interface {
   handleOverlayClick(that, event) {
     STORAGE.RendererClass.animateBlur(1)
     STORAGE.AudioClass.upVolume()
+    STORAGE.chordsClass.addListerners()
+    that.gamePaused = false
+
     TweenLite.set(that.overlay, {
       css : {'pointerEvents' : 'none'}
     })
@@ -171,7 +181,7 @@ class Interface {
       css : {'border' : '0px'},
     })
     if (STORAGE.chordsClass.boxIsOpen) {
-      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter, that.library_button, that.songCarateristics], 0.3,{
+      TweenLite.to([that.aboutButton, that.interface_fb, that.interface_twitter, that.billeterie_button, that.songCarateristics], 0.3,{
         opacity: 1,
         visibility: "visible"
       })
