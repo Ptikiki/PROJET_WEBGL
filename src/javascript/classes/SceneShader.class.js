@@ -238,7 +238,7 @@ class SceneShader {
         let xAvoidBox = Math.round( (Math.random() * (200 - (-120)) + (-120)) * 100 ) / 100
         let zAvoidBox = Math.round( (Math.random() * (190 - (-100)) + (-100)) * 100 ) / 100
 
-        let y = Math.round( (Math.random() * (190 - (120)) + (120)) * 100 ) / 100
+        let y = Math.round( (Math.random() * (240 - (120)) + (120)) * 100 ) / 100
 
         let sphereGeometry = new THREE.SphereBufferGeometry( radius, 32, 32 )
         let sphereMaterial = new THREE.ShaderMaterial( {

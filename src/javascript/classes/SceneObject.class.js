@@ -100,8 +100,8 @@ class SceneObject {
               if (o.type === 'Mesh') {
                 o.receiveShadow = true
                 o.castShadow = true
-                o.material.shininess = 2
-                o.material.reflectivity = 20
+                o.material.shininess = 0
+                o.material.specular = new THREE.Color( 0x0 )
               }
             })
             resolve()
@@ -418,7 +418,7 @@ class SceneObject {
       }
 
       if ( this.myObjects[2] ) {
-        // this.myObjects[2].rotation.y += 0.01
+        this.myObjects[2].rotation.y += 0.01
       }
     }
 }

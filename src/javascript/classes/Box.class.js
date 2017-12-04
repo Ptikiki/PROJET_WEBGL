@@ -54,7 +54,7 @@ class Box {
             child.material = material
             child.receiveShadow = true
             child.castShadow = true
-            child.material.shininess = 5
+            child.material.shininess = 100
           }
         })
         STORAGE.box = object
@@ -77,7 +77,7 @@ class Box {
             child.material = material
             child.receiveShadow = true
             child.castShadow = true
-            child.material.shininess = 5
+            child.material.shininess = 100
           }
         })
 
@@ -104,7 +104,7 @@ class Box {
             child.material = material
             child.receiveShadow = true
             child.castShadow = true
-            child.material.shininess = 5
+            child.material.shininess = 100
           }
         })
         STORAGE.boxManivelle = object

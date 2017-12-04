@@ -74,8 +74,8 @@
         </div>
 
         <div class="tuto_training">
-          <p class="tuto_training_consigne">Utilisez votre clavier comme celui d'un piano, et retrouvez les combinaisons de touches adjacentes qui correspondent aux accords déverrouillant la boîte.</p>
-          <p>Etes-vous prêt ?</p>
+          <p class="tuto_training_consigne">Utilise ton clavier comme celui d'un piano, et retrouve les combinaisons de touches adjacentes qui correspondent aux accords déverrouillant la boîte.</p>
+          <p>Es-tu prêt ?</p>
           <img src="assets/key_oui.svg" alt ="" class="oui_img">
         </div>
       </div>
@@ -118,7 +118,7 @@
       </div>
 
       <div class="help_screen">
-        <p>Pour révéler ce que renferme cette boîte, il faut trouver un accord de 3 notes. Utilisez votre clavier comme celui d'un piano et testez différentes combinaisons de touches en appuyant simultanément sur 3 lettres adjacentes; vous trouverez peut-être un accord déverrouillant la boîte.</p>
+        <p>Pour révéler ce que renferme cette boîte, il faut trouver un accord de 3 notes. Utilise ton clavier comme celui d'un piano et teste différentes combinaisons de touches en appuyant simultanément sur 3 lettres adjacentes; tu trouveras peut-être un accord déverrouillant la boîte.</p>
         <img src="assets/how_to_play.svg" alt="" class="help_img">
       </div>
     </div>
