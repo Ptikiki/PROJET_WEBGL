@@ -108,18 +108,28 @@
       </div>
 
       <div class="about_screen">
-        <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactive à Gobelins.</p>
-        <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
-        <div class="about_logos">
-          <img src="assets/gobelins.svg" alt="" class="gobelins_logo">
-          <img src="assets/jardin_imparfait.svg" alt="" class="jardin_logo">
-          <img src="assets/asterios.svg" alt="" class="asterios_logo">
+        <button type="button" class="about-close-button">
+          <img src="assets/library/cross.svg" alt="">
+        </button>
+        <div class="container">
+          <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactive à Gobelins.</p>
+          <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
+          <div class="about_logos">
+            <img src="assets/gobelins.svg" alt="" class="gobelins_logo">
+            <img src="assets/jardin_imparfait.svg" alt="" class="jardin_logo">
+            <img src="assets/asterios.svg" alt="" class="asterios_logo">
+          </div>
         </div>
       </div>
 
       <div class="help_screen">
-        <p>Pour révéler ce que renferme cette boîte, il faut trouver un accord de 3 notes. Utilise ton clavier comme celui d'un piano et teste différentes combinaisons de touches en appuyant simultanément sur 3 lettres adjacentes; tu trouveras peut-être un accord déverrouillant la boîte.</p>
-        <img src="assets/how_to_play.svg" alt="" class="help_img">
+        <button type="button" class="help-close-button">
+          <img src="assets/library/cross.svg" alt="">
+        </button>
+        <div class="container">
+          <p>Pour révéler ce que renferme cette boîte, il faut trouver un accord de 3 notes. Utilise ton clavier comme celui d'un piano et teste différentes combinaisons de touches en appuyant simultanément sur 3 lettres adjacentes; tu trouveras peut-être un accord déverrouillant la boîte.</p>
+          <img src="assets/how_to_play.svg" alt="" class="help_img">
+        </div>
       </div>
     </div>
 

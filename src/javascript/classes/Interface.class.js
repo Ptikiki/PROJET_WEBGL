@@ -19,9 +19,13 @@ class Interface {
     this.helpButton = document.querySelector('.help')
     this.helpButton_text = document.querySelector('.help_text')
     this.help_screen = document.querySelector('.help_screen')
+    this.help_close_button = document.querySelector('.help-close-button')
+
+
     this.aboutButton = document.querySelector('.about')
     this.aboutButton_text = document.querySelector('.about_text')
     this.about_screen = document.querySelector('.about_screen')
+    this.about_close_button = document.querySelector('.about-close-button')
 
     this.pause = document.querySelector('.pause')
     this.game = document.querySelector('.game')
@@ -61,6 +65,8 @@ class Interface {
     this.helpButton.addEventListener('mouseout', this.HelpMouseOutListener)
     this.HelpClickListener = this.handleHelpClick.bind(event, this)
     this.helpButton.addEventListener('click', this.HelpClickListener)
+    this.helpCloseButtonClickListener = this.handleOverlayClick.bind(event, this)
+    this.help_close_button.addEventListener('click', this.helpCloseButtonClickListener)
 
     this.AboutMouseOverListener = this.handleAboutMouseOver.bind(event, this)
     this.aboutButton.addEventListener('mouseover', this.AboutMouseOverListener)
@@ -68,6 +74,8 @@ class Interface {
     this.aboutButton.addEventListener('mouseout', this.AboutMouseOutListener)
     this.AboutClickListener = this.handleAboutClick.bind(event, this)
     this.aboutButton.addEventListener('click', this.AboutClickListener)
+    this.aboutCloseButtonClickListener = this.handleOverlayClick.bind(event, this)
+    this.about_close_button.addEventListener('click', this.aboutCloseButtonClickListener)
 
     this.LibraryButtonClickListener = this.handleLibraryButtonClick.bind(event, this)
     this.library_button.addEventListener('click', this.LibraryButtonClickListener)
