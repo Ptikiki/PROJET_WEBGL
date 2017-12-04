@@ -62,18 +62,18 @@
       -webkit-text-fill-color: transparent;
 
       &.one {
-        left: 16%;
-        top: 13%;
+        left: calc(50% - 600px);
+        top: calc(50% - 450px)
       }
 
       &.two {
-        left: 25%;
-        bottom: 10%;
+        left: calc(50% - 450px);
+        top: calc(50% + 100px)
       }
 
       &.three {
-        right: 20%;
-        top: 30%;
+        left: calc(50% + 400px);
+        top: calc(50% - 300px)
       }
 
       &.gray {

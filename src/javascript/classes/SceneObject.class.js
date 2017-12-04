@@ -171,7 +171,7 @@ class SceneObject {
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
               object.position.y = 165
-              object.position.z = -280
+              object.position.z = -292
               object.rotation.y = Math.PI
               object.name = 'wall'
 
@@ -211,7 +211,7 @@ class SceneObject {
 
             object.position.x = 0
             object.position.y = 165
-            object.position.z = -280
+            object.position.z = -292
             object.rotation.y = Math.PI
             object.name = 'wall'
 
@@ -240,7 +240,7 @@ class SceneObject {
           that.objLoader.load( 'assets/scenes/Petit-biscuit/petitbiscuit_mur.obj', function ( object ) {
             object.position.x = 0
             object.position.y = 165
-            object.position.z = -280
+            object.position.z = -292
             object.rotation.y = Math.PI
             object.name = 'wall'
 
