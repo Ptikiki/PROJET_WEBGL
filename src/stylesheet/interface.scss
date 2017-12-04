@@ -30,6 +30,7 @@
     top: 50%;
     z-index: 3;
     transform: translate(-50%,-50%);
+    pointer-events: none;
   }
 
   .loader_logo { width: 340px; }
@@ -99,14 +100,14 @@
   .interface_logo {
     position: absolute;
     z-index: 6;
-    left: 3.5%;
-    top: 3%;
+    left: 3.1%;
+    top: 5.25%;
     width: 50px;
   }
 
   .skip_tuto { transition: all 0.1s; opacity: 0; display: none; }
   .skip_arrow { transition: all 0.1s; width: 50px; margin-left: 10px;}
-  .skip { cursor: pointer; position: absolute; display: flex; align-items: center; right: 3.5%; bottom: 3%; font-family: overpass-regular; font-size: 2rem; }
+  .skip { cursor: pointer; position: absolute; display: flex; align-items: center; right: 3.1%; bottom: 4.5%; font-family: overpass-regular; font-size: 2rem; }
 
   .about {
     cursor: pointer;
@@ -114,8 +115,8 @@
     z-index: 6;
     display: flex;
     align-items: center;
-    right: 3.5%;
-    top: 3%;
+    right: 3.1%;
+    top: 4.5%;
     .interface_about {
       width: 50px;
     }
@@ -123,8 +124,8 @@
       width: 150px;
       text-align: right;
       margin-right: 0px;
-      font-family: overpass-regular;
-      font-size: 2rem;
+      font-family: overpass-light;
+      font-size: 18px;
       opacity: 0;
     }
   }
@@ -135,16 +136,16 @@
     z-index: 6;
     display: flex;
     align-items: center;
-    left: 3.5%;
-    bottom: 3%;
+    left: 3.1%;
+    bottom: 4.5%;
     .interface_help {
       width: 50px;
     }
     .help_text {
       width: 150px;
       margin-left: 0px;
-      font-family: overpass-regular;
-      font-size: 20px;
+      font-family: overpass-light;
+      font-size: 18px;
       opacity: 0;
     }
   }
@@ -189,8 +190,8 @@
   .socials {
     position: absolute;
     z-index: 6;
-    right: 3.5%;
-    bottom: 3%;
+    right: 3.1%;
+    bottom: 4.5%;
     .interface_fb {
       width: 14px;
       cursor: pointer;
