@@ -1,4 +1,4 @@
-.artist-lirary-button {
+.artist-lirary-button, .go-to-billeterie {
   color: #fff;
   background-color: rgba(0 , 0, 0, 0.2);
   position: absolute;
@@ -12,6 +12,14 @@
   height: 30px;
   font-family: 'overpass-semibold';
   cursor: pointer;
+}
+
+.go-to-billeterie {
+  opacity: 0;
+  visibility: hidden;
+  display: block;
+  text-align: center;
+  text-decoration: none;
 }
 
 .artistsLibrary {

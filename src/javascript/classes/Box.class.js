@@ -176,11 +176,9 @@ class Box {
     this.artist ? TweenLite.to(this.artist.position, 0.6, { y : this.artistDownPosY, ease: Power2.easeOut }) : ''
     TweenLite.to(this.myShadersOnScene.position, 0.6, { y : this.shaderDownPosY, ease: Power2.easeOut })
 
-    TweenLite.to([STORAGE.InterfaceClass.helpButton], 0.3, {
-      opacity: 1,
-      visibility: 'visible',
-      delay: 0.5
-    })
+    STORAGE.InterfaceClass.showHelpButton()
+    STORAGE.InterfaceClass.hideBilleterieButton()
+    STORAGE.InterfaceClass.showLibraryButton()
   }
 
   openBoxToStep1() {
@@ -206,12 +204,9 @@ class Box {
     this.artist ? TweenLite.to(this.artist.position, 1, { y : this.artistUpPosY, ease: Power2.easeOut }) : ''
     TweenLite.to(this.myShadersOnScene.position, 0.8, { y : this.shaderUpPosY, ease: Power2.easeOut })
 
-    TweenLite.to([STORAGE.InterfaceClass.helpButton], 0.3, {
-      opacity: 0,
-      onComplete: () => {
-        STORAGE.InterfaceClass.helpButton.style.visibility = 'hidden'
-      }
-    })
+    STORAGE.InterfaceClass.hideHelpButton()
+    STORAGE.InterfaceClass.showBilleterieButton()
+    STORAGE.InterfaceClass.hideLibraryButton()
   }
 
   animate() {

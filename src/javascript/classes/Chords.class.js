@@ -45,6 +45,8 @@ class Chords {
 
     bind() {
       window.setInterval(this.checkPreviewState.bind(event, this), 1000)
+      this.nextButtonClickListener = this.handleNextButtonClick.bind(event, this)
+      this.nextButton.addEventListener('click', this.nextButtonClickListener)
     }
 
     setArtistFound() {
@@ -245,6 +247,18 @@ class Chords {
       }
     }
 
+    handleNextButtonClick(that, event) {
+      that.launchNextSong(that, 32)
+    }
+
+    checkPreviewState(that) {
+      if (that.previewStarted) {
+        if ( Math.round(Date.now() / 1000) - that.previewStartedTime > 25 ) {
+          that.launchNextSong(that, 32)
+        }
+      }
+    }
+
     setAmbiance() {
       if (!STORAGE.BoxClass.openIsImpossible) {
         STORAGE.AmbianceClass.updateAmbiance(this.step, chordsDatas, this.currentChord)
@@ -263,14 +277,6 @@ class Chords {
       STORAGE.SceneManager.setSceneIndex(this.currentChord)
       STORAGE.SceneManager.displayScene(step)
       STORAGE.BoxClass.openBox(step)
-    }
-
-    checkPreviewState(that) {
-      if (that.previewStarted) {
-        if ( Math.round(Date.now() / 1000) - that.previewStartedTime > 25 ) {
-          that.launchNextSong(that, 32)
-        }
-      }
     }
 
     setArtistName(artistName) {

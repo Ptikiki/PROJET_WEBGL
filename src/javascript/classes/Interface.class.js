@@ -36,9 +36,11 @@ class Interface {
     this.library_button = document.querySelector('.artist-lirary-button')
     this.library_close_button = document.querySelector('.libray-close-button')
     this.library = document.querySelector('.artistsLibrary')
-    
+
+    this.billeterie_button = document.querySelector('.go-to-billeterie')
+
     this.songCarateristics = document.querySelector('.songCarateristics')
- 
+
     this.skipIntro = false
 
     this.interfaceIsBlurred = true
@@ -208,6 +210,9 @@ class Interface {
         TweenLite.set(that.library, {
           'pointerEvents' : 'all'
         })
+        TweenLite.set(document.body, {
+          'overflowY' : 'visible'
+        })
       }
     })
   }
@@ -221,7 +226,61 @@ class Interface {
         TweenLite.set(that.library, {
           'pointerEvents' : 'none'
         })
+        TweenLite.set(document.body, {
+          'overflowY' : 'hidden'
+        })
       }
+    })
+  }
+
+  hideHelpButton() {
+    TweenLite.to(this.helpButton, 0.3, {
+      opacity: 0,
+      onComplete: () => {
+        this.helpButton.style.visibility = 'hidden'
+      }
+    })
+  }
+
+  showHelpButton() {
+    TweenLite.to(this.helpButton, 0.3, {
+      opacity: 1,
+      visibility: 'visible',
+      delay: 0.5
+    })
+  }
+
+  hideBilleterieButton() {
+    TweenLite.to(this.billeterie_button, 0.3, {
+      opacity: 0,
+      onComplete: () => {
+        this.billeterie_button.style.visibility = 'hidden'
+      }
+    })
+  }
+
+  showBilleterieButton() {
+    TweenLite.to(this.billeterie_button, 0.3, {
+      opacity: 1,
+      visibility: 'visible',
+      delay: 0.5
+    })
+  }
+
+  hideLibraryButton() {
+    TweenLite.to(this.library_button, 0.3, {
+      opacity: 0,
+      onComplete: () => {
+        this.library_button.style.visibility = 'hidden'
+      }
+    })
+  }
+
+  showLibraryButton() {
+    TweenLite.to(this.library_button, 0.3, {
+      opacity: 1,
+      visibility: 'visible',
+      delay: 0.5
     })
   }
 

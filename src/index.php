@@ -97,6 +97,9 @@
         <button type="button" class="artist-lirary-button">
           <span class="found"></span>/<span class="total"></span> artistes trouvés
         </button>
+        <a href="http://asterios.fr/fr/agenda" target="_blank" class="go-to-billeterie">
+          Voir l'artiste en concert
+        </a>
 
         <p class="game_consigne"></p>
       </div>
@@ -142,7 +145,7 @@
       <div class="songsName">
         <img class="next-button" src=""></img>
         <div>
-          <a class="artist" href="http://asterios.fr/fr/agenda" target="_blank"></a>
+          <p class="artist"></p>
           <p class="song"></p>
         </div>
       </div>
