@@ -6,8 +6,6 @@ Kd 1 1 1
 newmtl Marron guitare
 Ka 1 1 1
 Kd 0.09000000357628 0.02667272649705 0.01260000001639
-Ks 1 1 1
-Ns 50
 illum 7
 
 newmtl Metal
