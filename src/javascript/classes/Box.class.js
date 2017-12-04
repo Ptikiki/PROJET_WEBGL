@@ -91,7 +91,8 @@ class Box {
         object.name = 'manivelle_boite'
 
         object.position.x = 270
-        object.position.y = 130
+        object.position.y = 100
+        object.position.z = -100
 
         let material = new THREE.MeshPhongMaterial({
           color : 0x303848,
@@ -215,7 +216,7 @@ class Box {
   }
 
   animate() {
-    STORAGE.boxManivelle.rotation.x += 0.1
+    STORAGE.boxManivelle.rotation.x += 0.06
   }
 
 }

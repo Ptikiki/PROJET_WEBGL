@@ -52,14 +52,12 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          let siegesMaterial = matl.materials.siege
           let poisMaterial = matl.materials.pois
-          siegesMaterial.shininess = 0
 
           let poisNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_bande.png', () => {
             poisNormal.wrapS = THREE.RepeatWrapping
             poisNormal.wrapT = THREE.RepeatWrapping
-            poisNormal.repeat.set(10, 10)
+            poisNormal.repeat.set(9, 9)
             poisMaterial.normalMap = poisNormal
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_base-scene.obj', function ( object ) {
@@ -74,7 +72,7 @@ class SceneObject {
                 if (o.type === 'Mesh') {
                   o.receiveShadow = true
                   o.castShadow = true
-                  o.material.shininess = 5
+                  o.material.shininess = 3
                 }
               })
               resolve()
@@ -160,6 +158,8 @@ class SceneObject {
           that.objLoader.setMaterials( matl )
 
           let briquesMaterial = matl.materials.brique
+          let afficheMaterial = matl.materials.affiche
+
           let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick.png', () => {
             briquesNormal.wrapS = THREE.RepeatWrapping
             briquesNormal.wrapT = THREE.RepeatWrapping
@@ -167,6 +167,12 @@ class SceneObject {
             briquesMaterial.normalMap = briquesNormal
             briquesMaterial.normalScale = new THREE.Vector2( 0.7, 0.7 )
             briquesMaterial.shininess = 10
+
+          let afficheTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/affiche.png', () => {
+            briquesNormal.wrapS = THREE.RepeatWrapping
+            briquesNormal.wrapT = THREE.RepeatWrapping
+            briquesNormal.repeat.set(1, 1)
+            briquesMaterial.map = afficheTexture
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
@@ -185,7 +191,7 @@ class SceneObject {
               that.wallsTab.push(object)
               resolve()
             })
-          })
+          })})
         })
       })
     }
@@ -269,26 +275,19 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          // let bodyMaterial = matl.materials.orelsan
-          // let bodyTexture = that.textureLoader.load("assets/persos/orelsan/orelsanSurface_Color2.png", () => {
-          //   bodyMaterial.map = bodyTexture
-          //   bodyMaterial.shininess = 5
-          //   bodyMaterial.needsUpdate = true
+          that.objLoader.load( 'assets/persos/orelsan/model_orelsan.obj', function ( object ) {
+            object.position.y = specifications[0].artistDownPosY
+            object.name = 'artist'
 
-            that.objLoader.load( 'assets/persos/orelsan/model_orelsan.obj', function ( object ) {
-              object.position.y = specifications[0].artistDownPosY
-              object.name = 'artist'
-
-              object.traverse(function(o) {
-                if (o.type === 'Mesh') {
-                  o.castShadow = true
-                }
-              })
-
-              that.artistsTab.push(object)
-              resolve()
+            object.traverse(function(o) {
+              if (o.type === 'Mesh') {
+                o.castShadow = true
+              }
             })
-          //})
+
+            that.artistsTab.push(object)
+            resolve()
+          })
         })
       })
     }
@@ -391,9 +390,9 @@ class SceneObject {
     }
 
     displayPetitBiscuit() {
-      this.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.1, 2000, 512 )
+      this.cubeCameraPetitBiscuit = new THREE.CubeCamera( 0.01, 2000, 1024 )
       this.cubeCameraPetitBiscuit.position.y = 250 //200 // 250
-      this.cubeCameraPetitBiscuit.position.z = 70 //200 // -50 / 70
+      this.cubeCameraPetitBiscuit.position.z = -50 //200 // -50 / 70
 
       this.plaquesMaterial.envMap = this.cubeCameraPetitBiscuit.renderTarget
       this.plaquesMaterial.needsUpdate = true
@@ -406,11 +405,11 @@ class SceneObject {
     }
 
     animate() {
-      if (this.metalMaterial && this.cubeCameraMadK) {
-        this.metalMaterial.visible = false
-        this.cubeCameraMadK.update( STORAGE.renderer, STORAGE.scene )
-        this.metalMaterial.visible = true
-      }
+      // if (this.metalMaterial && this.cubeCameraMadK) {
+      //   this.metalMaterial.visible = false
+      //   this.cubeCameraMadK.update( STORAGE.renderer, STORAGE.scene )
+      //   this.metalMaterial.visible = true
+      // }
 
       if (this.plaquesMaterial && this.cubeCameraPetitBiscuit) {
         this.plaquesMaterial.visible = false
