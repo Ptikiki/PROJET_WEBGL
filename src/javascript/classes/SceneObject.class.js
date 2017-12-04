@@ -187,7 +187,6 @@ class SceneObject {
           that.objLoader.setMaterials( matl )
 
           let briquesMaterial = matl.materials.brique
-          let afficheMaterial = matl.materials.affiche
 
           let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick.png', () => {
             briquesNormal.wrapS = THREE.RepeatWrapping
@@ -196,12 +195,6 @@ class SceneObject {
             briquesMaterial.normalMap = briquesNormal
             briquesMaterial.normalScale = new THREE.Vector2( 0.7, 0.7 )
             briquesMaterial.shininess = 10
-
-          let afficheTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/affiche.png', () => {
-            afficheTexture.wrapS = THREE.RepeatWrapping
-            afficheTexture.wrapT = THREE.RepeatWrapping
-            afficheTexture.repeat.set(1, 1)
-            afficheMaterial.map = afficheTexture
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
@@ -220,7 +213,7 @@ class SceneObject {
               that.wallsTab.push(object)
               resolve()
             })
-          })})
+          })
         })
       })
     }
@@ -302,6 +295,9 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
+          let plateformeMaterial = matl.materials.plateforme
+          plateformeMaterial.specular = new THREE.Color( 0x202020 )
+
           that.objLoader.load( 'assets/persos/orelsan/model_orelsan.obj', function ( object ) {
             object.position.y = specifications[0].artistDownPosY
             object.name = 'artist'
@@ -325,6 +321,9 @@ class SceneObject {
         this.mtlLoader.load('assets/persos/mademoiselle-k/MademoiselleK_Guitar_Playing.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          let plateformeMaterial = matl.materials.plateforme
+          plateformeMaterial.specular = new THREE.Color( 0x202020 )
 
           let guitareMaterial = matl.materials.Tortoise
           let guitareTexture = that.textureLoader.load('assets/persos/mademoiselle-k/tortoise.jpg', () => {
@@ -355,6 +354,9 @@ class SceneObject {
         this.mtlLoader.load('assets/persos/petit-biscuit/petitbiscuit.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          let plateformeMaterial = matl.materials.plateforme
+          plateformeMaterial.specular = new THREE.Color( 0x202020 )
 
           that.objLoader.load( 'assets/persos/petit-biscuit/petitbiscuit.obj', function ( object ) {
             object.position.y =  specifications[2].artistDownPosY

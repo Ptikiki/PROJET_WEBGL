@@ -6,7 +6,7 @@ const specifications = [
     'shaderDownPosY' : -250,
     'shaderUpPosY' : 170,
     'artistDownPosY' : -145,
-    'artistUpPosY' : 230,
+    'artistUpPosY' : 235,
     'light1' : 0xffbe58,
     'light2' : 0xa2ddec,
     'light3' : 0xa2ddec
@@ -18,7 +18,7 @@ const specifications = [
     'shaderDownPosY' : -250,
     'shaderUpPosY' : 140,
     'artistDownPosY' : -85,
-    'artistUpPosY' : 240,
+    'artistUpPosY' : 245,
     'light1' : 0x8fffe7,
     'light2' : 0xffffff,
     'light3' : 0xccfaff
@@ -30,7 +30,7 @@ const specifications = [
     'shaderDownPosY' : -250,
     'shaderUpPosY' : 170,
     'artistDownPosY' : -85,
-    'artistUpPosY' : 220,
+    'artistUpPosY' : 225,
     'light1' : 0x8fffe7,
     'light2' : 0xffffff,
     'light3' : 0xffbff9

@@ -63,7 +63,7 @@ class Box {
 
       that.objLoader.load( 'assets/scenes/box/closed-box_couvercle.obj', function ( object ) {
         object.position.z = -285
-        object.position.y = 165
+        object.position.y = 170
         object.rotation.y = Math.PI
         object.name = 'couvercle_boite'
 
@@ -104,7 +104,7 @@ class Box {
             child.material = material
             child.receiveShadow = true
             child.castShadow = true
-            child.material.shininess = 100
+            child.material.shininess = 50
           }
         })
         STORAGE.boxManivelle = object
