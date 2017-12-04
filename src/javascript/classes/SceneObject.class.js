@@ -187,7 +187,6 @@ class SceneObject {
           that.objLoader.setMaterials( matl )
 
           let briquesMaterial = matl.materials.brique
-          let afficheMaterial = matl.materials.affiche
 
           let briquesNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_brick.png', () => {
             briquesNormal.wrapS = THREE.RepeatWrapping
@@ -196,12 +195,6 @@ class SceneObject {
             briquesMaterial.normalMap = briquesNormal
             briquesMaterial.normalScale = new THREE.Vector2( 0.7, 0.7 )
             briquesMaterial.shininess = 10
-
-          let afficheTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/affiche.png', () => {
-            afficheTexture.wrapS = THREE.RepeatWrapping
-            afficheTexture.wrapT = THREE.RepeatWrapping
-            afficheTexture.repeat.set(1, 1)
-            afficheMaterial.map = afficheTexture
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
@@ -220,7 +213,7 @@ class SceneObject {
               that.wallsTab.push(object)
               resolve()
             })
-          })})
+          })
         })
       })
     }

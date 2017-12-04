@@ -210,8 +210,8 @@ class Ambiance {
         this.light2.intensity = 0.32
         this.light3.intensity = 0.25
         this.lightAmb.intensity = 0.30
-        this.spotLight1.intensity = 0.1
-        this.spotLight2.intensity = 0.3
+        this.spotLight1.intensity = 0.5
+        this.spotLight2.intensity = 0.7
       } else if (step === 3 && currentChord == 2) {
         this.light1.color.set(specifications[currentChord].light1)
         this.light2.color.set(specifications[currentChord].light2)
