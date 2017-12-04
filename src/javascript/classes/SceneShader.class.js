@@ -133,11 +133,8 @@ class SceneShader {
       let plane3 = new THREE.Mesh( geometry, material3 )
 
       plane1.position.z = 125
-      plane1.castShadow = true
       plane2.position.z = 175
-      plane2.castShadow = true
       plane3.position.z = 220
-      plane3.castShadow = true
 
       let group = new THREE.Group()
       group.add( plane1 )

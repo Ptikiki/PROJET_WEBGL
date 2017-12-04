@@ -53,11 +53,31 @@ class SceneObject {
           that.objLoader.setMaterials( matl )
 
           let poisMaterial = matl.materials.pois
+          let solMaterial = matl.materials.sol
+          let shaderMaterial = matl.materials.shader
+          let briqueMaterial = matl.materials.brique
+          let siegeMaterial = matl.materials.siege
+          let rainuresMaterial = matl.materials.gris_fonce
+          let rambardeMaterial = matl.materials.metal_fonce
+          let pasMaterial = matl.materials.gris_clair
+          let trouMaterial = matl.materials.noir
+
+          poisMaterial.specular = new THREE.Color( 0x464646 )
+          briqueMaterial.specular = new THREE.Color( 0x464646 )
+          rainuresMaterial.specular = new THREE.Color( 0x202020 )
+          siegeMaterial.specular = new THREE.Color( 0x202020 )
+          siegeMaterial.shininess = 20
+          shaderMaterial.specular = new THREE.Color( 0x202020 )
+          solMaterial.specular = new THREE.Color( 0x202020 )
+          solMaterial.shininess = 100
+          rambardeMaterial.shininess = 15
+          pasMaterial.specular = new THREE.Color( 0x202020 )
+          trouMaterial.specular = new THREE.Color( 0x111111 )
 
           let poisNormal = that.textureLoader.load('assets/scenes/Orelsan/textures/normal_bande.png', () => {
             poisNormal.wrapS = THREE.RepeatWrapping
             poisNormal.wrapT = THREE.RepeatWrapping
-            poisNormal.repeat.set(9, 9)
+            poisNormal.repeat.set(7, 9)
             poisMaterial.normalMap = poisNormal
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_base-scene.obj', function ( object ) {
@@ -72,7 +92,6 @@ class SceneObject {
                 if (o.type === 'Mesh') {
                   o.receiveShadow = true
                   o.castShadow = true
-                  o.material.shininess = 3
                 }
               })
               resolve()
@@ -88,6 +107,15 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Mlle-k/mademoisellek_base-scene.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          console.log("MADK SCENE", matl.materials)
+
+          let solMaterial = matl.materials.noir
+          let metalNoirMaterial = matl.materials.metal_noir
+          solMaterial.specular = new THREE.Color( 0x111111 )
+          solMaterial.shininess = 100
+          metalNoirMaterial.specular = new THREE.Color( 0x202020 )
+
           that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_base-scene.obj', function ( object ) {
             object.position.x = 0
             object.position.y = specifications[1].sceneDownPosY
@@ -100,8 +128,6 @@ class SceneObject {
               if (o.type === 'Mesh') {
                 o.receiveShadow = true
                 o.castShadow = true
-                o.material.shininess = 0
-                o.material.specular = new THREE.Color( 0x0 )
               }
             })
             resolve()
@@ -117,16 +143,21 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
+          console.log("BISCUIT SCENE", matl.materials)
+
           /*let geometry = new THREE.SphereGeometry( 10, 50, 50 )
           let material = new THREE.MeshBasicMaterial( { color: 0xffff00 } )
           let repere = new THREE.Mesh( geometry, material )
           repere.position.y = 250 //200 // 250
           repere.position.z = 70 //200 // -50 / 70
-
           STORAGE.scene.add( repere )*/
 
           that.plaquesMaterial = matl.materials.carreau
-          that.plaquesMaterial.specular = new THREE.Color( 0x646464 )
+          that.noirMaterial = matl.materials.noir_mat
+
+          that.plaquesMaterial.specular = new THREE.Color( 0x3e3e3e )
+          that.noirMaterial.specular = new THREE.Color( 0x3e3e3e )
+          that.plaquesMaterial.shininess = 50
 
           that.objLoader.load( 'assets/scenes/Petit-biscuit/petitbiscuit_base-scene.obj', function ( object ) {
             object.position.x = 0
@@ -140,8 +171,6 @@ class SceneObject {
               if (o.type === 'Mesh') {
                 o.receiveShadow = true
                 o.castShadow = true
-                o.material.shininess = 2
-                o.material.reflectivity = 20
               }
             })
             resolve()
@@ -203,15 +232,10 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          // that.metalMaterial = matl.materials.Metal
-          //
-          // that.cubeCameraMadK = new THREE.CubeCamera( 0.1, 5000, 512 )
-          // that.cubeCameraMadK.position.y = 700
-          // that.cubeCameraMadK.position.z = -300
-          // STORAGE.scene.add( that.cubeCameraMadK )
-          //
-          // that.metalMaterial.envMap = that.cubeCameraMadK.renderTarget
-          // that.metalMaterial.needsUpdate = true
+          console.log("MADK WALL", matl.materials)
+
+          let tuyauxMaterial = matl.materials.metal_clair
+          tuyauxMaterial.shininess = 100
 
           that.objLoader.load( 'assets/scenes/Mlle-k/mademoisellek_mur.obj', function ( object ) {
 
@@ -242,6 +266,9 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Petit-biscuit/petitbiscuit_mur.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          let tuyauxMaterial = matl.materials.Metal
+          tuyauxMaterial.shininess = 100
 
           that.objLoader.load( 'assets/scenes/Petit-biscuit/petitbiscuit_mur.obj', function ( object ) {
             object.position.x = 0
@@ -405,12 +432,6 @@ class SceneObject {
     }
 
     animate() {
-      // if (this.metalMaterial && this.cubeCameraMadK) {
-      //   this.metalMaterial.visible = false
-      //   this.cubeCameraMadK.update( STORAGE.renderer, STORAGE.scene )
-      //   this.metalMaterial.visible = true
-      // }
-
       if (this.plaquesMaterial && this.cubeCameraPetitBiscuit) {
         this.plaquesMaterial.visible = false
         this.cubeCameraPetitBiscuit.update( STORAGE.renderer, STORAGE.scene )
