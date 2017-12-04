@@ -239,7 +239,7 @@ class Chords {
       window.addEventListener('keydown', this.nextSongListener)
 
       window.removeEventListener('keyup', this.keyDownListener)
-      setTimeout( () => { this.enableGame() }, 6000)
+      setTimeout( () => { this.enableGame() }, 3000)
     }
 
     launchNextSong(that, event) {
@@ -392,9 +392,9 @@ class Chords {
           onComplete: () => {
             let randomIndex = Math.round(Math.random() * 2)
             this.lettersText[randomIndex].innerText = letter
-            this.lettersText[0].classList.remove('blue', 'gray', 'red')
-            this.lettersText[1].classList.remove('blue', 'gray', 'red')
-            this.lettersText[2].classList.remove('blue', 'gray', 'red')
+            this.lettersText[0].setAttribute('class', 'one')
+            this.lettersText[1].setAttribute('class', 'two')
+            this.lettersText[2].setAttribute('class', 'three')
             TweenLite.to(this.lettersText[randomIndex], 0.2, {
               opacity: 1,
               y: 0,
@@ -413,9 +413,9 @@ class Chords {
             this.lettersText[0].innerText = ''
             this.lettersText[1].innerText = ''
             this.lettersText[2].innerText = ''
-            this.lettersText[0].classList.remove('blue', 'gray', 'red')
-            this.lettersText[1].classList.remove('blue', 'gray', 'red')
-            this.lettersText[2].classList.remove('blue', 'gray', 'red')
+            this.lettersText[0].setAttribute('class', 'one')
+            this.lettersText[1].setAttribute('class', 'two')
+            this.lettersText[2].setAttribute('class', 'three')
           }
         })
       } else if (letter === 1) { // change color
@@ -423,13 +423,25 @@ class Chords {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => {
-            let clasName
-            this.currentChord === 0 ? clasName = 'gray' : ''
-            this.currentChord === 1 ? clasName = 'red' : ''
-            this.currentChord === 2 ? clasName = 'blue' : ''
-            this.lettersText[0].classList.add(clasName)
-            this.lettersText[1].classList.add(clasName)
-            this.lettersText[2].classList.add(clasName)
+            let clasName1
+            let clasName2
+            let clasName3
+            if (this.currentChord === 0) {
+              clasName1 = 'gray1'
+              clasName2 = 'gray2'
+              clasName3 = 'gray3'
+            } else if (this.currentChord === 1) {
+              clasName1 = 'red1'
+              clasName2 = 'red2'
+              clasName3 = 'red3'
+            } else if (this.currentChord === 2) {
+              clasName1 = 'blue1'
+              clasName2 = 'blue2'
+              clasName3 = 'blue3'
+            }
+            this.lettersText[0].classList.add(clasName1)
+            this.lettersText[1].classList.add(clasName2)
+            this.lettersText[2].classList.add(clasName3)
             TweenLite.to(this.lettersText, 0.6, {
               opacity: 1,
               ease: Power2.easeInOut

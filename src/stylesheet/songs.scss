@@ -76,20 +76,56 @@
         top: calc(50% - 300px)
       }
 
-      &.gray {
-        background: -webkit-linear-gradient(bottom left, #3b403f, #0f1010);
+      &.gray1 {
+        background: -webkit-linear-gradient(bottom left, #3b403f, #0f1010 116%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
-      &.red {
-        background: -webkit-linear-gradient(bottom left, #7e2930, #0f0508);
+      &.gray2 {
+        background: -webkit-linear-gradient(top right, #3b403f 29%, #0f1010 101%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
-      &.blue {
-        background: -webkit-linear-gradient(bottom left, #203d75, #020a14);
+      &.gray3 {
+        background: -webkit-linear-gradient(bottom right, #3b403f, #0f1010 95%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.red1 {
+        background: -webkit-linear-gradient(top right, #7e2930 29%, #0f0508 101%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.red2 {
+        background: -webkit-linear-gradient(top right, #7e2930 29%, #0f0508 101%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.red3 {
+        background: -webkit-linear-gradient(bottom right, #7e2930, #0f0508 95%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.blue1 {
+        background: -webkit-linear-gradient(bottom left, #203d75 -23%, #020a14 101%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.blue2 {
+        background: -webkit-linear-gradient(bottom right, #203d75, #020a14 95%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      &.blue3 {
+        background: -webkit-linear-gradient(top right, #203d75 0% , #020a14 89%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }

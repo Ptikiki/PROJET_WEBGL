@@ -180,6 +180,8 @@ class Box {
     STORAGE.InterfaceClass.showHelpButton()
     STORAGE.InterfaceClass.hideBilleterieButton()
     STORAGE.InterfaceClass.showLibraryButton()
+
+    STORAGE.InterfaceClass.uPAmbianceSound()
   }
 
   openBoxToStep1() {
@@ -208,6 +210,8 @@ class Box {
     STORAGE.InterfaceClass.hideHelpButton()
     STORAGE.InterfaceClass.showBilleterieButton()
     STORAGE.InterfaceClass.hideLibraryButton()
+
+    STORAGE.InterfaceClass.lowAmbianceSound()
   }
 
   animate() {

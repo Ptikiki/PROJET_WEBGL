@@ -48,6 +48,8 @@ class Interface {
     this.skipIntro = false
     this.gamePaused = false
 
+    this.ambianceSong
+
     this.interfaceIsBlurred = true
     this.bind()
   }
@@ -302,6 +304,18 @@ class Interface {
     })
   }
 
+  lowAmbianceSound() {
+    TweenLite.to(this.ambianceSong, 0.3, {
+      volume : 0
+    })
+  }
+
+  uPAmbianceSound() {
+    TweenLite.to(this.ambianceSong, 0.3, {
+      volume : 1
+    })
+  }
+
   removeLoader() {
     TweenLite.to(this.canvas, 0.3, {
       opacity: 1,
@@ -312,6 +326,9 @@ class Interface {
           onComplete: () => {
             let enterSong = new Audio('assets/ambiance/enter.mp3')
             enterSong.play()
+            this.ambianceSong = new Audio('assets/ambiance/ambiance.mp3')
+            this.ambianceSong.play()
+            this.ambianceSong.loop = true
             STORAGE.RendererClass.animateBlur(2)
             this.removeSplash()
           }
