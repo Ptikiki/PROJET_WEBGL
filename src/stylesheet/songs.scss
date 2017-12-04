@@ -7,14 +7,14 @@
     left: 3.1%;
 
     .next-button {
-      width: 60px;
+      width: 50px;
       margin-right: 20px;
       opacity: 0;
       cursor: pointer;
     }
     .artist {
       font-family: 'overpass-bold';
-      font-size: 20px;
+      font-size: 18px;
       margin: 0 0 0px 0;
       color: #fff;
       text-transform: uppercase;
@@ -33,7 +33,7 @@
     }
     .song {
       font-family: 'overpass-regular';
-      font-size: 20px;
+      font-size: 18px;
       margin: 0;
       margin-top: -2px;
       text-transform: uppercase;
@@ -77,19 +77,19 @@
       }
 
       &.gray1 {
-        background: -webkit-linear-gradient(bottom left, #3b403f, #0f1010 116%);
+        background: -webkit-linear-gradient(bottom left, #514738, #2a251e 116%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
       &.gray2 {
-        background: -webkit-linear-gradient(top right, #3b403f 29%, #0f1010 101%);
+        background: -webkit-linear-gradient(top right, #514738 29%, #2a251e 101%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
       &.gray3 {
-        background: -webkit-linear-gradient(bottom right, #3b403f, #0f1010 95%);
+        background: -webkit-linear-gradient(bottom right, #514738, #2a251e 95%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
