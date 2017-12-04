@@ -30,7 +30,7 @@ const notes = {
   'b' : 'assets/notes/random/piano/a6.wav',
   'c' : 'assets/notes/random/synth/b4.wav',
   'e' : 'assets/notes/random/piano/b3.wav',
-  'h' : 'assets/notes/random/piano/f4.wav',
+  'h' : 'assets/notes/random/minimoog/f4.wav',
   'i' : 'assets/notes/random/piano/d4.wav',
   'l' : 'assets/notes/random/minimoog/a4.wav',
   'm' : 'assets/notes/random/minimoog/c5.wav',
