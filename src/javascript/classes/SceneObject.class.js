@@ -295,6 +295,9 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
+          let plateformeMaterial = matl.materials.plateforme
+          plateformeMaterial.specular = new THREE.Color( 0x202020 )
+
           that.objLoader.load( 'assets/persos/orelsan/model_orelsan.obj', function ( object ) {
             object.position.y = specifications[0].artistDownPosY
             object.name = 'artist'
@@ -318,6 +321,9 @@ class SceneObject {
         this.mtlLoader.load('assets/persos/mademoiselle-k/MademoiselleK_Guitar_Playing.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          let plateformeMaterial = matl.materials.plateforme
+          plateformeMaterial.specular = new THREE.Color( 0x202020 )
 
           let guitareMaterial = matl.materials.Tortoise
           let guitareTexture = that.textureLoader.load('assets/persos/mademoiselle-k/tortoise.jpg', () => {
@@ -348,6 +354,9 @@ class SceneObject {
         this.mtlLoader.load('assets/persos/petit-biscuit/petitbiscuit.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
+
+          let plateformeMaterial = matl.materials.plateforme
+          plateformeMaterial.specular = new THREE.Color( 0x202020 )
 
           that.objLoader.load( 'assets/persos/petit-biscuit/petitbiscuit.obj', function ( object ) {
             object.position.y =  specifications[2].artistDownPosY
