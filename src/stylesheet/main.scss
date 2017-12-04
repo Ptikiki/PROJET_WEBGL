@@ -46,6 +46,7 @@ html, body {
   position: relative;
   font-family: helvetica, arial;
   background: black;
+  font-size: 62.5%;
 }
 
 * {
@@ -59,4 +60,21 @@ html, body {
 
 canvas {
   opacity: 0;
+}
+
+
+@media screen and (max-width: 1580px) {
+  html, body { font-size: 55%; }
+}
+
+@media screen and (max-height: 1020px) {
+  html, body { font-size: 55%; }
+}
+
+@media screen and (max-width: 1100px) {
+  html, body { font-size: 50%; }
+}
+
+@media screen and (max-height: 750px) {
+  html, body { font-size: 50%; }
 }

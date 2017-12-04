@@ -24,13 +24,21 @@
     pointer-events: none;
   }
 
-  .loader_logo {
+  .loader {
     position: absolute;
     left: 50%;
     top: 50%;
     z-index: 3;
     transform: translate(-50%,-50%);
-    width: 200px;
+  }
+
+  .loader_logo { width: 340px; }
+
+  .loader_margin {
+    opacity: 0;
+    font-family: overpass-light;
+    font-size: 3rem;
+    margin-top: 50px;
   }
 
   .splash {
@@ -41,13 +49,11 @@
     text-align: center;
   }
 
-  .splash_logo {
-    width: 200px;
-  }
+  .splash_logo { width: 200px; }
 
   .splash_baseline {
     font-family: overpass-light;
-    font-size: 30px;
+    font-size: 3rem;
     margin-top: 50px;
   }
 
@@ -63,19 +69,16 @@
 
   .tuto_explanations {
     font-family: overpass-light;
-    font-size: 30px;
+    font-size: 3rem;
   }
-  .tuto_explanations_baseline {
-    font-size: 24px;
-    opacity: 0.5;
-  }
+  .tuto_explanations_baseline { font-size: 2.4rem; opacity: 0.5; }
 
   .tuto_training {
     font-family: overpass-light;
-    font-size: 30px;
+    font-size: 3rem;
   }
   .tuto_training_consigne {
-    font-size: 24px;
+    font-size: 2.4rem;
     opacity: 0.5;
   }
 
@@ -90,7 +93,7 @@
     transform: translate(-50%,-50%);
     text-align: center;
     font-family: overpass-light;
-    font-size: 30px;
+    font-size: 3rem;
   }
 
   .interface_logo {
@@ -103,7 +106,7 @@
 
   .skip_tuto { transition: all 0.1s; opacity: 0; display: none; }
   .skip_arrow { transition: all 0.1s; width: 50px; margin-left: 10px;}
-  .skip { cursor: pointer; position: absolute; display: flex; align-items: center; right: 3.5%; bottom: 3%; font-family: overpass-regular; font-size: 20px; }
+  .skip { cursor: pointer; position: absolute; display: flex; align-items: center; right: 3.5%; bottom: 3%; font-family: overpass-regular; font-size: 2rem; }
 
   .about {
     cursor: pointer;
@@ -121,7 +124,7 @@
       text-align: right;
       margin-right: 0px;
       font-family: overpass-regular;
-      font-size: 20px;
+      font-size: 2rem;
       opacity: 0;
     }
   }
@@ -156,13 +159,11 @@
     transform: translate(-50%,-50%);
     text-align: center;
     font-family: overpass-light;
-    font-size: 24px;
+    font-size: 2.4rem;
     pointer-events: none;
   }
 
-  .bold {
-    font-family: overpass-bold;
-  }
+  .bold { font-family: overpass-bold; }
 
   .about_logos {
     display: flex;
@@ -180,18 +181,10 @@
     margin: auto;
   }
 
-  .jardin_logo {
-    width: 190px;
-  }
+  .jardin_logo { width: 190px; }
+  .asterios_logo { width: 110px; }
 
-  .asterios_logo {
-    width: 110px;
-  }
-
-  .help_img {
-    width: 430px;
-    margin-top: 50px;
-  }
+  .help_img { width: 430px; margin-top: 50px; }
 
   .socials {
     position: absolute;
@@ -208,5 +201,28 @@
       cursor: pointer;
     }
   }
-
 }
+
+/*@media screen and (max-width: 1580px) {
+  .gobelins_logo { width: 125px; }
+  .jardin_logo { width: 158px; }
+  .asterios_logo { width: 92px; }
+}
+
+@media screen and (max-height: 1020px) {
+  .gobelins_logo { width: 125px; }
+  .jardin_logo { width: 158px; }
+  .asterios_logo { width: 92px; }
+}
+
+@media screen and (max-width: 1100px) {
+  .gobelins_logo { width: 100px; }
+  .jardin_logo { width: 127px; }
+  .asterios_logo { width: 73px; }
+}
+
+@media screen and (max-height: 750px) {
+  .gobelins_logo { width: 100px; }
+  .jardin_logo { width: 127px; }
+  .asterios_logo { width: 73px; }
+}*/

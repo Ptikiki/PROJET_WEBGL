@@ -3,6 +3,13 @@
 newmtl default
 Kd 1 1 1
 
+newmtl Marron guitare
+Ka 1 1 1
+Kd 0.09000000357628 0.02667272649705 0.01260000001639
+Ks 1 1 1
+Ns 50
+illum 7
+
 newmtl Metal
 Ka 1 1 1
 Kd 0.5 0.5 0.5
@@ -27,13 +34,6 @@ illum 7
 newmtl Manche guitare_1
 Ka 1 1 1
 Kd 0.71764707565308 0.5686274766922 0.42352941632271
-Ks 1 1 1
-Ns 50
-illum 7
-
-newmtl Marron guitare
-Ka 1 1 1
-Kd 0.09000000357628 0.02667272649705 0.01260000001639
 Ks 1 1 1
 Ns 50
 illum 7

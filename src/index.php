@@ -53,7 +53,10 @@
 
       <div class="overlay"></div>
 
-      <img src="assets/logo_loader.svg" alt="" class="loader_logo">
+      <div class="loader">
+        <img src="assets/logo_loader.gif" alt="" class="loader_logo">
+        <div class="loader_margin">Margin</div>
+      </div>
 
       <div class="splash">
         <img src="assets/logo_splash.svg" alt="" class="splash_logo">

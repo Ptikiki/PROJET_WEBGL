@@ -15,6 +15,9 @@ class Renderer {
       this.container.appendChild( this.renderer.domElement )
       STORAGE.renderer = this.renderer
 
+      console.log("WINDOW WIDTH ", window.innerWidth)
+      console.log("WINDOW HEIGHT ", window.innerHeight)
+
       this.initScene()
       this.initCamera()
       this.initEffectComposer()
@@ -64,6 +67,9 @@ class Renderer {
     }
 
     onWindowResize() {
+      console.log("WINDOW WIDTH ", window.innerWidth)
+      console.log("WINDOW HEIGHT ", window.innerHeight)
+
       STORAGE.camera.aspect = window.innerWidth / window.innerHeight
       STORAGE.camera.updateProjectionMatrix()
       STORAGE.renderer.setSize(window.innerWidth, window.innerHeight)
