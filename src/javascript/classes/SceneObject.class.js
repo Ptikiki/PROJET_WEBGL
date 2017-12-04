@@ -169,10 +169,10 @@ class SceneObject {
             briquesMaterial.shininess = 10
 
           let afficheTexture = that.textureLoader.load('assets/scenes/Orelsan/textures/affiche.png', () => {
-            briquesNormal.wrapS = THREE.RepeatWrapping
-            briquesNormal.wrapT = THREE.RepeatWrapping
-            briquesNormal.repeat.set(1, 1)
-            briquesMaterial.map = afficheTexture
+            afficheTexture.wrapS = THREE.RepeatWrapping
+            afficheTexture.wrapT = THREE.RepeatWrapping
+            afficheTexture.repeat.set(1, 1)
+            afficheMaterial.map = afficheTexture
 
             that.objLoader.load( 'assets/scenes/Orelsan/orelsan_mur.obj', function ( object ) {
               object.position.x = 0
