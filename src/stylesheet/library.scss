@@ -66,15 +66,15 @@
     overflow: hidden;
 
     &:nth-of-type(1) {
-      background-image: url('http://localhost:8080/assets/library/orelsan.png');
+      background-image: url('../assets/library/orelsan.png');
     }
 
     &:nth-of-type(2) {
-      background-image: url('http://localhost:8080/assets/library/mllek.png');
+      background-image: url('../assets/library/mllek.png');
     }
 
     &:nth-of-type(3) {
-      background-image: url('http://localhost:8080/assets/library/petitbiscuit.png');
+      background-image: url('../assets/library/petitbiscuit.png');
     }
 
     .lock {
@@ -82,7 +82,7 @@
       height: 102%;
       left: -1%;
       top: -1%;
-      background-image: url('http://localhost:8080/assets/library/lock.png');
+      background-image: url('../assets/library/lock.png');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;

@@ -35,18 +35,18 @@ class SceneShader {
     }
 
     loadShaders() {
-      this.loadOrelsanShader('../glsl/OrelsanVertex.vert', '../glsl/OrelsanFragment.frag')
+      this.loadOrelsanShader('glsl/OrelsanVertex.vert', 'glsl/OrelsanFragment.frag')
       setTimeout(()=> {
-        this.loadMlleKShader('../glsl/MlleKVertex.vert', '../glsl/MlleKFragment.frag')
+        this.loadMlleKShader('glsl/MlleKVertex.vert', 'glsl/MlleKFragment.frag')
       }, 200)
       setTimeout(()=> {
         this.loadPetitBiscuitShader(
-        '../glsl/PetitBiscuitVertexPlane.vert',
-        '../glsl/PetitBiscuitVertexSphere.vert',
-        '../glsl/PetitBiscuitFragmentPlane.frag',
-        '../glsl/PetitBiscuitFragmentSphere.frag',
-        '../glsl/PetitBiscuitVertexGround.vert',
-        '../glsl/PetitBiscuitFragmentGround.frag')
+        'glsl/PetitBiscuitVertexPlane.vert',
+        'glsl/PetitBiscuitVertexSphere.vert',
+        'glsl/PetitBiscuitFragmentPlane.frag',
+        'glsl/PetitBiscuitFragmentSphere.frag',
+        'glsl/PetitBiscuitVertexGround.vert',
+        'glsl/PetitBiscuitFragmentGround.frag')
       }, 400)
     }
 

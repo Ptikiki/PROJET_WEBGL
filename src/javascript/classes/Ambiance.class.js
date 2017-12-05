@@ -69,8 +69,8 @@ class Ambiance {
 
     createBackground() {
       let that = this
-      this.vertex_loader.load('../glsl/BackgroundVertex.vert', function (vertexGround) {
-        that.fragment_loader.load('../glsl/BackgroundFragment.frag', function (fragmentGround) {
+      this.vertex_loader.load('glsl/BackgroundVertex.vert', function (vertexGround) {
+        that.fragment_loader.load('glsl/BackgroundFragment.frag', function (fragmentGround) {
           const h = 8000;
           const geometry = new THREE.SphereGeometry(h, 32, 32)
 
