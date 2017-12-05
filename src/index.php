@@ -54,47 +54,47 @@
       <div class="overlay"></div>
 
       <div class="loader">
-        <img src="assets/logo_loader.gif" alt="" class="loader_logo">
+        <img src="assets/logos/logo_loader.gif" alt="" class="loader_logo">
         <div class="loader_margin">Margin</div>
       </div>
 
       <div class="splash">
-        <img src="assets/logo_splash.svg" alt="" class="splash_logo">
+        <img src="assets/logos/logo_interface.svg" alt="" class="splash_logo">
         <div class="splash_baseline">La boîte à muzik zik zik</div>
       </div>
       <div class="tuto">
 
         <div class="tuto_explanations">
           <p class="tuto_explanations_baseline">La boîte à muzik zik zik</p>
-          <p>La serrure de cette mystérieuse boîte à musique est verrouillée...<br>La clé, c'est un accord de 3 notes.</p>
+          <p>La serrure de cette mystérieuse boîte est verrouillée...<br>La clé, c'est un accord de 3 notes.</p>
         </div>
         <div class="skip">
           <span class="skip_tuto">PASSER L'INTRODUCTION</span>
-          <img src="assets/skip.svg" alt="" class="skip_tuto skip_arrow">
+          <img src="assets/interface/skip.svg" alt="" class="skip_tuto skip_arrow">
         </div>
 
         <div class="tuto_training">
           <p class="tuto_training_consigne">Utilise ton clavier comme celui d'un piano, et retrouve les combinaisons de touches adjacentes qui correspondent aux accords déverrouillant la boîte.</p>
           <p>Es-tu prêt ?</p>
-          <img src="assets/key_oui.svg" alt ="" class="oui_img">
+          <img src="assets/interface/key_oui.svg" alt ="" class="oui_img">
         </div>
       </div>
       <div class="game">
-        <img src="assets/logo_interface.svg" alt="" class="interface_logo">
+        <img src="assets/logos/logo_interface.svg" alt="" class="interface_logo">
 
         <div class="about">
           <span class="interface_about about_text">A PROPOS</span>
-          <img src="assets/about.svg" alt="" class="interface_about">
+          <img src="assets/interface/about.svg" alt="" class="interface_about">
         </div>
 
         <div class="help">
-          <img src="assets/help.svg" alt="" class="interface_help">
+          <img src="assets/interface/help.svg" alt="" class="interface_help">
           <span class="interface_help help_text">COUP DE MAIN</span>
         </div>
 
         <div class="socials">
-          <img src="assets/facebook.svg" alt="" class="interface_fb">
-          <img src="assets/twitter.svg" alt="" class="interface_twitter">
+          <img src="assets/interface/facebook.svg" alt="" class="interface_fb">
+          <img src="assets/interface/twitter.svg" alt="" class="interface_twitter">
         </div>
 
         <button type="button" class="artist-lirary-button">
@@ -115,9 +115,9 @@
           <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactive à Gobelins.</p>
           <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
           <div class="about_logos">
-            <img src="assets/gobelins.svg" alt="" class="gobelins_logo">
-            <img src="assets/jardin_imparfait.svg" alt="" class="jardin_logo">
-            <img src="assets/asterios.svg" alt="" class="asterios_logo">
+            <img src="assets/logos/gobelins.svg" alt="" class="gobelins_logo">
+            <img src="assets/logos/jardin_imparfait.svg" alt="" class="jardin_logo">
+            <img src="assets/logos/asterios.svg" alt="" class="asterios_logo">
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@
         </button>
         <div class="container">
           <p>Pour révéler ce que renferme cette boîte, il faut trouver un accord de 3 notes. Utilise ton clavier comme celui d'un piano et teste différentes combinaisons de touches en appuyant simultanément sur 3 lettres adjacentes; tu trouveras peut-être un accord déverrouillant la boîte.</p>
-          <img src="assets/how_to_play.svg" alt="" class="help_img">
+          <img src="assets/interface/how_to_play.gif" alt="" class="help_img">
         </div>
       </div>
     </div>

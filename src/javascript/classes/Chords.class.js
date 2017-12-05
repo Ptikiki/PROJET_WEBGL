@@ -67,7 +67,6 @@ class Chords {
     }
 
     enableTuto() {
-      console.log('TUTO ENABLE')
       let that = this
       that.keysPressedTutoTab = []
       window.addEventListener('keydown', that.keyDownListener)
@@ -75,7 +74,6 @@ class Chords {
     }
 
     enableGame() {
-      console.log('GAME ENABLE')
       let that = this
       that.keysPressedTab = []
       this.win = false
@@ -125,7 +123,6 @@ class Chords {
         }
 
         if (!STORAGE.BoxClass.openIsImpossible) {
-          console.log('je passe')
           that.openBox()
           that.launchNote(chordsDatas.notes[event.key])
           that.setAmbiance()
@@ -140,7 +137,6 @@ class Chords {
         return
       }
       if (that.tutoMode === true) {
-        console.log('PERDU')
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
         that.setLetters(0)
@@ -148,7 +144,6 @@ class Chords {
       } else {
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
-        console.log(that.step)
 
         if (that.step === 0) {
           that.enableGame()
@@ -188,7 +183,7 @@ class Chords {
           that.enableGame()
           that.setLetters(0)
           STORAGE.InterfaceClass.beginGame()
-        }, 2000)
+        }, 800)
 
       }
     }
@@ -221,7 +216,6 @@ class Chords {
     }
 
     launchSound() {
-      console.log('GAGNE')
       this.win = true
       this.boxIsOpen = true
 
@@ -281,7 +275,6 @@ class Chords {
     }
 
     openBox(close) {
-      console.log('HERE')
       let step
       if (close) {
         step = 0
@@ -303,9 +296,9 @@ class Chords {
             this.artistNameText.innerText = artistName
             let src
             let clasName
-            this.currentChord === 0 ? src = 'assets/next_mademoisellek.svg' : ''
-            this.currentChord === 1 ? src = 'assets/next_mademoisellek.svg' : ''
-            this.currentChord === 2 ? src = 'assets/next_petitbiscuit.svg' : ''
+            this.currentChord === 0 ? src = 'assets/interface/next_orelsan.svg' : ''
+            this.currentChord === 1 ? src = 'assets/interface/next_mademoisellek.svg' : ''
+            this.currentChord === 2 ? src = 'assets/interface/next_petitbiscuit.svg' : ''
             this.currentChord === 0 ? clasName = 'gray' : ''
             this.currentChord === 1 ? clasName = 'yellow' : ''
             this.currentChord === 2 ? clasName = 'pink' : ''

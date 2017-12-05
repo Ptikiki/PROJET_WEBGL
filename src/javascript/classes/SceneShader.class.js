@@ -35,18 +35,18 @@ class SceneShader {
     }
 
     loadShaders() {
-      this.loadOrelsanShader('../javascript/glsl/OrelsanVertex.vert', '../javascript/glsl/OrelsanFragment.frag')
+      this.loadOrelsanShader('../glsl/OrelsanVertex.vert', '../glsl/OrelsanFragment.frag')
       setTimeout(()=> {
-        this.loadMlleKShader('../javascript/glsl/MlleKVertex.vert', '../javascript/glsl/MlleKFragment.frag')
+        this.loadMlleKShader('../glsl/MlleKVertex.vert', '../glsl/MlleKFragment.frag')
       }, 200)
       setTimeout(()=> {
         this.loadPetitBiscuitShader(
-        '../javascript/glsl/PetitBiscuitVertexPlane.vert',
-        '../javascript/glsl/PetitBiscuitVertexSphere.vert',
-        '../javascript/glsl/PetitBiscuitFragmentPlane.frag',
-        '../javascript/glsl/PetitBiscuitFragmentSphere.frag',
-        '../javascript/glsl/PetitBiscuitVertexGround.vert',
-        '../javascript/glsl/PetitBiscuitFragmentGround.frag')
+        '../glsl/PetitBiscuitVertexPlane.vert',
+        '../glsl/PetitBiscuitVertexSphere.vert',
+        '../glsl/PetitBiscuitFragmentPlane.frag',
+        '../glsl/PetitBiscuitFragmentSphere.frag',
+        '../glsl/PetitBiscuitVertexGround.vert',
+        '../glsl/PetitBiscuitFragmentGround.frag')
       }, 400)
     }
 
@@ -211,8 +211,6 @@ class SceneShader {
         { u_color1: { value: new THREE.Color(0x2ed7fd) } },
         { u_color2: { value: new THREE.Color(0xfbafd6) } }
       ])
-
-      console.log(THREE.ShaderLib.lambert)
 
       let group = new THREE.Group()
       group.position.y = specifications[2].shaderDownPosY

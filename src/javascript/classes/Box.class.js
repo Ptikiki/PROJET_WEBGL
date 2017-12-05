@@ -142,10 +142,6 @@ class Box {
         this.artistDownPosY = specifications[this.index].artistDownPosY
         this.artistUpPosY = specifications[this.index].artistUpPosY
 
-        console.log(step)
-        console.log(this.boxOpened)
-        console.log(this.openIsImpossible)
-
         if (!this.boxOpened && !this.openIsImpossible) {
           if (step === 0) {
             this.openBoxToStep0()

@@ -5,7 +5,7 @@ class Interface {
   constructor(options) {
     STORAGE.InterfaceClass = this
     this.canvas = document.querySelector('canvas')
-    this.loader = document.querySelector('.loader_logo')
+    this.loader = document.querySelector('.loader')
 
     this.overlay = document.querySelector('.overlay')
     this.interface = document.querySelector('.interface')
@@ -204,7 +204,6 @@ class Interface {
   }
 
   handleSkipClick(that, event) {
-    console.log("skip")
     that.skipIntro = true
     TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
       opacity: 0,
@@ -238,7 +237,6 @@ class Interface {
   }
 
   handleLibraryCloseButtonClick(that, event) {
-    console.log('je click')
     TweenLite.to(that.library, 0.6, {
       opacity: 0,
       ease: Power2.easeInOut,

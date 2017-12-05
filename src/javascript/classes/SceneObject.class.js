@@ -108,8 +108,6 @@ class SceneObject {
           matl.preload()
           that.objLoader.setMaterials( matl )
 
-          console.log("MADK SCENE", matl.materials)
-
           let solMaterial = matl.materials.noir
           let metalNoirMaterial = matl.materials.metal_noir
           solMaterial.specular = new THREE.Color( 0x111111 )
@@ -142,15 +140,6 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Petit-biscuit/petitbiscuit_base-scene.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
-
-          console.log("BISCUIT SCENE", matl.materials)
-
-          /*let geometry = new THREE.SphereGeometry( 10, 50, 50 )
-          let material = new THREE.MeshBasicMaterial( { color: 0xffff00 } )
-          let repere = new THREE.Mesh( geometry, material )
-          repere.position.y = 250 //200 // 250
-          repere.position.z = 70 //200 // -50 / 70
-          STORAGE.scene.add( repere )*/
 
           that.plaquesMaterial = matl.materials.carreau
           that.noirMaterial = matl.materials.noir_mat
@@ -224,8 +213,6 @@ class SceneObject {
         this.mtlLoader.load('assets/scenes/Mlle-k/mademoisellek_mur.mtl', function(matl) {
           matl.preload()
           that.objLoader.setMaterials( matl )
-
-          console.log("MADK WALL", matl.materials)
 
           let tuyauxMaterial = matl.materials.metal_clair
           tuyauxMaterial.shininess = 100
