@@ -59,12 +59,23 @@
     width: 50%;
     height: 50%;
     min-height: 400px;
-    background-image: url('http://localhost:8080/assets/library/mllek.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     overflow: hidden;
+
+    &:nth-of-type(1) {
+      background-image: url('http://localhost:8080/assets/library/orelsan.png');
+    }
+
+    &:nth-of-type(2) {
+      background-image: url('http://localhost:8080/assets/library/mllek.png');
+    }
+
+    &:nth-of-type(3) {
+      background-image: url('http://localhost:8080/assets/library/petitbiscuit.png');
+    }
 
     .lock {
       width: 102%;
