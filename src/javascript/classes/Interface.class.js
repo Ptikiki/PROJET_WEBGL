@@ -204,15 +204,15 @@ class Interface {
   }
 
   handleSkipClick(that, event) {
-    that.skipIntro = true
     TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
       opacity: 0,
       ease: Power2.easeInOut,
       delay: 0.5,
       onComplete: () => {
-        TweenLite.to([that.tuto_explanations, that.skip_tuto, that.skip_arrow], 0.5, {
+        TweenLite.set([that.tuto_explanations, that.skip_tuto, that.skip_arrow], {
           display: "none",
         })
+        that.skipIntro = true
         that.beginGame()
         new Chords()
         STORAGE.chordsClass.tutoMode = false
@@ -345,7 +345,7 @@ class Interface {
           display: "block",
           ease: Power2.easeInOut,
           onComplete: () => {
-            TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow], 0.5, {
+            TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow], 0.3, {
               opacity: 0,
               display: "none",
               ease: Power2.easeInOut,
