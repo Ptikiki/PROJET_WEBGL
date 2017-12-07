@@ -322,8 +322,6 @@ class Interface {
           opacity: 0,
           ease: Power2.easeInOut,
           onComplete: () => {
-            let enterSong = new Audio('assets/ambiance/enter.mp3')
-            enterSong.play()
             this.ambianceSong = new Audio('assets/ambiance/ambiance.mp3')
             this.ambianceSong.play()
             this.ambianceSong.loop = true
