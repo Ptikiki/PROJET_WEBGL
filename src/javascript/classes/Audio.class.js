@@ -82,7 +82,7 @@ class Audio {
     this.audioSourceTab[indexTab][indexInTab].buffer = this.audioBuffersTab[indexTab][indexInTab]
 
     this.gainNode = this.audioCtx.createGain()
-    this.gainNode.gain.value = 1 // 100 %
+    this.gainNode.gain.value = 0.7 // 100 %
     this.gainNode.connect(this.audioCtx.destination)
 
     // connect the audio source to context's output
@@ -123,7 +123,7 @@ class Audio {
   upVolume() {
     if (this.gainNode) {
       TweenLite.to(this.gainNode.gain, 0.6, {
-        value: 1
+        value: 0.7
       })
     }
   }

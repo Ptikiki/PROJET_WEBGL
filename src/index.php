@@ -40,6 +40,8 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="600" />
 
+  <link rel="icon" type="image/png" href="assets/logos/favicon.png" />
+
   <title>ARPEGIA</title>
   <link rel="stylesheet" href="stylesheet/main.css">
 </head>

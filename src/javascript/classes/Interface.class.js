@@ -323,6 +323,7 @@ class Interface {
           ease: Power2.easeInOut,
           onComplete: () => {
             this.ambianceSong = new Audio('assets/ambiance/ambiance.mp3')
+            this.ambianceSong.volume = 0.35
             this.ambianceSong.play()
             this.ambianceSong.loop = true
             STORAGE.RendererClass.animateBlur(2)
@@ -336,7 +337,7 @@ class Interface {
   removeSplash() {
     TweenLite.to(this.splash, 0.5, {
       opacity: 0,
-      delay: 4,
+      delay: 2,
       onComplete: () => {
         TweenLite.to([this.tuto_explanations, this.skip_tuto, this.skip_arrow, this.interface_logo], 0.5, {
           opacity: 1,
@@ -347,7 +348,7 @@ class Interface {
               opacity: 0,
               display: "none",
               ease: Power2.easeInOut,
-              delay: 4,
+              delay: 5,
               onComplete: () => {
                 this.skipIntro != true ? this.addTuto() : ''
                 TweenLite.set([this.tuto_explanations, this.skip_tuto, this.skip_arrow], {
