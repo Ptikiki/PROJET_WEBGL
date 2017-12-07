@@ -20,7 +20,7 @@ class Share {
   }
 
   handleTwitterClick(that, event) {
-    that.twitterShare('Découvrez les talents d\'ASTERIOS', window.location.href)
+    that.twitterShare('Découvrez les talents d\'Astérios', window.location.href)
   }
 
   facebookShare(url) {

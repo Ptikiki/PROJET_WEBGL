@@ -126,7 +126,11 @@ class Chords {
           that.openBox()
           that.launchNote(chordsDatas.notes[event.key])
           that.setAmbiance()
-          that.step === 3 ? that.launchSound() : ''
+          if (that.step === 3 ) {
+            that.step === 3 ? that.launchSound() : ''
+            that.previewStartedTime = Math.round(Date.now() / 1000)
+            that.previewStarted = true
+          }
         }
       }
 
@@ -249,7 +253,6 @@ class Chords {
         that.currentSongPlayingIndex = newIndexSongToPlay
 
         that.previewStartedTime = Math.round(Date.now() / 1000)
-        that.previewStarted = true
 
         window.removeEventListener('keydown', that.nextSongListener)
         setTimeout( () => { window.addEventListener('keydown', that.nextSongListener) }, 500)

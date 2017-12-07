@@ -49,7 +49,6 @@ class Particles {
         that.particles.rotation.z = Math.random() * 6
 
         STORAGE.scene.add( that.particles )
-        console.log(that.particles)
         that.particlesTab.push( that.particles )
       }
     }

@@ -33,9 +33,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="twitter:card" content="summary" />
   <meta property="og:title" content="ARPEGIA" />
-  <meta property="og:description" content="Découvrez les talents d'Asterios" />
-  <meta property="og:image" content="" />
-  <meta property="og:image:secure_url" content="" />
+  <meta property="og:description" content="Découvrez les talents d'Astérios" />
+  <meta property="og:image" content="http://guyonmelina.fr/projets/arpegia/assets/interface/social-img.jpg" />
+  <meta property="og:image:secure_url" content="https://guyonmelina.fr/projets/arpegia/assets/interface/social-img.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="600" />
@@ -60,12 +60,12 @@
 
       <div class="splash">
         <img src="assets/logos/logo_interface.svg" alt="" class="splash_logo">
-        <div class="splash_baseline">La boîte à muzik zik zik</div>
+        <div class="splash_baseline">ARPEGIA</div>
       </div>
       <div class="tuto">
 
         <div class="tuto_explanations">
-          <p class="tuto_explanations_baseline">La boîte à muzik zik zik</p>
+          <p class="tuto_explanations_baseline">ARPEGIA</p>
           <p>La serrure de cette mystérieuse boîte est verrouillée...<br>La clé, c'est un accord de 3 notes.</p>
         </div>
         <div class="skip">
@@ -113,7 +113,7 @@
         </button>
         <div class="container">
           <p><span class="bold">ARPEGIA</span> est un projet imaginé et créé en collaboration avec Astérios Spectacles par Alicia Baudry, Lucas Domingues, Melina Guyon et Emmanuelle Persson, étudiants en Master Design et Management de l’Innovation Interactive à Gobelins.</p>
-          <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan et l’équipe pédagogique de Gobelins.</p>
+          <p><span class="bold">Merci</span> à Medhi Hadi, Christophe Massolin, William Mapan, Samsy et l’équipe pédagogique de Gobelins.</p>
           <div class="about_logos">
             <img src="assets/logos/gobelins.svg" alt="" class="gobelins_logo">
             <img src="assets/logos/jardin_imparfait.svg" alt="" class="jardin_logo">

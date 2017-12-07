@@ -7,9 +7,6 @@ const MTLLoader = require('three-mtl-loader')
 
 const Spotify = require('spotify-web-api-js')
 
-
-console.log(THREE)
-
 import '../vendors/HorizontalBlurShader'
 import '../vendors/VerticalBlurShader'
 
