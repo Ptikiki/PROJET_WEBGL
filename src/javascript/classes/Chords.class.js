@@ -145,7 +145,8 @@ class Chords {
         window.removeEventListener('keyup', that.keyUpListener)
         that.setLetters(0)
         setTimeout( () => { that.enableTuto() }, 300)
-      } else {
+      } else if (chordsDatas.chords[that.currentChord][0].indexOf(event.key) !== -1) {
+
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
 
@@ -161,6 +162,9 @@ class Chords {
         !that.win ? that.setSongName() : ''
         !that.win ? that.setArtistName() : ''
         !that.win ? that.setLetters(0) : ''
+      } else if (that.step === 0) {
+        !that.win ? that.setLetters(0) : ''
+        !that.win ? that.enableGame() : ''
       }
     }
 
@@ -193,20 +197,19 @@ class Chords {
     }
 
     checkChords(key) {
-      this.step = 0
+      console.log(this.keysPressedTab)
       let numberOfNotesOk = 0
       this.keysPressedTab.forEach((key) => {
         if (chordsDatas.chords[this.currentChord][0].indexOf(key) !== -1){
           numberOfNotesOk ++
         }
       })
-      if (this.keysPressedTab.length > numberOfNotesOk) {
-        numberOfNotesOk = 0
-        this.setLetters(0)
-      } else {
+      if (this.keysPressedTab.length <= numberOfNotesOk) {
         this.setLetters('game', true)
+        this.step = numberOfNotesOk
+      } else {
+        this.keysPressedTab.pop()
       }
-      this.step = numberOfNotesOk
     }
 
     launchNote(note) {

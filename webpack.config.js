@@ -2,9 +2,12 @@ const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+let gateway = require('gateway')
+let historyApiFallback = require("connect-history-api-fallback")
+
 const distPath = path.join(__dirname, process.env.NODE_ENV === 'production' ? 'build' : 'src')
 
-module.exports = {
+let config = {
   devtool: 'source-map',
   entry: {
    app: ['./src/stylesheet/styles.js', './src/javascript/index.js'],
@@ -44,10 +47,17 @@ module.exports = {
     new ExtractTextPlugin('stylesheet/main.css'),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'src'),
-    proxy: {'**': 'http://localhost:8000/PROJET_WEBGL/PROJET_WEBGL/src'}
+    contentBase: path.join(__dirname, 'src')
+    // proxy: {'**': 'http://localhost:8000/PROJET_WEBGL/PROJET_WEBGL/src'}
   }
 }
+
+config.devServer.setup = function(app) {
+  const php_gateway = gateway('src', {'.php': 'php-cgi'});
+  app.use(historyApiFallback({index: 'index.php', verbose:false}));
+  app.get('*.php', php_gateway);
+  app.post('*.php', php_gateway);
+};
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
@@ -69,3 +79,5 @@ if (process.env.NODE_ENV === 'production') {
     })
   ])
 }
+
+module.exports = config;
