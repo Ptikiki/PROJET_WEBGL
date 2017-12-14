@@ -16,6 +16,8 @@ class Chords {
       this.currentChord = 0
       this.boxIsOpen = false
 
+      this.letterTested = []
+
       this.songPlaying = false
       this.currentSongPlayingIndex = 0
 
@@ -76,6 +78,7 @@ class Chords {
     enableGame() {
       let that = this
       that.keysPressedTab = []
+      that.letterTested = []
       this.win = false
       that.step = 0
 
@@ -106,8 +109,9 @@ class Chords {
       that.currentSongPlayingIndexSave = that.currentSongPlayingIndex
       that.currentChordSave = that.currentChord
 
-      if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3 && !that.tutoMode) {
+      if (that.keysPressedTab.indexOf(event.key) === -1 && that.keysPressedTab.length < 3 && !that.tutoMode && that.letterTested.indexOf(event.key) === -1) {
         that.keysPressedTab.push(event.key)
+        that.letterTested.push(event.key)
 
         let noteInAChord = false
         chordsDatas.chords.forEach((chord, index) => {
