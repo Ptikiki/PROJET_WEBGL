@@ -155,7 +155,7 @@ class Box {
         } else {
           this.openIsImpossible = true
           this.openBoxToStep0()
-          STORAGE.chordsClass.setLetters(0)
+          STORAGE.chordsClass.removeAllLetters()
           STORAGE.chordsClass.setArtistName()
           STORAGE.chordsClass.setSongName()
           STORAGE.AmbianceClass.updateAmbiance(0, chordsDatas, 0)

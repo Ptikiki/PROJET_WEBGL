@@ -412,6 +412,8 @@ class SceneObject {
 
       this.plaquesMaterial.envMap = this.cubeCameraPetitBiscuit.renderTarget
       this.plaquesMaterial.needsUpdate = true
+      this.lastLoop = new Date;
+      this.forbidCubeCamera = false
 
       STORAGE.scene.add( this.scenesTab[2] )
       STORAGE.scene.add(this.wallsTab[2])
@@ -422,9 +424,17 @@ class SceneObject {
 
     animate() {
       if (this.plaquesMaterial && this.cubeCameraPetitBiscuit) {
-        this.plaquesMaterial.visible = false
-        this.cubeCameraPetitBiscuit.update( STORAGE.renderer, STORAGE.scene )
-        this.plaquesMaterial.visible = true
+        let thisLoop = new Date;
+        let fps = 1000 / (thisLoop - this.lastLoop);
+        this.lastLoop = thisLoop;
+        console.log(fps)
+        if(fps > 40 && !this.forbidCubeCamera) {
+          this.plaquesMaterial.visible = false
+          this.cubeCameraPetitBiscuit.update( STORAGE.renderer, STORAGE.scene )
+          this.plaquesMaterial.visible = true
+        } else {
+          this.forbidCubeCamera = true
+        }
       }
 
       if ( this.myObjects[2] ) {

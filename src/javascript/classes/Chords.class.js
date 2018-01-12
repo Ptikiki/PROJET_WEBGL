@@ -123,7 +123,7 @@ class Chords {
         })
 
         if (!noteInAChord && event.keyCode >= 65 && event.keyCode <= 90) {
-          that.setLetters(event.key, false)
+          that.wrongLetterAlone(event.key)
         }
 
         if (!STORAGE.BoxClass.openIsImpossible) {
@@ -147,27 +147,36 @@ class Chords {
       if (that.tutoMode === true) {
         window.removeEventListener('keydown', that.keyDownListener)
         window.removeEventListener('keyup', that.keyUpListener)
-        that.setLetters(0)
+        that.removeAllLetters()
         setTimeout( () => { that.enableTuto() }, 300)
       } else if (chordsDatas.chords[that.currentChord][0].indexOf(event.key) !== -1) {
+        
+        !that.win ? that.step = that.keysPressedTab.length -1 : ''
 
-        window.removeEventListener('keydown', that.keyDownListener)
-        window.removeEventListener('keyup', that.keyUpListener)
-
-        if (that.step === 0) {
-          that.enableGame()
+        if (that.step !== 0) {
+          if (!that.win) {
+            that.openBox()
+            that.setAmbiance()
+            const index = that.keysPressedTab.indexOf(event.key)
+            const index2 = that.letterTested.indexOf(event.key)
+            that.keysPressedTab.splice(index, 1)
+            that.letterTested.splice(index2, 1)
+            that.removeOneLetter(event.key)
+          }
         } else {
-          !that.win ? setTimeout( () => { that.enableGame() }, 650) : ''
+          window.removeEventListener('keydown', that.keyDownListener)
+          window.removeEventListener('keyup', that.keyUpListener)
+          if (!that.win) {
+            setTimeout( () => { that.enableGame() }, 650)
+            that.openBox(true)
+            that.setAmbiance()
+            that.setSongName()
+            that.setArtistName()
+            that.removeAllLetters()
+          }
         }
-
-        !that.win ? that.step = 0 : ''
-        !that.win ? that.openBox(true) : ''
-        !that.win ? that.setAmbiance() : ''
-        !that.win ? that.setSongName() : ''
-        !that.win ? that.setArtistName() : ''
-        !that.win ? that.setLetters(0) : ''
       } else if (that.step === 0) {
-        !that.win ? that.setLetters(0) : ''
+        !that.win ? that.removeAllLetters() : ''
         !that.win ? that.enableGame() : ''
       }
     }
@@ -182,9 +191,9 @@ class Chords {
       })
       if (this.keysPressedTutoTab.length > numberOfNotesOk) {
         numberOfNotesOk = 0
-        this.setLetters(0)
+        this.removeAllLetters()
       } else {
-        this.setLetters('tuto', true)
+        this.setLettersTuto()
       }
 
       if (numberOfNotesOk === 3) {
@@ -193,7 +202,7 @@ class Chords {
         that.tutoMode = false
         setTimeout(() => {
           that.enableGame()
-          that.setLetters(0)
+          that.removeAllLetters()
           STORAGE.InterfaceClass.beginGame()
         }, 800)
 
@@ -209,7 +218,7 @@ class Chords {
         }
       })
       if (this.keysPressedTab.length <= numberOfNotesOk) {
-        this.setLetters('game', true)
+        this.setLettersGame()
         this.step = numberOfNotesOk
       } else {
         this.keysPressedTab.pop()
@@ -237,7 +246,7 @@ class Chords {
 
       this.setSongName(chordsDatas.songsName[this.currentChord][0])
       this.setArtistName(chordsDatas.artists[this.currentChord])
-      this.setLetters(1)
+      this.makeLettersGradient()
 
       this.updateLibrary()
 
@@ -352,107 +361,137 @@ class Chords {
       }
     }
 
-    setLetters(letter, goodLetter) {
-      if (typeof letter === 'string' && goodLetter) { // good letter
-        if (letter === 'tuto') {
-          this.keysPressedTutoTab[0] ? this.lettersText[0].innerText = this.keysPressedTutoTab[0] : ''
-          this.keysPressedTutoTab[1] ? this.lettersText[1].innerText = this.keysPressedTutoTab[1] : ''
-          this.keysPressedTutoTab[2] ? this.lettersText[2].innerText = this.keysPressedTutoTab[2] : ''
 
-          TweenLite.set(this.lettersText[this.keysPressedTutoTab.length - 1], {
-            y: 20,
-            onComplete : () => {
-              TweenLite.to(this.lettersText[this.keysPressedTutoTab.length - 1], 0.2, {
-                opacity: 1,
-                y: 0,
-                ease: Power2.easeInOut
-              })
-            }
-          })
+    setLettersTuto() {
+      this.keysPressedTutoTab[0] ? this.lettersText[0].innerText = this.keysPressedTutoTab[0] : ''
+      this.keysPressedTutoTab[1] ? this.lettersText[1].innerText = this.keysPressedTutoTab[1] : ''
+      this.keysPressedTutoTab[2] ? this.lettersText[2].innerText = this.keysPressedTutoTab[2] : ''
 
-        } else if (letter === 'game') {
-          this.keysPressedTab[0] ? this.lettersText[0].innerText = this.keysPressedTab[0] : ''
-          this.keysPressedTab[1] ? this.lettersText[1].innerText = this.keysPressedTab[1] : ''
-          this.keysPressedTab[2] ? this.lettersText[2].innerText = this.keysPressedTab[2] : ''
-
-          TweenLite.set(this.lettersText[this.keysPressedTab.length - 1], {
-            y: 20,
-            onComplete : () => {
-              TweenLite.to(this.lettersText[this.keysPressedTab.length - 1], 0.2, {
-                opacity: 1,
-                y: 0,
-                ease: Power2.easeInOut
-              })
-            }
+      TweenLite.set(this.lettersText[this.keysPressedTutoTab.length - 1], {
+        y: 20,
+        onComplete : () => {
+          TweenLite.to(this.lettersText[this.keysPressedTutoTab.length - 1], 0.2, {
+            opacity: 1,
+            y: 0,
+            ease: Power2.easeInOut
           })
         }
+      })
+    }
 
-      } else if (typeof letter === 'string' && !goodLetter) { // wrong letter
-        TweenLite.to(this.lettersText, 0.2, {
-          opacity: 0,
+    setLettersGame() {
+      let newLetter = this.keysPressedTab[this.keysPressedTab.length - 1]
+      let letterToAnimate
+
+      if (this.lettersText[0].innerText == '') {
+        this.lettersText[0].innerText = newLetter
+        letterToAnimate = this.lettersText[0]
+      } else if (this.lettersText[1].innerText == '') {
+        this.lettersText[1].innerText = newLetter
+        letterToAnimate = this.lettersText[1]
+      } else if (this.lettersText[2].innerText == '') {
+        this.lettersText[2].innerText = newLetter
+        letterToAnimate = this.lettersText[2]
+      }
+      if (letterToAnimate) {
+        TweenLite.set(letterToAnimate, {
           y: 20,
-          ease: Power2.easeInOut,
-          onComplete: () => {
-            let randomIndex = Math.round(Math.random() * 2)
-            this.lettersText[randomIndex].innerText = letter
-            this.lettersText[0].setAttribute('class', 'one')
-            this.lettersText[1].setAttribute('class', 'two')
-            this.lettersText[2].setAttribute('class', 'three')
-            TweenLite.to(this.lettersText[randomIndex], 0.2, {
+          onComplete : () => {
+            TweenLite.to(letterToAnimate, 0.2, {
               opacity: 1,
               y: 0,
               ease: Power2.easeInOut
             })
           }
         })
-
-      } else if (letter === 0) { // remove letters
-        this.boxIsOpen = false
-        TweenLite.to(this.lettersText, 0.2, {
-          opacity: 0,
-          y: 20,
-          ease: Power2.easeInOut,
-          onComplete: () => {
-            this.lettersText[0].innerText = ''
-            this.lettersText[1].innerText = ''
-            this.lettersText[2].innerText = ''
-            this.lettersText[0].setAttribute('class', 'one')
-            this.lettersText[1].setAttribute('class', 'two')
-            this.lettersText[2].setAttribute('class', 'three')
-          }
-        })
-      } else if (letter === 1) { // change color
-        TweenLite.to(this.lettersText, 0.6, {
-          opacity: 0,
-          ease: Power2.easeInOut,
-          onComplete: () => {
-            let clasName1
-            let clasName2
-            let clasName3
-            if (this.currentChord === 0) {
-              clasName1 = 'gray1'
-              clasName2 = 'gray2'
-              clasName3 = 'gray3'
-            } else if (this.currentChord === 1) {
-              clasName1 = 'red1'
-              clasName2 = 'red2'
-              clasName3 = 'red3'
-            } else if (this.currentChord === 2) {
-              clasName1 = 'blue1'
-              clasName2 = 'blue2'
-              clasName3 = 'blue3'
-            }
-            this.lettersText[0].classList.add(clasName1)
-            this.lettersText[1].classList.add(clasName2)
-            this.lettersText[2].classList.add(clasName3)
-            TweenLite.to(this.lettersText, 0.6, {
-              opacity: 1,
-              ease: Power2.easeInOut
-            })
-          }
-        })
-
       }
+    }
+
+    wrongLetterAlone(letter) {
+      TweenLite.to(this.lettersText, 0.2, {
+        opacity: 0,
+        y: 20,
+        ease: Power2.easeInOut,
+        onComplete: () => {
+          let randomIndex = Math.round(Math.random() * 2)
+          this.lettersText[randomIndex].innerText = letter
+          this.lettersText[0].setAttribute('class', 'one')
+          this.lettersText[1].setAttribute('class', 'two')
+          this.lettersText[2].setAttribute('class', 'three')
+          TweenLite.to(this.lettersText[randomIndex], 0.2, {
+            opacity: 1,
+            y: 0,
+            ease: Power2.easeInOut
+          })
+        }
+      })
+    }
+
+    removeAllLetters() {
+      this.boxIsOpen = false
+      TweenLite.to(this.lettersText, 0.2, {
+        opacity: 0,
+        y: 20,
+        ease: Power2.easeInOut,
+        onComplete: () => {
+          this.lettersText[0].innerText = ''
+          this.lettersText[1].innerText = ''
+          this.lettersText[2].innerText = ''
+          this.lettersText[0].setAttribute('class', 'one')
+          this.lettersText[1].setAttribute('class', 'two')
+          this.lettersText[2].setAttribute('class', 'three')
+        }
+      })
+    }
+
+    removeOneLetter(letter) {
+      this.lettersText.forEach((el)=> {
+        if (el.innerText === letter.toUpperCase()) {
+          TweenLite.to(el, 0.2, {
+            opacity: 0,
+            y: 20,
+            ease: Power2.easeInOut,
+            onComplete: () => {
+              el.innerText = ''
+              this.lettersText[0].setAttribute('class', 'one')
+              this.lettersText[1].setAttribute('class', 'two')
+              this.lettersText[2].setAttribute('class', 'three')
+            }
+          })
+        }
+      })
+    }
+
+    makeLettersGradient() {
+      TweenLite.to(this.lettersText, 0.6, {
+        opacity: 0,
+        ease: Power2.easeInOut,
+        onComplete: () => {
+          let clasName1
+          let clasName2
+          let clasName3
+          if (this.currentChord === 0) {
+            clasName1 = 'gray1'
+            clasName2 = 'gray2'
+            clasName3 = 'gray3'
+          } else if (this.currentChord === 1) {
+            clasName1 = 'red1'
+            clasName2 = 'red2'
+            clasName3 = 'red3'
+          } else if (this.currentChord === 2) {
+            clasName1 = 'blue1'
+            clasName2 = 'blue2'
+            clasName3 = 'blue3'
+          }
+          this.lettersText[0].classList.add(clasName1)
+          this.lettersText[1].classList.add(clasName2)
+          this.lettersText[2].classList.add(clasName3)
+          TweenLite.to(this.lettersText, 0.6, {
+            opacity: 1,
+            ease: Power2.easeInOut
+          })
+        }
+      })
     }
 
     updateLibrary() {
