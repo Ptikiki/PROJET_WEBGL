@@ -210,7 +210,6 @@ class Chords {
     }
 
     checkChords(key) {
-      console.log(this.keysPressedTab)
       let numberOfNotesOk = 0
       this.keysPressedTab.forEach((key) => {
         if (chordsDatas.chords[this.currentChord][0].indexOf(key) !== -1){

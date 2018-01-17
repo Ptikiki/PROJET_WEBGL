@@ -427,7 +427,6 @@ class SceneObject {
         let thisLoop = new Date;
         let fps = 1000 / (thisLoop - this.lastLoop);
         this.lastLoop = thisLoop;
-        console.log(fps)
         if(fps > 40 && !this.forbidCubeCamera) {
           this.plaquesMaterial.visible = false
           this.cubeCameraPetitBiscuit.update( STORAGE.renderer, STORAGE.scene )
